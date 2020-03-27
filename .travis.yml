@@ -26,7 +26,7 @@ jobs:
       script: travis_retry mvn test
     - stage: release
       name: "Push to Nexus"
-      if: fork = false AND (branch = master) AND type != pull_request AND commit_message !~ /\[no-release\]/
+      if: fork = false AND (branch = master OR branch = REPO-5080_update_node_resource) AND type != pull_request AND commit_message !~ /\[no-release\]/
       before_install:
         - "cp .travis.settings.xml $HOME/.m2/settings.xml"
       script:
