@@ -1,0 +1,37 @@
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "8128d7e5-9537-4d18-84cd-b3d532c3c7c4",
+  "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
+  "subject": "testFolder",
+  "time": "2020-03-26T14:35:39.532821Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "principal": "john.doe",
+    "eventGroupId": "81fe60c1-6855-4d71-8450-130901d54f81",
+    "resource": {
+      "type": "org.alfresco.repo.event.v1.model.NodeResource",
+      "id": "c73a5a61-59e5-420a-965e-81c6312d8a83",
+      "nodeType": "cm:folder",
+      "isFile": false,
+      "isFolder": true,
+      "primaryHierarchy": [
+        "521aac1c-20eb-444b-a137-2da3d35ee1a8",
+        "2641bbe1-39ff-44dc-b47f-736552ad46cc"
+      ],
+      "affectedPropertiesBefore": {
+        "cm:description": "test folder description.",
+        "cm:name": "testFolder"
+      },
+      "affectedPropertiesAfter": {
+        "cm:description": "updated test folder description.",
+        "cm:name": "testFolder",
+        "cm:title": "test title added"
+      },
+      "aspectNames": [
+        "cm:titled",
+        "cm:auditable"
+      ]
+    }
+  }
+}

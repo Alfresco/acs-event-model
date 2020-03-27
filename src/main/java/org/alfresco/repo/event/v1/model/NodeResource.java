@@ -23,7 +23,6 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
 package org.alfresco.repo.event.v1.model;
 
 import java.io.Serializable;
@@ -31,34 +30,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents Alfresco node resource.
  *
  * @author Jamal Kaabi-Mofrad
  */
+/* Any attribute that its value is null, will not be serialized.
+ * For example, 'affectedPropertiesBefore' and 'affectedPropertiesAfter' are only relevant
+ * for Node Updated event, so we don't serialize them when there is Node Created event.
+ */
+@JsonInclude(Include.NON_NULL)
+@JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends Resource
 {
     private final String nodeType;
     private final boolean isFile;
     private final boolean isFolder;
     private final Map<String, Serializable> properties;
+    private final Map<String, Serializable> affectedPropertiesBefore;
+    private final Map<String, Serializable> affectedPropertiesAfter;
+    private final List<String> aspectNames;
 
-    @JsonCreator
-    protected NodeResource(@JsonProperty("id") String id,
-                         @JsonProperty("nodeType") String nodeType,
-                         @JsonProperty("isFile") boolean isFile,
-                         @JsonProperty("isFolder") boolean isFolder,
-                         @JsonProperty("properties") Map<String, Serializable> properties,
-                         @JsonProperty("primaryHierarchy") List<String> primaryHierarchy)
+    private NodeResource(Builder builder)
     {
-        super(id, primaryHierarchy);
-        this.nodeType = nodeType;
-        this.isFile = isFile;
-        this.isFolder = isFolder;
-        this.properties = properties;
+        super(builder.id, builder.primaryHierarchy);
+        this.nodeType = builder.nodeType;
+        this.isFile = builder.isFile;
+        this.isFolder = builder.isFolder;
+        this.properties = builder.properties;
+        this.affectedPropertiesBefore = builder.affectedPropertiesBefore;
+        this.affectedPropertiesAfter = builder.affectedPropertiesAfter;
+        this.aspectNames = builder.aspectNames;
+    }
+
+    public static Builder builder()
+    {
+        return new Builder();
     }
 
     public String getNodeType()
@@ -83,6 +96,21 @@ public class NodeResource extends Resource
         return properties;
     }
 
+    public Map<String, Serializable> getAffectedPropertiesBefore()
+    {
+        return affectedPropertiesBefore;
+    }
+
+    public Map<String, Serializable> getAffectedPropertiesAfter()
+    {
+        return affectedPropertiesAfter;
+    }
+
+    public List<String> getAspectNames()
+    {
+        return aspectNames;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -102,13 +130,19 @@ public class NodeResource extends Resource
         return isFile == that.isFile
                     && isFolder == that.isFolder
                     && Objects.equals(nodeType, that.nodeType)
-                    && Objects.equals(properties, that.properties);
+                    && Objects.equals(properties, that.properties)
+                    && Objects.equals(affectedPropertiesBefore, that.affectedPropertiesBefore)
+                    && Objects.equals(affectedPropertiesAfter, that.affectedPropertiesAfter)
+                    && Objects.equals(aspectNames, that.aspectNames);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(nodeType, isFile, isFolder, properties);
+        return Objects.hash(super.hashCode(), nodeType, isFile, isFolder, properties,
+                            affectedPropertiesBefore,
+                            affectedPropertiesAfter,
+                            aspectNames);
     }
 
     @Override
@@ -122,26 +156,28 @@ public class NodeResource extends Resource
           .append(", id=").append(id)
           .append(", type=").append(getClass().getName())
           .append(", primaryHierarchy=").append(primaryHierarchy)
+          .append(", aspectNames=").append(aspectNames)
+          .append(", affectedPropertiesBefore=").append(affectedPropertiesBefore)
+          .append(", affectedPropertiesAfter=").append(affectedPropertiesAfter)
           .append(']');
         return sb.toString();
-    }
-
-    public static Builder builder()
-    {
-        return new Builder();
     }
 
     /**
      * Builder for creating a {@link NodeResource} instance.
      */
+    @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder
     {
         private String id;
         private String nodeType;
         private boolean isFile;
         private boolean isFolder;
-        private Map<String, Serializable> properties;
         private List<String> primaryHierarchy;
+        private Map<String, Serializable> properties;
+        private Map<String, Serializable> affectedPropertiesBefore;
+        private Map<String, Serializable> affectedPropertiesAfter;
+        private List<String> aspectNames;
 
         public Builder setId(String id)
         {
@@ -167,21 +203,39 @@ public class NodeResource extends Resource
             return this;
         }
 
-        public Builder setProperties(Map<String, Serializable> properties)
-        {
-            this.properties = properties;
-            return this;
-        }
-
         public Builder setPrimaryHierarchy(List<String> primaryHierarchy)
         {
             this.primaryHierarchy = primaryHierarchy;
             return this;
         }
 
+        public Builder setProperties(Map<String, Serializable> properties)
+        {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder setAffectedPropertiesBefore(Map<String, Serializable> affectedPropertiesBefore)
+        {
+            this.affectedPropertiesBefore = affectedPropertiesBefore;
+            return this;
+        }
+
+        public Builder setAffectedPropertiesAfter(Map<String, Serializable> affectedPropertiesAfter)
+        {
+            this.affectedPropertiesAfter = affectedPropertiesAfter;
+            return this;
+        }
+
+        public Builder setAspectNames(List<String> aspectNames)
+        {
+            this.aspectNames = aspectNames;
+            return this;
+        }
+
         public NodeResource build()
         {
-            return new NodeResource(id, nodeType, isFile, isFolder, properties, primaryHierarchy);
+            return new NodeResource(this);
         }
     }
 }

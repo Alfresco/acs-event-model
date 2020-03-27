@@ -27,28 +27,26 @@ package org.alfresco.repo.event.v1.model;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents Alfresco event's data.
  *
  * @author Jamal Kaabi-Mofrad
  */
+@JsonDeserialize(builder = EventData.Builder.class)
 public class EventData<R extends Resource>
 {
     private final String principal;
     private final String eventGroupId;
     private final R resource;
 
-    @JsonCreator
-    private EventData(@JsonProperty("principal") String principal,
-                      @JsonProperty("eventGroupId") String eventGroupId,
-                      @JsonProperty("resource") R resource)
+    private EventData(Builder<R> builder)
     {
-        this.principal = principal;
-        this.eventGroupId = eventGroupId;
-        this.resource = resource;
+        this.principal = builder.principal;
+        this.eventGroupId = builder.eventGroupId;
+        this.resource = builder.resource;
     }
 
     public static <R extends Resource> Builder<R> builder()
@@ -109,6 +107,7 @@ public class EventData<R extends Resource>
     /**
      * Builder for creating a {@link EventData} instance.
      */
+    @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<R extends Resource>
     {
         private String principal;
@@ -135,7 +134,7 @@ public class EventData<R extends Resource>
 
         public EventData<R> build()
         {
-            return new EventData<>(principal, eventGroupId, resource);
+            return new EventData<>(this);
         }
     }
 }

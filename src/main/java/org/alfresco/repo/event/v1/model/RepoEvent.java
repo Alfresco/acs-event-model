@@ -31,16 +31,17 @@ import java.util.Objects;
 
 import org.alfresco.repo.event.EventAttributes;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents Alfresco event.
  *
  * @author Jamal Kaabi-Mofrad
  */
+@JsonDeserialize(builder = RepoEvent.Builder.class)
 public class RepoEvent<R extends Resource> implements EventAttributes
 {
     private static final String SPEC_VERSION = "1.0";
@@ -57,24 +58,16 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     private final String datacontenttype;
     private final EventData<R> data;
 
-    @JsonCreator
-    private RepoEvent(@JsonProperty("specversion") String specversion,
-                      @JsonProperty("type") String type,
-                      @JsonProperty("id") String id,
-                      @JsonProperty("source") URI source,
-                      @JsonProperty("subject") String subject,
-                      @JsonProperty("time") ZonedDateTime time,
-                      @JsonProperty("datacontenttype") String datacontenttype,
-                      @JsonProperty("data") EventData<R> data)
+    private RepoEvent(Builder<R> builder)
     {
-        this.specversion = specversion;
-        this.type = type;
-        this.id = id;
-        this.source = source;
-        this.subject = subject;
-        this.time = time;
-        this.datacontenttype = datacontenttype;
-        this.data = data;
+        this.specversion = builder.specversion;
+        this.type = builder.type;
+        this.id = builder.id;
+        this.source = builder.source;
+        this.subject = builder.subject;
+        this.time = builder.time;
+        this.datacontenttype = builder.datacontenttype;
+        this.data = builder.data;
     }
 
     public static <R extends Resource> Builder<R> builder()
@@ -176,6 +169,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     /**
      * Builder for creating a {@link RepoEvent} instance.
      */
+    @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<R extends Resource>
     {
         private String specversion = SPEC_VERSION;
@@ -237,7 +231,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
 
         public RepoEvent<R> build()
         {
-            return new RepoEvent<>(specversion, type, id, source, subject, time, datacontenttype, data);
+            return new RepoEvent<>(this);
         }
     }
 }

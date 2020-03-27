@@ -11,6 +11,7 @@ cache:
 branches:
   only:
     - master
+    - REPO-5080_update_node_resource
 
 install: travis_retry mvn install -DskipTests=true -B -V
 
@@ -34,4 +35,4 @@ jobs:
         # Add email to link commits to user
         - git config user.email "${GIT_EMAIL}"
         # Skip building of release commits
-        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
+        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DreleaseVersion=0.0.2-REPO-5080 -DdevelopmentVersion=0.0.2-SNAPSHOT -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
