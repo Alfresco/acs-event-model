@@ -56,6 +56,8 @@ public class NodeResource extends Resource
     private final Map<String, Serializable> affectedPropertiesBefore;
     private final Map<String, Serializable> affectedPropertiesAfter;
     private final List<String> aspectNames;
+    private final List<String> aspectNamesBefore;
+    private final List<String> aspectNamesAfter;
 
     private NodeResource(Builder builder)
     {
@@ -67,6 +69,8 @@ public class NodeResource extends Resource
         this.affectedPropertiesBefore = builder.affectedPropertiesBefore;
         this.affectedPropertiesAfter = builder.affectedPropertiesAfter;
         this.aspectNames = builder.aspectNames;
+        this.aspectNamesBefore = builder.aspectNamesBefore;
+        this.aspectNamesAfter = builder.aspectNamesAfter;
     }
 
     public static Builder builder()
@@ -111,6 +115,16 @@ public class NodeResource extends Resource
         return aspectNames;
     }
 
+    public List<String> getAspectNamesBefore()
+    {
+        return aspectNamesBefore;
+    }
+
+    public List<String> getAspectNamesAfter()
+    {
+        return aspectNamesAfter;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -133,7 +147,9 @@ public class NodeResource extends Resource
                     && Objects.equals(properties, that.properties)
                     && Objects.equals(affectedPropertiesBefore, that.affectedPropertiesBefore)
                     && Objects.equals(affectedPropertiesAfter, that.affectedPropertiesAfter)
-                    && Objects.equals(aspectNames, that.aspectNames);
+                    && Objects.equals(aspectNames, that.aspectNames)
+                    && Objects.equals(aspectNamesBefore, that.aspectNamesBefore)
+                    && Objects.equals(aspectNamesAfter, that.aspectNamesAfter);
     }
 
     @Override
@@ -142,7 +158,9 @@ public class NodeResource extends Resource
         return Objects.hash(super.hashCode(), nodeType, isFile, isFolder, properties,
                             affectedPropertiesBefore,
                             affectedPropertiesAfter,
-                            aspectNames);
+                            aspectNames,
+                            aspectNamesBefore,
+                            aspectNamesAfter);
     }
 
     @Override
@@ -159,6 +177,8 @@ public class NodeResource extends Resource
           .append(", aspectNames=").append(aspectNames)
           .append(", affectedPropertiesBefore=").append(affectedPropertiesBefore)
           .append(", affectedPropertiesAfter=").append(affectedPropertiesAfter)
+          .append(", aspectNamesBefore=").append(aspectNamesBefore)
+          .append(", aspectNamesAfter=").append(aspectNamesAfter)
           .append(']');
         return sb.toString();
     }
@@ -178,6 +198,8 @@ public class NodeResource extends Resource
         private Map<String, Serializable> affectedPropertiesBefore;
         private Map<String, Serializable> affectedPropertiesAfter;
         private List<String> aspectNames;
+        private List<String> aspectNamesBefore;
+        private List<String> aspectNamesAfter;
 
         public Builder setId(String id)
         {
@@ -230,6 +252,18 @@ public class NodeResource extends Resource
         public Builder setAspectNames(List<String> aspectNames)
         {
             this.aspectNames = aspectNames;
+            return this;
+        }
+
+        public Builder setAspectNamesBefore(List<String> aspectNamesBefore)
+        {
+            this.aspectNamesBefore = aspectNamesBefore;
+            return this;
+        }
+
+        public Builder setAspectNamesAfter(List<String> aspectNamesAfter)
+        {
+            this.aspectNamesAfter = aspectNamesAfter;
             return this;
         }
 
