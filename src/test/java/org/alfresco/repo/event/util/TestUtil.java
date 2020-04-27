@@ -32,19 +32,18 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 import org.skyscreamer.jsonassert.Customization;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.ValueMatcher;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * @author Jamal Kaabi-Mofrad
@@ -68,11 +67,28 @@ public class TestUtil
         return DATE_TIME_PATTERN.matcher(o1.toString()).matches() && DATE_TIME_PATTERN.matcher(o2.toString()).matches();
     };
 
-    public static final CustomComparator UUID_JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT,
+    // Ignore array elements ordering
+    private static final ValueMatcher<Object> ASPECTS_NAMES_MATCHER = (o1, o2) -> {
+        try
+        {
+            JSONAssert.assertEquals(o1.toString(), o2.toString(), JSONCompareMode.LENIENT);
+            return true;
+        }
+        catch (JSONException e)
+        {
+            return false;
+        }
+    };
+
+    public static final CustomComparator JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT,
                 new Customization("id", UUID_VALUE_MATCHER),
                 new Customization("data.eventGroupId", UUID_VALUE_MATCHER),
                 new Customization("data.resource.id", UUID_VALUE_MATCHER),
-                new Customization("time", DATE_TIME_VALUE_MATCHER));
+                new Customization("time", DATE_TIME_VALUE_MATCHER),
+                new Customization("data.resource.createdAt", DATE_TIME_VALUE_MATCHER),
+                new Customization("data.resource.modifiedAt", DATE_TIME_VALUE_MATCHER),
+                new Customization("data.resourceBefore.modifiedAt", DATE_TIME_VALUE_MATCHER),
+                new Customization("data.resource.aspectNames", ASPECTS_NAMES_MATCHER));
 
 
     public static String getResourceFileAsString(String fileName) throws Exception

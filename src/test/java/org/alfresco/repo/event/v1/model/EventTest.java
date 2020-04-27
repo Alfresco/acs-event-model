@@ -25,7 +25,7 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import static org.alfresco.repo.event.util.TestUtil.UUID_JSON_COMPARATOR;
+import static org.alfresco.repo.event.util.TestUtil.JSON_COMPARATOR;
 import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
@@ -34,8 +34,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.alfresco.repo.event.databind.ObjectMapperFactory;
 import org.alfresco.repo.event.util.TestUtil;
@@ -57,14 +57,21 @@ public class EventTest
     {
         NodeResource resource = NodeResource.builder()
                     .setId(getUUID())
+                    .setName("testFile.txt")
                     .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
                     .setIsFile(true)
                     .setIsFolder(false)
                     .setNodeType("cm:content")
-                    .setProperties(Map.of("cm:name", "test.txt"))
+                    .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                    .setCreatedAt(ZonedDateTime.now())
+                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                    .setModifiedAt(ZonedDateTime.now())
+                    .setProperties(Map.of("cm:title", "test title"))
+                    .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                    .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
 
-        EventData<NodeResource> eventData = EventData.<NodeResource>builder().setPrincipal("john.doe")
+        EventData<NodeResource> eventData = EventData.<NodeResource>builder()
                     .setEventGroupId(getUUID())
                     .setResource(resource)
                     .build();
@@ -92,21 +99,29 @@ public class EventTest
         });
 
         NodeResource resource = NodeResource.builder()
-                    .setId("4989fb57-68f5-42a7-82ed-27fcda8d3e16")
+                    .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
+                    .setName("testFile.txt")
                     .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
                     .setIsFile(true)
                     .setIsFolder(false)
                     .setNodeType("cm:content")
-                    .setProperties(Map.of("cm:name", "test.txt"))
+                    .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                    .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
+                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                    .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
+                    .setProperties(Map.of("cm:title", "test title"))
+                    .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                    .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
 
         EventData<NodeResource> eventData = EventData.<NodeResource>builder().setEventGroupId(
-                    "db5375a8-a4f2-4fda-bef7-f1caea11bc64").setPrincipal("john.doe").setResource(resource).build();
+                    "cb645043-e7d2-4e51-b61d-e6d01582cbab")
+                    .setResource(resource).build();
 
         RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(
-                    "56ef7418-c615-4572-8f83-27e76e622333")
+                    "97c1b36c-c569-4c66-8a31-7a8d0b6b804a")
                     .setSource(getSource())
-                    .setTime(parseTime("2020-03-19T09:20:42.200386Z"))
+                    .setTime(parseTime("2020-04-27T12:37:03.560134+01:00"))
                     .setType("org.alfresco.event.node.Created")
                     .setData(eventData)
                     .build();
@@ -114,101 +129,46 @@ public class EventTest
         assertEquals(repoEvent, result);
     }
 
-    @Test
-    public void nodeCreatedEvent_withSubject_marshalling() throws Exception
-    {
-        NodeResource resource = NodeResource.builder()
-                    .setId(getUUID())
-                    .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(false)
-                    .setIsFolder(true)
-                    .setNodeType("cm:folder")
-                    .setProperties(Map.of("cm:name", "testFolder", "cm:description", "test folder description."))
-                    .build();
-
-        EventData<NodeResource> eventData = EventData.<NodeResource>builder().setPrincipal("jane.doe")
-                    .setEventGroupId(getUUID())
-                    .setResource(resource)
-                    .build();
-
-        RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(getUUID())
-                    .setSource(getSource())
-                    .setTime(ZonedDateTime.now())
-                    .setType("org.alfresco.event.node.Created")
-                    .setSubject("testFolder")
-                    .setData(eventData)
-                    .build();
-
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
-        String expectedJson = TestUtil.getResourceFileAsString("NodeCreatedEvent-withSubject.json");
-        // Compare the Json files
-        checkExpectedJsonBody(expectedJson, result);
-    }
-
-    @Test
-    public void nodeCreatedEvent_withSubject_unmarshalling() throws Exception
-    {
-        String nodeCreatedEventJson = TestUtil.getResourceFileAsString("NodeCreatedEvent-withSubject.json");
-        assertNotNull(nodeCreatedEventJson);
-        RepoEvent<NodeResource> result = OBJECT_MAPPER.readValue(nodeCreatedEventJson, new TypeReference<>()
-        {
-        });
-
-        NodeResource expectedResource = NodeResource.builder()
-                    .setId("5b3f42b3-82ff-41a1-b176-88bc1e385d52")
-                    .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(false)
-                    .setIsFolder(true)
-                    .setNodeType("cm:folder")
-                    .setProperties(Map.of("cm:name", "testFolder", "cm:description", "test folder description."))
-                    .build();
-
-        EventData<NodeResource> expectedEventData = EventData.<NodeResource>builder().setEventGroupId(
-                    "fd291980-96b0-4433-9f9a-06a5df1810d3").setPrincipal("jane.doe").setResource(expectedResource).build();
-
-        RepoEvent<NodeResource> expectedRepoEvent = RepoEvent.<NodeResource>builder().setId(
-                    "c99a997e-f62e-48f8-82a4-30a19edac1eb")
-                    .setSource(getSource())
-                    .setTime(parseTime("2020-03-19T09:50:12.201546Z"))
-                    .setType("org.alfresco.event.node.Created")
-                    .setSubject("testFolder")
-                    .setData(expectedEventData)
-                    .build();
-
-        assertEquals(expectedRepoEvent, result);
-    }
 
     @Test
     public void nodeUpdatedEvent_marshalling() throws Exception
     {
         NodeResource resource = NodeResource.builder()
-                    .setId(getUUID())
-                    .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(false)
-                    .setIsFolder(true)
-                    .setNodeType("cm:folder")
-                    .setAspectNames(List.of("cm:titled", "cm:auditable"))
-                    .setAffectedPropertiesBefore(
-                                Map.of("cm:name", "testFolder", "cm:description", "test folder description."))
-                    .setAffectedPropertiesAfter(
-                                Map.of("cm:name", "testFolder", "cm:description", "updated test folder description.",
-                                       "cm:title", "test title added"))
-                    .build();
+                     .setId(getUUID())
+                     .setName("testFile.txt")
+                     .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
+                     .setIsFile(true)
+                     .setIsFolder(false)
+                     .setNodeType("cm:content")
+                     .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                     .setCreatedAt(ZonedDateTime.now())
+                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                     .setModifiedAt(ZonedDateTime.now())
+                     .setProperties(Map.of("cm:title", "test title2", "cm:description", "test description."))
+                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                     .build();
 
-        EventData<NodeResource> eventData = EventData.<NodeResource>builder().setPrincipal("john.doe")
+        NodeResource resourceBefore = NodeResource.builder()
+                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                     .setModifiedAt(ZonedDateTime.now())
+                     .setProperties(Map.of("cm:title", "test title"))
+                     .build();
+
+        EventData<NodeResource> eventData = EventData.<NodeResource>builder()
                     .setEventGroupId(getUUID())
                     .setResource(resource)
+                    .setResourceBefore(resourceBefore)
                     .build();
 
         RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
                     .setType("org.alfresco.event.node.Updated")
-                    .setSubject("testFolder")
                     .setData(eventData)
                     .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("NodeUpdatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -224,30 +184,38 @@ public class EventTest
         });
 
         NodeResource expectedResource = NodeResource.builder()
-                    .setId("c73a5a61-59e5-420a-965e-81c6312d8a83")
+                    .setId("d366f805-853f-46ac-a81c-af9c257ee876")
+                    .setName("testFile.txt")
                     .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(false)
-                    .setIsFolder(true)
-                    .setNodeType("cm:folder")
-                    .setAspectNames(List.of("cm:titled", "cm:auditable"))
-                    .setAffectedPropertiesBefore(
-                                Map.of("cm:name", "testFolder", "cm:description", "test folder description."))
-                    .setAffectedPropertiesAfter(
-                                Map.of("cm:name", "testFolder", "cm:description", "updated test folder description.",
-                                       "cm:title", "test title added"))
+                    .setIsFile(true)
+                    .setIsFolder(false)
+                    .setNodeType("cm:content")
+                    .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                    .setCreatedAt(parseTime("2020-04-27T14:25:59.852475+01:00"))
+                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                    .setModifiedAt(parseTime("2020-04-27T14:25:59.854153+01:00"))
+                    .setProperties(Map.of("cm:title", "test title2", "cm:description", "test description."))
+                    .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                    .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
 
-        EventData<NodeResource> expectedEventData = EventData.<NodeResource>builder().setPrincipal("john.doe")
-                    .setEventGroupId("81fe60c1-6855-4d71-8450-130901d54f81")
+        NodeResource expectedResourceBefore = NodeResource.builder()
+                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                    .setModifiedAt(parseTime("2020-04-27T14:25:59.854558+01:00"))
+                    .setProperties(Map.of("cm:title", "test title"))
+                    .build();
+
+        EventData<NodeResource> expectedEventData = EventData.<NodeResource>builder()
+                    .setEventGroupId("ce852a52-609e-4b7d-8438-04e211fd76a0")
                     .setResource(expectedResource)
+                    .setResourceBefore(expectedResourceBefore)
                     .build();
 
         RepoEvent<NodeResource> expectedRepoEvent = RepoEvent.<NodeResource>builder().setId(
-                    "8128d7e5-9537-4d18-84cd-b3d532c3c7c4")
+                    "df708027-e0a8-4b30-92a5-0d19235a7800")
                     .setSource(getSource())
-                    .setTime(parseTime("2020-03-26T14:35:39.532821Z"))
+                    .setTime(parseTime("2020-04-27T14:25:59.855866+01:00"))
                     .setType("org.alfresco.event.node.Updated")
-                    .setSubject("testFolder")
                     .setData(expectedEventData)
                     .build();
 
@@ -256,6 +224,6 @@ public class EventTest
 
     private void checkExpectedJsonBody(String expectedJsonBody, String actualJsonBody) throws Exception
     {
-        JSONAssert.assertEquals(expectedJsonBody, actualJsonBody, UUID_JSON_COMPARATOR);
+        JSONAssert.assertEquals(expectedJsonBody, actualJsonBody, JSON_COMPARATOR);
     }
 }

@@ -11,7 +11,6 @@ cache:
 branches:
   only:
     - master
-    - REPO-5080_update_node_resource
 
 install: travis_retry mvn install -DskipTests=true -B -V
 
@@ -26,7 +25,7 @@ jobs:
       script: travis_retry mvn test
     - stage: release
       name: "Push to Nexus"
-      if: fork = false AND (branch = master OR branch = REPO-5080_update_node_resource) AND type != pull_request AND commit_message !~ /\[no-release\]/
+      if: fork = false AND (branch = master) AND type != pull_request AND commit_message !~ /\[no-release\]/
       before_install:
         - "cp .travis.settings.xml $HOME/.m2/settings.xml"
       script:
@@ -35,4 +34,4 @@ jobs:
         # Add email to link commits to user
         - git config user.email "${GIT_EMAIL}"
         # Skip building of release commits
-        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DreleaseVersion=0.0.2-REPO-5080 -DdevelopmentVersion=0.0.2-SNAPSHOT -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
+        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform

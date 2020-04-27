@@ -25,33 +25,24 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 /**
- * Base resource object representing the common attributes of the resource affected.
- *
  * @author Jamal Kaabi-Mofrad
  */
-public abstract class Resource
+public class UserInfo
 {
-    protected final String       id;
-    // Only relevant for certain resources
-    @JsonInclude(Include.NON_NULL)
-    protected       List<String> primaryHierarchy;
+    private String id;
+    private String displayName;
 
-    public Resource(String id)
+    public UserInfo()
     {
-        this(id, null);
     }
 
-    public Resource(String id, List<String> primaryHierarchy)
+    public UserInfo(String id, String firstName, String lastName)
     {
         this.id = id;
-        this.primaryHierarchy = primaryHierarchy;
+        this.displayName = ((firstName != null ? firstName + " " : "") + (lastName != null ? lastName : "")).trim();
     }
 
     public String getId()
@@ -59,14 +50,9 @@ public abstract class Resource
         return id;
     }
 
-    public List<String> getPrimaryHierarchy()
+    public String getDisplayName()
     {
-        return primaryHierarchy;
-    }
-
-    public void setPrimaryHierarchy(List<String> primaryHierarchy)
-    {
-        this.primaryHierarchy = primaryHierarchy;
+        return displayName;
     }
 
     @Override
@@ -76,18 +62,29 @@ public abstract class Resource
         {
             return true;
         }
-        if (!(o instanceof Resource))
+        if (!(o instanceof UserInfo))
         {
             return false;
         }
-        Resource resource = (Resource) o;
-        return Objects.equals(id, resource.id)
-                    && Objects.equals(primaryHierarchy, resource.primaryHierarchy);
+        UserInfo userInfo = (UserInfo) o;
+        return Objects.equals(id, userInfo.id)
+                    && Objects.equals(displayName, userInfo.displayName);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, primaryHierarchy);
+        return Objects.hash(id, displayName);
+    }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder sb = new StringBuilder(100);
+        sb.append("UserInfo [id=").append(id)
+          .append(", displayName=").append(displayName)
+          .append(']');
+
+        return sb.toString();
     }
 }

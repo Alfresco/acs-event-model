@@ -26,9 +26,11 @@
 package org.alfresco.repo.event.v1.model;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -41,41 +43,47 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  *
  * @author Jamal Kaabi-Mofrad
  */
-/* Any attribute that its value is null, will not be serialized.
- * For example, 'affectedPropertiesBefore' and 'affectedPropertiesAfter' are only relevant
- * for Node Updated event, so we don't serialize them when there is Node Created event.
- */
+//Any attribute that its value is null, will not be serialized.
 @JsonInclude(Include.NON_NULL)
 @JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends Resource
 {
-    private final String nodeType;
-    private final boolean isFile;
-    private final boolean isFolder;
+    private final String                    name;
+    private final String                    nodeType;
+    private final Boolean                   isFile;
+    private final Boolean                   isFolder;
+    private final UserInfo                  createdByUser;
+    private final ZonedDateTime             createdAt;
+    private final UserInfo                  modifiedByUser;
+    private final ZonedDateTime             modifiedAt;
+    private final ContentInfo               content;
     private final Map<String, Serializable> properties;
-    private final Map<String, Serializable> affectedPropertiesBefore;
-    private final Map<String, Serializable> affectedPropertiesAfter;
-    private final List<String> aspectNames;
-    private final List<String> aspectNamesBefore;
-    private final List<String> aspectNamesAfter;
+    private final Set<String>               aspectNames;
 
     private NodeResource(Builder builder)
     {
         super(builder.id, builder.primaryHierarchy);
+        this.name = builder.name;
         this.nodeType = builder.nodeType;
         this.isFile = builder.isFile;
         this.isFolder = builder.isFolder;
+        this.createdByUser = builder.createdByUser;
+        this.createdAt = builder.createdAt;
+        this.modifiedByUser = builder.modifiedByUser;
+        this.modifiedAt = builder.modifiedAt;
+        this.content = builder.content;
         this.properties = builder.properties;
-        this.affectedPropertiesBefore = builder.affectedPropertiesBefore;
-        this.affectedPropertiesAfter = builder.affectedPropertiesAfter;
         this.aspectNames = builder.aspectNames;
-        this.aspectNamesBefore = builder.aspectNamesBefore;
-        this.aspectNamesAfter = builder.aspectNamesAfter;
     }
 
     public static Builder builder()
     {
         return new Builder();
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public String getNodeType()
@@ -84,15 +92,40 @@ public class NodeResource extends Resource
     }
 
     @JsonProperty("isFile")
-    public boolean isFile()
+    public Boolean isFile()
     {
         return isFile;
     }
 
     @JsonProperty("isFolder")
-    public boolean isFolder()
+    public Boolean isFolder()
     {
         return isFolder;
+    }
+
+    public UserInfo getCreatedByUser()
+    {
+        return createdByUser;
+    }
+
+    public ZonedDateTime getCreatedAt()
+    {
+        return createdAt;
+    }
+
+    public UserInfo getModifiedByUser()
+    {
+        return modifiedByUser;
+    }
+
+    public ZonedDateTime getModifiedAt()
+    {
+        return modifiedAt;
+    }
+
+    public ContentInfo getContent()
+    {
+        return content;
     }
 
     public Map<String, Serializable> getProperties()
@@ -100,29 +133,9 @@ public class NodeResource extends Resource
         return properties;
     }
 
-    public Map<String, Serializable> getAffectedPropertiesBefore()
-    {
-        return affectedPropertiesBefore;
-    }
-
-    public Map<String, Serializable> getAffectedPropertiesAfter()
-    {
-        return affectedPropertiesAfter;
-    }
-
-    public List<String> getAspectNames()
+    public Set<String> getAspectNames()
     {
         return aspectNames;
-    }
-
-    public List<String> getAspectNamesBefore()
-    {
-        return aspectNamesBefore;
-    }
-
-    public List<String> getAspectNamesAfter()
-    {
-        return aspectNamesAfter;
     }
 
     @Override
@@ -141,45 +154,46 @@ public class NodeResource extends Resource
             return false;
         }
         NodeResource that = (NodeResource) o;
-        return isFile == that.isFile
-                    && isFolder == that.isFolder
+        return Objects.equals(name, that.name)
                     && Objects.equals(nodeType, that.nodeType)
+                    && Objects.equals(isFile, that.isFile)
+                    && Objects.equals(isFolder, that.isFolder)
+                    && Objects.equals(createdByUser, that.createdByUser)
+                    && Objects.equals(createdAt, that.createdAt)
+                    && Objects.equals(modifiedByUser, that.modifiedByUser)
+                    && Objects.equals(modifiedAt, that.modifiedAt)
+                    && Objects.equals(content, that.content)
                     && Objects.equals(properties, that.properties)
-                    && Objects.equals(affectedPropertiesBefore, that.affectedPropertiesBefore)
-                    && Objects.equals(affectedPropertiesAfter, that.affectedPropertiesAfter)
-                    && Objects.equals(aspectNames, that.aspectNames)
-                    && Objects.equals(aspectNamesBefore, that.aspectNamesBefore)
-                    && Objects.equals(aspectNamesAfter, that.aspectNamesAfter);
+                    && Objects.equals(aspectNames, that.aspectNames);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), nodeType, isFile, isFolder, properties,
-                            affectedPropertiesBefore,
-                            affectedPropertiesAfter,
-                            aspectNames,
-                            aspectNamesBefore,
-                            aspectNamesAfter);
+        return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
+                            createdAt, modifiedByUser, modifiedAt, content,
+                            properties, aspectNames);
     }
 
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder(250);
-        sb.append("NodeResource [nodeType=").append(nodeType)
+        final StringBuilder sb = new StringBuilder(500);
+        sb.append("NodeResource [id=").append(id)
+          .append(", name=").append(name)
+          .append(", nodeType=").append(nodeType)
           .append(", isFile=").append(isFile)
           .append(", isFolder=").append(isFolder)
+          .append(", createdByUser=").append(createdByUser)
+          .append(", createdAt=").append(createdAt)
+          .append(", modifiedByUser=").append(modifiedByUser)
+          .append(", modifiedAt=").append(modifiedAt)
+          .append(", content=").append(content)
           .append(", properties=").append(properties)
-          .append(", id=").append(id)
-          .append(", type=").append(getClass().getName())
-          .append(", primaryHierarchy=").append(primaryHierarchy)
           .append(", aspectNames=").append(aspectNames)
-          .append(", affectedPropertiesBefore=").append(affectedPropertiesBefore)
-          .append(", affectedPropertiesAfter=").append(affectedPropertiesAfter)
-          .append(", aspectNamesBefore=").append(aspectNamesBefore)
-          .append(", aspectNamesAfter=").append(aspectNamesAfter)
+          .append(", primaryHierarchy=").append(primaryHierarchy)
           .append(']');
+
         return sb.toString();
     }
 
@@ -189,21 +203,55 @@ public class NodeResource extends Resource
     @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder
     {
-        private String id;
-        private String nodeType;
-        private boolean isFile;
-        private boolean isFolder;
-        private List<String> primaryHierarchy;
+        private String                    id;
+        private String                    name;
+        private String                    nodeType;
+        private Boolean                   isFile;
+        private Boolean                   isFolder;
+        private UserInfo                  createdByUser;
+        private ZonedDateTime             createdAt;
+        private UserInfo                  modifiedByUser;
+        private ZonedDateTime             modifiedAt;
+        private List<String>              primaryHierarchy;
+        private ContentInfo               content;
         private Map<String, Serializable> properties;
-        private Map<String, Serializable> affectedPropertiesBefore;
-        private Map<String, Serializable> affectedPropertiesAfter;
-        private List<String> aspectNames;
-        private List<String> aspectNamesBefore;
-        private List<String> aspectNamesAfter;
+        private Set<String>               aspectNames;
+
+        public Builder()
+        {
+        }
+
+        /**
+         * Copy builder
+         *
+         * @param that existing {@code Builder} object
+         */
+        public Builder(Builder that)
+        {
+            this.id = that.id;
+            this.name = that.name;
+            this.nodeType = that.nodeType;
+            this.isFile = that.isFile;
+            this.isFolder = that.isFolder;
+            this.createdByUser = that.createdByUser;
+            this.createdAt = that.createdAt;
+            this.modifiedByUser = that.modifiedByUser;
+            this.modifiedAt = that.modifiedAt;
+            this.content = that.content;
+            this.primaryHierarchy = that.primaryHierarchy;
+            this.properties = that.properties;
+            this.aspectNames = that.aspectNames;
+        }
 
         public Builder setId(String id)
         {
             this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name)
+        {
+            this.name = name;
             return this;
         }
 
@@ -213,15 +261,39 @@ public class NodeResource extends Resource
             return this;
         }
 
-        public Builder setIsFile(boolean isFile)
+        public Builder setIsFile(Boolean isFile)
         {
             this.isFile = isFile;
             return this;
         }
 
-        public Builder setIsFolder(boolean isFolder)
+        public Builder setIsFolder(Boolean isFolder)
         {
             this.isFolder = isFolder;
+            return this;
+        }
+
+        public Builder setCreatedByUser(UserInfo createdByUser)
+        {
+            this.createdByUser = createdByUser;
+            return this;
+        }
+
+        public Builder setCreatedAt(ZonedDateTime createdAt)
+        {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder setModifiedByUser(UserInfo modifiedByUser)
+        {
+            this.modifiedByUser = modifiedByUser;
+            return this;
+        }
+
+        public Builder setModifiedAt(ZonedDateTime modifiedAt)
+        {
+            this.modifiedAt = modifiedAt;
             return this;
         }
 
@@ -231,39 +303,21 @@ public class NodeResource extends Resource
             return this;
         }
 
+        public Builder setContent(ContentInfo content)
+        {
+            this.content = content;
+            return this;
+        }
+
         public Builder setProperties(Map<String, Serializable> properties)
         {
             this.properties = properties;
             return this;
         }
 
-        public Builder setAffectedPropertiesBefore(Map<String, Serializable> affectedPropertiesBefore)
-        {
-            this.affectedPropertiesBefore = affectedPropertiesBefore;
-            return this;
-        }
-
-        public Builder setAffectedPropertiesAfter(Map<String, Serializable> affectedPropertiesAfter)
-        {
-            this.affectedPropertiesAfter = affectedPropertiesAfter;
-            return this;
-        }
-
-        public Builder setAspectNames(List<String> aspectNames)
+        public Builder setAspectNames(Set<String> aspectNames)
         {
             this.aspectNames = aspectNames;
-            return this;
-        }
-
-        public Builder setAspectNamesBefore(List<String> aspectNamesBefore)
-        {
-            this.aspectNamesBefore = aspectNamesBefore;
-            return this;
-        }
-
-        public Builder setAspectNamesAfter(List<String> aspectNamesAfter)
-        {
-            this.aspectNamesAfter = aspectNamesAfter;
             return this;
         }
 
