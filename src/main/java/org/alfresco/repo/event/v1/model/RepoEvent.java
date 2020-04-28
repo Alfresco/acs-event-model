@@ -31,50 +31,39 @@ import java.util.Objects;
 
 import org.alfresco.repo.event.EventAttributes;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents Alfresco event.
  *
  * @author Jamal Kaabi-Mofrad
  */
+@JsonDeserialize(builder = RepoEvent.Builder.class)
 public class RepoEvent<R extends Resource> implements EventAttributes
 {
     private static final String SPEC_VERSION = "1.0";
     private static final String CONTENT_TYPE = "application/json";
 
-    private final String specversion;
-    private final String type;
-    private final String id;
-    private final URI source;
-    // Optional
-    @JsonInclude(Include.NON_NULL)
-    private final String subject;
+    private final String        specversion;
+    private final String        type;
+    private final String        id;
+    private final URI           source;
     private final ZonedDateTime time;
-    private final String datacontenttype;
-    private final EventData<R> data;
+    private final URI           dataschema;
+    private final String        datacontenttype;
+    private final EventData<R>  data;
 
-    @JsonCreator
-    private RepoEvent(@JsonProperty("specversion") String specversion,
-                      @JsonProperty("type") String type,
-                      @JsonProperty("id") String id,
-                      @JsonProperty("source") URI source,
-                      @JsonProperty("subject") String subject,
-                      @JsonProperty("time") ZonedDateTime time,
-                      @JsonProperty("datacontenttype") String datacontenttype,
-                      @JsonProperty("data") EventData<R> data)
+    private RepoEvent(Builder<R> builder)
     {
-        this.specversion = specversion;
-        this.type = type;
-        this.id = id;
-        this.source = source;
-        this.subject = subject;
-        this.time = time;
-        this.datacontenttype = datacontenttype;
-        this.data = data;
+        this.specversion = builder.specversion;
+        this.type = builder.type;
+        this.id = builder.id;
+        this.source = builder.source;
+        this.time = builder.time;
+        this.datacontenttype = builder.datacontenttype;
+        this.data = builder.data;
+        this.dataschema = EventData.JSON_SCHEMA;
     }
 
     public static <R extends Resource> Builder<R> builder()
@@ -107,15 +96,15 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     }
 
     @Override
-    public String getSubject()
-    {
-        return subject;
-    }
-
-    @Override
     public ZonedDateTime getTime()
     {
         return time;
+    }
+
+    @Override
+    public URI getDataschema()
+    {
+        return dataschema;
     }
 
     @Override
@@ -145,7 +134,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
                     && Objects.equals(type, repoEvent.type)
                     && Objects.equals(id, repoEvent.id)
                     && Objects.equals(source, repoEvent.source)
-                    && Objects.equals(subject, repoEvent.subject)
+                    && Objects.equals(dataschema, repoEvent.dataschema)
                     && Objects.equals(time, repoEvent.time)
                     && Objects.equals(datacontenttype, repoEvent.datacontenttype)
                     && Objects.equals(data, repoEvent.data);
@@ -154,7 +143,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     @Override
     public int hashCode()
     {
-        return Objects.hash(specversion, type, id, source, subject, time, datacontenttype, data);
+        return Objects.hash(specversion, type, id, source, dataschema, time, datacontenttype, data);
     }
 
     @Override
@@ -165,8 +154,8 @@ public class RepoEvent<R extends Resource> implements EventAttributes
           .append(", type=").append(type)
           .append(", id=").append(id)
           .append(", source=").append(source)
-          .append(", subject=").append(subject)
           .append(", time=").append(time)
+          .append(", dataschema=").append(dataschema)
           .append(", datacontenttype=").append(datacontenttype)
           .append(", data=").append(data)
           .append(']');
@@ -176,13 +165,13 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     /**
      * Builder for creating a {@link RepoEvent} instance.
      */
+    @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<R extends Resource>
     {
         private String specversion = SPEC_VERSION;
         private String type;
         private String id;
         private URI source;
-        private String subject;
         private ZonedDateTime time;
         private String datacontenttype = CONTENT_TYPE;
         private EventData<R> data;
@@ -211,12 +200,6 @@ public class RepoEvent<R extends Resource> implements EventAttributes
             return this;
         }
 
-        public Builder<R> setSubject(String subject)
-        {
-            this.subject = (subject != null && subject.isEmpty()) ? null : subject;
-            return this;
-        }
-
         public Builder<R> setTime(ZonedDateTime time)
         {
             this.time = time;
@@ -237,7 +220,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
 
         public RepoEvent<R> build()
         {
-            return new RepoEvent<>(specversion, type, id, source, subject, time, datacontenttype, data);
+            return new RepoEvent<>(this);
         }
     }
 }

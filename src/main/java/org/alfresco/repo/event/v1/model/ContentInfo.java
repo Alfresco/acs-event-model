@@ -25,48 +25,41 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 /**
- * Base resource object representing the common attributes of the resource affected.
- *
  * @author Jamal Kaabi-Mofrad
  */
-public abstract class Resource
+public class ContentInfo
 {
-    protected final String id;
-    // Only relevant for certain resources
-    @JsonInclude(Include.NON_NULL)
-    protected List<String> primaryHierarchy;
+    private String mimeType;
+    private Long   sizeInBytes;
+    private String encoding;
 
-    public Resource(String id)
+    public ContentInfo()
     {
-        this(id, null);
     }
 
-    public Resource(String id, List<String> primaryHierarchy)
+    public ContentInfo(String mimeType, Long sizeInBytes, String encoding)
     {
-        this.id = id;
-        this.primaryHierarchy = primaryHierarchy;
+        this.mimeType = mimeType;
+        this.sizeInBytes = sizeInBytes;
+        this.encoding = encoding;
     }
 
-    public String getId()
+    public String getMimeType()
     {
-        return id;
+        return mimeType;
     }
 
-    public List<String> getPrimaryHierarchy()
+    public Long getSizeInBytes()
     {
-        return primaryHierarchy;
+        return sizeInBytes;
     }
 
-    public void setPrimaryHierarchy(List<String> primaryHierarchy)
+    public String getEncoding()
     {
-        this.primaryHierarchy = primaryHierarchy;
+        return encoding;
     }
 
     @Override
@@ -76,18 +69,30 @@ public abstract class Resource
         {
             return true;
         }
-        if (!(o instanceof Resource))
+        if (!(o instanceof ContentInfo))
         {
             return false;
         }
-        Resource resource = (Resource) o;
-        return Objects.equals(id, resource.id)
-                    && Objects.equals(primaryHierarchy, resource.primaryHierarchy);
+        ContentInfo that = (ContentInfo) o;
+        return Objects.equals(mimeType, that.mimeType)
+                    && Objects.equals(sizeInBytes, that.sizeInBytes)
+                    && Objects.equals(encoding, that.encoding);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, primaryHierarchy);
+        return Objects.hash(mimeType, sizeInBytes, encoding);
+    }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder sb = new StringBuilder(100);
+        sb.append("ContentInfo [mimeType=").append(mimeType)
+          .append(", sizeInBytes=").append(sizeInBytes)
+          .append(", encoding=").append(encoding)
+          .append(']');
+        return sb.toString();
     }
 }

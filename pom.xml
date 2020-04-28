@@ -16,7 +16,7 @@
 
     <properties>
         <maven.build.sourceVersion>11</maven.build.sourceVersion>
-        <jackson-databind.version>2.10.2</jackson-databind.version>
+        <jackson.version>2.11.0</jackson.version>
     </properties>
 
     <scm>
@@ -37,8 +37,14 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
+            <version>${jackson.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jsonSchema</artifactId>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- test dependencies -->

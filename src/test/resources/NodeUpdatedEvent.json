@@ -1,15 +1,15 @@
 {
   "specversion": "1.0",
-  "type": "org.alfresco.event.node.Created",
-  "id": "97c1b36c-c569-4c66-8a31-7a8d0b6b804a",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "df708027-e0a8-4b30-92a5-0d19235a7800",
   "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
-  "time": "2020-04-27T12:37:03.560134+01:00",
+  "time": "2020-04-27T14:25:59.855866+01:00",
   "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
   "datacontenttype": "application/json",
   "data": {
-    "eventGroupId": "cb645043-e7d2-4e51-b61d-e6d01582cbab",
+    "eventGroupId": "ce852a52-609e-4b7d-8438-04e211fd76a0",
     "resource": {
-      "id": "7491120a-e2cb-478f-8599-ebf057cc0c7c",
+      "id": "d366f805-853f-46ac-a81c-af9c257ee876",
       "name": "testFile.txt",
       "nodeType": "cm:content",
       "isFolder": false,
@@ -18,12 +18,12 @@
         "id": "john.doe",
         "displayName": "John Doe"
       },
-      "createdAt": "2020-04-27T12:37:03.555624+01:00",
+      "createdAt": "2020-04-27T14:25:59.852475+01:00",
       "modifiedByUser": {
         "id": "jane.doe",
         "displayName": "Jane Doe"
       },
-      "modifiedAt": "2020-04-27T12:37:03.557956+01:00",
+      "modifiedAt": "2020-04-27T14:25:59.854153+01:00",
       "content": {
         "mimeType": "text/plain",
         "sizeInBytes": 16,
@@ -34,12 +34,23 @@
         "2641bbe1-39ff-44dc-b47f-736552ad46cc"
       ],
       "properties": {
-        "cm:title": "test title"
+        "cm:description": "test description.",
+        "cm:title": "test title2"
       },
       "aspectNames": [
         "cm:titled",
         "cm:auditable"
       ]
+    },
+    "resourceBefore": {
+      "modifiedByUser": {
+        "id": "jane.doe",
+        "displayName": "Jane Doe"
+      },
+      "modifiedAt": "2020-04-27T14:25:59.854558+01:00",
+      "properties": {
+        "cm:title": "test title"
+      }
     }
   }
 }

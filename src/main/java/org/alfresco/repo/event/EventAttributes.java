@@ -53,10 +53,9 @@ public interface EventAttributes
     URI getSource();
 
     /**
-     * @return A value describing the subject of the event in the context of the event producer.
-     * E.g. The name of the newly created node.
+     * @return The schema that {@code data} adheres to.
      */
-    String getSubject();
+    URI getDataschema();
 
     /**
      * @return The CloudEvents specification version
