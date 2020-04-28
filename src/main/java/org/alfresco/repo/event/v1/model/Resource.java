@@ -38,10 +38,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 public abstract class Resource
 {
-    protected final String       id;
+    protected final String id;
     // Only relevant for certain resources
     @JsonInclude(Include.NON_NULL)
-    protected       List<String> primaryHierarchy;
+    protected List<String> primaryHierarchy;
 
     public Resource(String id)
     {
