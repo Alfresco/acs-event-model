@@ -37,7 +37,7 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.node.Created` | Occurs when a node is created |
 | `org.alfresco.event.node.Updated` | Occurs when a node is updated. Currently only node's name, type, properties, aspects, and content are supported|
 | `org.alfresco.event.node.Deleted` | Occurs when a node is deleted |
-| `org.alfresco.event.node.Downloaded` | Occurs when a node is downloaded |
+| `org.alfresco.event.node.Downloaded` | Occurs when a content node is downloaded. Not applicable to zip downloads |
 
 
 ### JSON Schema
