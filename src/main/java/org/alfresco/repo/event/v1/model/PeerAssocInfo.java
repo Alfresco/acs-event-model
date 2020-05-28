@@ -23,13 +23,57 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
+
 package org.alfresco.repo.event.v1.model;
 
+import java.util.Objects;
+
 /**
- * Marker interface for resource classes.
- *
  * @author Jamal Kaabi-Mofrad
  */
-public interface Resource
+public class PeerAssocInfo
 {
+    private String id;
+
+    public PeerAssocInfo()
+    {
+    }
+
+    public PeerAssocInfo(String id)
+    {
+        this.id = id;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof PeerAssocInfo))
+        {
+            return false;
+        }
+        PeerAssocInfo that = (PeerAssocInfo) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString()
+    {
+        String sb = "PeerAssocInfo [id=" + id + ']';
+        return sb;
+    }
 }

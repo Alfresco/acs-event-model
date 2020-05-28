@@ -25,11 +25,53 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import java.util.Objects;
+
 /**
- * Marker interface for resource classes.
- *
  * @author Jamal Kaabi-Mofrad
  */
-public interface Resource
+public class ChildAssocInfo
 {
+    private String id;
+
+    public ChildAssocInfo()
+    {
+    }
+
+    public ChildAssocInfo(String id)
+    {
+        this.id = id;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof ChildAssocInfo))
+        {
+            return false;
+        }
+        ChildAssocInfo assoc = (ChildAssocInfo) o;
+        return Objects.equals(id, assoc.id);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ChildAssocInfo [id=" + id + ']';
+    }
 }

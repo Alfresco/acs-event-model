@@ -9,6 +9,7 @@
   "data": {
     "eventGroupId": "cb645043-e7d2-4e51-b61d-e6d01582cbab",
     "resource": {
+      "@type": "NodeResource",
       "id": "7491120a-e2cb-478f-8599-ebf057cc0c7c",
       "name": "testFile.txt",
       "nodeType": "cm:content",

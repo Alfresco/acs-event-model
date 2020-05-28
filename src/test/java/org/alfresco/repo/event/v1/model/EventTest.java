@@ -168,7 +168,7 @@ public class EventTest
                     .setData(eventData)
                     .build();
 
-        String result = OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(repoEvent);
+        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("NodeUpdatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -216,6 +216,112 @@ public class EventTest
                     .setSource(getSource())
                     .setTime(parseTime("2020-04-27T14:25:59.855866+01:00"))
                     .setType("org.alfresco.event.node.Updated")
+                    .setData(expectedEventData)
+                    .build();
+
+        assertEquals(expectedRepoEvent, result);
+    }
+
+    @Test
+    public void childAssocCreatedEvent_marshalling() throws Exception
+    {
+        ChildAssociationResource childAssocResource = new ChildAssociationResource(getUUID(), getUUID(), "cm:contains");
+
+        EventData<ChildAssociationResource> eventData = EventData.<ChildAssociationResource>builder()
+                    .setEventGroupId(getUUID())
+                    .setResource(childAssocResource)
+                    .build();
+
+        RepoEvent<ChildAssociationResource> repoEvent = RepoEvent.<ChildAssociationResource>builder()
+                    .setId(getUUID())
+                    .setSource(getSource())
+                    .setTime(ZonedDateTime.now())
+                    .setType("org.alfresco.event.assoc.child.Created")
+                    .setData(eventData)
+                    .build();
+
+        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String expectedJson = TestUtil.getResourceFileAsString("ChildAssocCreated.json");
+        // Compare the Json files
+        checkExpectedJsonBody(expectedJson, result);
+    }
+
+    @Test
+    public void childAssocCreatedEvent_unmarshalling() throws Exception
+    {
+        String childAssocCreatedEventJson = TestUtil.getResourceFileAsString("ChildAssocCreated.json");
+        assertNotNull(childAssocCreatedEventJson);
+        RepoEvent<ChildAssociationResource> result = OBJECT_MAPPER.readValue(childAssocCreatedEventJson, new TypeReference<>()
+        {
+        });
+
+        ChildAssociationResource expectedResource = new ChildAssociationResource("7624edb6-6f28-4130-a4fb-4a5362807a05",
+                                                                                 "5d9f3d6f-9802-4bb6-8ad3-0f9261d08894",
+                                                                                 "cm:contains");
+
+        EventData<ChildAssociationResource> expectedEventData = EventData.<ChildAssociationResource>builder()
+                    .setEventGroupId("d933857e-5f4f-406e-aa5f-c747901f5a8f")
+                    .setResource(expectedResource)
+                    .build();
+
+        RepoEvent<ChildAssociationResource> expectedRepoEvent = RepoEvent.<ChildAssociationResource>builder()
+                    .setId("928c28fc-da23-441d-bb8b-72b068a9ceb5")
+                    .setSource(getSource())
+                    .setTime(parseTime("2020-05-28T09:56:52.235411+01:00"))
+                    .setType("org.alfresco.event.assoc.child.Created")
+                    .setData(expectedEventData)
+                    .build();
+
+        assertEquals(expectedRepoEvent, result);
+    }
+
+    @Test
+    public void peerAssocCreatedEvent_marshalling() throws Exception
+    {
+        PeerAssociationResource peerAssocResource = new PeerAssociationResource(getUUID(), getUUID(), "cm:references");
+
+        EventData<PeerAssociationResource > eventData = EventData.<PeerAssociationResource>builder()
+                    .setEventGroupId(getUUID())
+                    .setResource(peerAssocResource)
+                    .build();
+
+        RepoEvent<PeerAssociationResource > repoEvent = RepoEvent.<PeerAssociationResource>builder()
+                    .setId(getUUID())
+                    .setSource(getSource())
+                    .setTime(ZonedDateTime.now())
+                    .setType("org.alfresco.event.assoc.peer.Created")
+                    .setData(eventData)
+                    .build();
+
+        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String expectedJson = TestUtil.getResourceFileAsString("PeerAssocCreated.json");
+        // Compare the Json files
+        checkExpectedJsonBody(expectedJson, result);
+    }
+
+    @Test
+    public void peerAssocCreatedEvent_unmarshalling() throws Exception
+    {
+        String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("PeerAssocCreated.json");
+        assertNotNull(peerAssocCreatedEventJson);
+        RepoEvent<PeerAssociationResource> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>()
+        {
+        });
+
+        PeerAssociationResource expectedResource = new PeerAssociationResource("d323671c-9bd0-483e-8471-bd64cea73c09",
+                                                                                 "595c55b0-64b3-4f1b-95f8-c1cc6b3843a2",
+                                                                                 "cm:references");
+
+        EventData<PeerAssociationResource> expectedEventData = EventData.<PeerAssociationResource>builder()
+                    .setEventGroupId("b23f75d0-45da-40d1-9063-eb800a4f2444")
+                    .setResource(expectedResource)
+                    .build();
+
+        RepoEvent<PeerAssociationResource> expectedRepoEvent = RepoEvent.<PeerAssociationResource>builder()
+                    .setId("8677a369-a30d-469e-b313-e5bf1b590c8e")
+                    .setSource(getSource())
+                    .setTime(parseTime("2020-05-28T10:36:21.291392+01:00"))
+                    .setType("org.alfresco.event.assoc.peer.Created")
                     .setData(expectedEventData)
                     .build();
 

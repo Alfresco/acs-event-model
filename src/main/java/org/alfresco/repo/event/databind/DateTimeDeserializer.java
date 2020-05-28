@@ -23,7 +23,6 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
 package org.alfresco.repo.event.databind;
 
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class DateTimeDeserializer extends StdDeserializer<ZonedDateTime>
         }
         catch (DateTimeException ex)
         {
-            throw new IllegalArgumentException("The text cannot be parsed to ZonedDateTime time.");
+            throw new EventDeserializerException("The text cannot be parsed to ZonedDateTime time.");
         }
     }
 }
