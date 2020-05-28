@@ -28,8 +28,6 @@ package org.alfresco.repo.event.v1.model;
 import java.net.URI;
 import java.util.Objects;
 
-import org.alfresco.repo.event.databind.ResourceDeserializer;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -137,14 +135,12 @@ public class EventData<R extends Resource> implements DataAttributes<R>
             return this;
         }
 
-        @JsonDeserialize(using = ResourceDeserializer.class)
         public Builder<R> setResource(R resource)
         {
             this.resource = resource;
             return this;
         }
 
-        @JsonDeserialize(using = ResourceDeserializer.class)
         public Builder<R> setResourceBefore(R resourceBefore)
         {
             this.resourceBefore = resourceBefore;
