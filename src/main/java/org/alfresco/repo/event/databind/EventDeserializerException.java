@@ -23,13 +23,22 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-package org.alfresco.repo.event.v1.model;
+package org.alfresco.repo.event.databind;
 
 /**
- * Marker interface for resource classes.
- *
  * @author Jamal Kaabi-Mofrad
  */
-public interface Resource
+public class EventDeserializerException extends RuntimeException
 {
+    private static final long serialVersionUID = -1834047952479124360L;
+
+    public EventDeserializerException(String message)
+    {
+        super(message);
+    }
+
+    public EventDeserializerException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 }

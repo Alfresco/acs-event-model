@@ -25,11 +25,45 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import java.util.Objects;
+
 /**
- * Marker interface for resource classes.
+ * Base association resource.
  *
  * @author Jamal Kaabi-Mofrad
  */
-public interface Resource
+public abstract class AbstractAssociationResource implements Resource
 {
+    protected String assocType;
+
+    public AbstractAssociationResource(String assocType)
+    {
+        this.assocType = assocType;
+    }
+
+    public String getAssocType()
+    {
+        return assocType;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof AbstractAssociationResource))
+        {
+            return false;
+        }
+        AbstractAssociationResource that = (AbstractAssociationResource) o;
+        return Objects.equals(assocType, that.assocType);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(assocType);
+    }
 }

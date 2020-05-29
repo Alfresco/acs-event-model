@@ -9,6 +9,7 @@
   "data": {
     "eventGroupId": "ce852a52-609e-4b7d-8438-04e211fd76a0",
     "resource": {
+      "@type": "NodeResource",
       "id": "d366f805-853f-46ac-a81c-af9c257ee876",
       "name": "testFile.txt",
       "nodeType": "cm:content",
@@ -43,6 +44,7 @@
       ]
     },
     "resourceBefore": {
+      "@type": "NodeResource",
       "modifiedByUser": {
         "id": "jane.doe",
         "displayName": "Jane Doe"

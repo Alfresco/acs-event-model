@@ -46,7 +46,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 //Any attribute that its value is null, will not be serialized.
 @JsonInclude(Include.NON_NULL)
 @JsonDeserialize(builder = NodeResource.Builder.class)
-public class NodeResource extends Resource
+public class NodeResource extends AbstractNodeResource
 {
     private final String                    name;
     private final String                    nodeType;

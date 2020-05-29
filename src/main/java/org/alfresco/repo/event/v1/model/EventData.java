@@ -30,6 +30,8 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -44,8 +46,12 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     public static final URI JSON_SCHEMA = URI.create("urn:jsonschema:org:alfresco:repo:event:v1:model:EventData");
 
     private final String eventGroupId;
+
+    @JsonTypeInfo(use = Id.NAME)
     private final R resource;
+
     @JsonInclude(Include.NON_NULL)
+    @JsonTypeInfo(use = Id.NAME)
     private final R resourceBefore;
 
     private EventData(Builder<R> builder)
