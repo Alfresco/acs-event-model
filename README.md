@@ -35,8 +35,9 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | Name                              | Description                                                      |
 |-----------------------------------|------------------------------------------------------------------|
 | `org.alfresco.event.node.Created` | Occurs when a node is created |
-| `org.alfresco.event.node.Updated` | Occurs when a node is updated. Currently only node's name, properties, aspects, and content are supported|
+| `org.alfresco.event.node.Updated` | Occurs when a node is updated or moved. Currently only node's name, type, properties, aspects, and content are supported|
 | `org.alfresco.event.node.Deleted` | Occurs when a node is deleted |
+| `org.alfresco.event.node.Downloaded` | Occurs when a content node is downloaded. Not applicable to zip downloads |
 
 
 ### JSON Schema
@@ -88,6 +89,334 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
         "cm:titled",
         "cm:auditable"
       ]
+    }
+  }
+}
+```
+
+### File downloaded event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Downloaded",
+  "id": "8ea88e97-2e7c-4f27-a4a1-3c7ad29839d3",
+  "source": "/23c89f0b-d8a0-4029-b9b5-e921cfc3d45c",
+  "time": "2020-05-20T16:41:13.847803+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "a8244eb2-c15a-4110-9eb3-13c68260846d",
+    "resource": {
+      "id": "43126263-80dd-444d-8aff-6ae363370dc8",
+      "primaryHierarchy": [
+        "c251895b-af90-47a0-a133-cc972cbabf5a",
+        "a2f9d25d-0b4e-44a3-9fec-4dbdfa09fb9f",
+        "43c66524-9525-49ba-bcc4-40390ad3e3ce"
+      ],
+      "name": "myfile1.txt",
+      "nodeType": "cm:content",
+      "createdByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "createdAt": "2020-05-20T16:39:45.704+01:00",
+      "modifiedByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "modifiedAt": "2020-05-20T16:39:45.704+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 9,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589989188069",
+          "doclib:1589989197241"
+        ]
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFile": true,
+      "isFolder": false
+    }
+  }
+}
+```
+
+### Node updated event example - _node moved_
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "35378a74-e572-4e6c-8107-5418ed28473b",
+  "source": "/8a49c5b4-d9aa-4c1d-9dd6-d57d2e8541a7",
+  "time": "2020-05-15T11:27:45.266278+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "5ad32965-fd7d-480f-800d-90821c9d9e0b",
+    "resource": {
+      "id": "5acc515e-b08f-4898-b53f-ab587bae97d4",
+      "primaryHierarchy": [
+        "80272be0-0439-4de2-8ff3-a5f4cddc624f",
+        "d88a0730-8616-474b-bf92-b56ff975f5c5",
+        "cf9da5a5-3c82-47a1-adb6-366352ffd822"
+      ],
+      "name": "book.jpeg",
+      "nodeType": "cm:content",
+      "createdByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "createdAt": "2020-05-14T15:02:36.684+01:00",
+      "modifiedByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "modifiedAt": "2020-05-15T11:27:45.146+01:00",
+      "content": {
+        "mimeType": "image/jpeg",
+        "sizeInBytes": 6210,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "cm:autoVersion": true,
+        "cm:versionType": "MAJOR",
+        "cm:versionLabel": "1.0",
+        "cm:autoVersionOnUpdateProps": false,
+        "exif:pixelXDimension": 195,
+        "cm:lastThumbnailModification": [
+          "doclib:1589464959119",
+          "imgpreview:1589464965398"
+        ],
+        "exif:pixelYDimension": 130,
+        "cm:initialVersion": true
+      },
+      "aspectNames": [
+        "exif:exif",
+        "cm:versionable",
+        "cm:author",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "sys:cascadeUpdate",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFolder": false,
+      "isFile": true
+    },
+    "resourceBefore": {
+      "primaryHierarchy": [
+        "fb78e935-5239-4035-b997-65c7cefaa633",
+        "d88a0730-8616-474b-bf92-b56ff975f5c5",
+        "cf9da5a5-3c82-47a1-adb6-366352ffd822"
+      ]
+    }
+  }
+}
+```
+
+### Node updated event example - _content changed_ 
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "d1b290e3-fa20-4aaa-b81a-04cfc11ef068",
+  "source": "/8a49c5b4-d9aa-4c1d-9dd6-d57d2e8541a7",
+  "time": "2020-05-15T14:55:46.326144+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "1870deed-9a41-4a83-a592-1d28beb0f8bf",
+    "resource": {
+      "id": "3b827125-987e-4ee4-aad6-1e2a0cc3cb5f",
+      "primaryHierarchy": [
+        "fb78e935-5239-4035-b997-65c7cefaa633",
+        "d88a0730-8616-474b-bf92-b56ff975f5c5",
+        "cf9da5a5-3c82-47a1-adb6-366352ffd822"
+      ],
+      "name": "repo_5129.txt",
+      "nodeType": "cm:content",
+      "createdByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "createdAt": "2020-05-15T14:50:51.508+01:00",
+      "modifiedByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "modifiedAt": "2020-05-15T14:55:46.271+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589550869589"
+        ]
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFolder": false,
+      "isFile": true
+    },
+    "resourceBefore": {
+      "modifiedAt": "2020-05-15T14:54:29.593+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      }
+    }
+  }
+}
+```
+
+### Node updated event example - _node type changed_ 
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "6449e825-5f0d-40b9-904d-4371d717b1d8",
+  "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
+  "time": "2020-05-15T14:10:58.717856+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "6eef795f-6c9f-46dd-93c2-b248caec8171",
+    "resource": {
+      "id": "9a6e488b-49a3-41ef-8032-82a2afbd153e",
+      "primaryHierarchy": [
+        "3244959b-f3a8-4bb9-82f5-d16300148bb8",
+        "9e5dd366-1d55-4b84-a8e5-54721d1e3748",
+        "190d8f46-13a1-443b-8d16-7e3c9f52cfc7"
+      ],
+      "name": "testFile.txt",
+      "nodeType": "smf:smartFolderTemplate",
+      "createdByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "createdAt": "2020-05-15T14:10:47.314+01:00",
+      "modifiedByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "modifiedAt": "2020-05-15T14:10:58.696+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589548249020"
+        ]
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFile": true,
+      "isFolder": false
+    },
+    "resourceBefore": {
+      "nodeType": "cm:content"
+    }
+  }
+}
+```
+
+### File deleted event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Deleted",
+  "id": "54d95573-1e08-4ed3-946e-123704198c13",
+  "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
+  "time": "2020-05-15T17:19:18.745537+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "db22f279-bc46-4f1e-b616-fd94c4f813fc",
+    "resource": {
+      "id": "9e42c4db-765f-4fa0-9afe-8e87b1b419c5",
+      "primaryHierarchy": [
+        "3244959b-f3a8-4bb9-82f5-d16300148bb8",
+        "9e5dd366-1d55-4b84-a8e5-54721d1e3748",
+        "190d8f46-13a1-443b-8d16-7e3c9f52cfc7"
+      ],
+      "name": "testFile.txt",
+      "nodeType": "cm:content",
+      "createdByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "createdAt": "2020-05-14T16:57:31.079+01:00",
+      "modifiedByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "modifiedAt": "2020-05-15T17:03:04.018+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 16,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "cm:title": "A different title",
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589497052565"
+        ]
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "cm:author",
+        "sys:localized",
+        "sys:pendingDelete",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable",
+        "cm:taggable"
+      ],
+      "isFile": true,
+      "isFolder": false
     }
   }
 }

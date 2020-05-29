@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>acs-event-model</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>acs-event-model</name>
     <description>Alfresco Content Services Event Model</description>
