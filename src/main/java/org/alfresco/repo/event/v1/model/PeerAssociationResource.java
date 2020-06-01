@@ -32,8 +32,8 @@ import java.util.Objects;
  */
 public class PeerAssociationResource extends AbstractAssociationResource
 {
-    private ChildAssocInfo source;
-    private ChildAssocInfo target;
+    private PeerAssocInfo source;
+    private PeerAssocInfo target;
 
     public PeerAssociationResource()
     {
@@ -43,16 +43,16 @@ public class PeerAssociationResource extends AbstractAssociationResource
     public PeerAssociationResource(String sourceId, String targetId, String assocType)
     {
         super(assocType);
-        this.source = new ChildAssocInfo(sourceId);
-        this.target = new ChildAssocInfo(targetId);
+        this.source = new PeerAssocInfo(sourceId);
+        this.target = new PeerAssocInfo(targetId);
     }
 
-    public ChildAssocInfo getSource()
+    public PeerAssocInfo getSource()
     {
         return source;
     }
 
-    public ChildAssocInfo getTarget()
+    public PeerAssocInfo getTarget()
     {
         return target;
     }
