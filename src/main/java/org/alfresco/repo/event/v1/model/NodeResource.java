@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -59,6 +60,9 @@ public class NodeResource extends AbstractNodeResource
     private final ContentInfo               content;
     private final Map<String, Serializable> properties;
     private final Set<String>               aspectNames;
+    
+    @JsonIgnore
+    private final boolean                   allNull;
 
     private NodeResource(Builder builder)
     {
@@ -74,6 +78,7 @@ public class NodeResource extends AbstractNodeResource
         this.content = builder.content;
         this.properties = builder.properties;
         this.aspectNames = builder.aspectNames;
+        this.allNull = builder.allNull;
     }
 
     public static Builder builder()
@@ -136,6 +141,11 @@ public class NodeResource extends AbstractNodeResource
     public Set<String> getAspectNames()
     {
         return aspectNames;
+    }
+    
+    public boolean isAllNull()
+    {
+        return allNull;
     }
 
     @Override
@@ -216,6 +226,7 @@ public class NodeResource extends AbstractNodeResource
         private ContentInfo               content;
         private Map<String, Serializable> properties;
         private Set<String>               aspectNames;
+        private boolean                   allNull;
 
         public Builder()
         {
@@ -241,6 +252,7 @@ public class NodeResource extends AbstractNodeResource
             this.primaryHierarchy = that.primaryHierarchy;
             this.properties = that.properties;
             this.aspectNames = that.aspectNames;
+            this.allNull = that.allNull;
         }
 
         public Builder setId(String id)
@@ -318,6 +330,12 @@ public class NodeResource extends AbstractNodeResource
         public Builder setAspectNames(Set<String> aspectNames)
         {
             this.aspectNames = aspectNames;
+            return this;
+        }
+
+        public Builder setAllNull(boolean allNull)
+        {
+            this.allNull = allNull;
             return this;
         }
 
