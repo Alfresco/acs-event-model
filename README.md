@@ -38,6 +38,10 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.node.Updated` | Occurs when a node is updated or moved. Currently only node's name, type, properties, aspects, and content are supported|
 | `org.alfresco.event.node.Deleted` | Occurs when a node is deleted |
 | `org.alfresco.event.node.Downloaded` | Occurs when a content node is downloaded. Not applicable to zip downloads |
+| `org.alfresco.event.assoc.child.Created` | Occurs when a secondary child association is created |
+| `org.alfresco.event.assoc.child.Deleted` | Occurs when a secondary child association is deleted |
+| `org.alfresco.event.assoc.peer.Created` | Occurs when a peer association is created |
+| `org.alfresco.event.assoc.peer.Deleted` | Occurs when a peer association is deleted |
 
 
 ### JSON Schema
@@ -417,6 +421,114 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "isFile": true,
       "isFolder": false
+    }
+  }
+}
+```
+
+### Secondary child association created event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.assoc.child.Created",
+  "id": "6aa2c078-2317-46be-aaff-50df901a5270",
+  "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
+  "time": "2020-06-08T12:33:33.208424+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "5f63c476-3dc8-4253-b807-31d7cdc4f0cc",
+    "resource": {
+      "@type": "ChildAssociationResource",
+      "assocType": "cm:contains",
+      "parent": {
+        "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
+      },
+      "child": {
+        "id": "9c10d828-eef3-4dfe-a64c-0f903c6de7c6"
+      }
+    }
+  }
+}
+```
+
+### Secondary child association deleted event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.assoc.child.Deleted",
+  "id": "2ced8815-748a-48e3-a9ba-93ffb767bc78",
+  "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
+  "time": "2020-06-08T12:36:51.781289+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "7e5526fc-8402-4f1f-9560-f997c7fc55d9",
+    "resource": {
+      "@type": "ChildAssociationResource",
+      "assocType": "cm:contains",
+      "parent": {
+        "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
+      },
+      "child": {
+        "id": "9c10d828-eef3-4dfe-a64c-0f903c6de7c6"
+      }
+    }
+  }
+}
+```
+
+### Peer association created event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.assoc.peer.Created",
+  "id": "081cb242-12d3-46b5-a87c-9358d68e1e27",
+  "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
+  "time": "2020-06-08T12:37:45.902469+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "7479d8e5-93d0-48bd-924a-af422ce3fd0a",
+    "resource": {
+      "@type": "PeerAssociationResource",
+      "assocType": "cm:original",
+      "source": {
+        "id": "c9e55962-cbea-49c0-823b-b83f60bd3f36"
+      },
+      "target": {
+        "id": "9c10d828-eef3-4dfe-a64c-0f903c6de7c6"
+      }
+    }
+  }
+}
+```
+
+### Peer association deleted event example
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.assoc.peer.Deleted",
+  "id": "98bdd9b6-4be2-4902-8c85-c7eedd498a67",
+  "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
+  "time": "2020-06-08T12:38:41.103607+01:00",
+  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "bc5a2d21-a5d1-4721-aee9-0eb8ee9cb75e",
+    "resource": {
+      "@type": "PeerAssociationResource",
+      "assocType": "cm:original",
+      "source": {
+        "id": "c9e55962-cbea-49c0-823b-b83f60bd3f36"
+      },
+      "target": {
+        "id": "9c10d828-eef3-4dfe-a64c-0f903c6de7c6"
+      }
     }
   }
 }
