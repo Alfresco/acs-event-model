@@ -46,7 +46,7 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 
 ### JSON Schema
 
-For a detailed view of the event content refer to [Repo Event JSON schema](src/main/resources/json-schema/RepoEvent.json).
+For a detailed view of the event content refer to [Repo Event JSON schema](src/main/resources/json-schema).
 
 ### File created event example
 
@@ -435,7 +435,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "6aa2c078-2317-46be-aaff-50df901a5270",
   "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
   "time": "2020-06-08T12:33:33.208424+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/childAssocCreated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "5f63c476-3dc8-4253-b807-31d7cdc4f0cc",
@@ -462,7 +462,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "2ced8815-748a-48e3-a9ba-93ffb767bc78",
   "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
   "time": "2020-06-08T12:36:51.781289+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/childAssocDeleted",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "7e5526fc-8402-4f1f-9560-f997c7fc55d9",
@@ -489,7 +489,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "081cb242-12d3-46b5-a87c-9358d68e1e27",
   "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
   "time": "2020-06-08T12:37:45.902469+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/peerAssocCreated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "7479d8e5-93d0-48bd-924a-af422ce3fd0a",
@@ -516,7 +516,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "98bdd9b6-4be2-4902-8c85-c7eedd498a67",
   "source": "/f4fadb99-b29b-453d-b23b-9c33bf22f8eb",
   "time": "2020-06-08T12:38:41.103607+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/peerAssocDeleted",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "bc5a2d21-a5d1-4721-aee9-0eb8ee9cb75e",

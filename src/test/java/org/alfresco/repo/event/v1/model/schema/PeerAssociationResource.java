@@ -23,39 +23,45 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-package org.alfresco.repo.event.v1.model;
+package org.alfresco.repo.event.v1.model.schema;
 
-import java.io.File;
+import org.alfresco.repo.event.v1.model.PeerAssocInfo;
+import org.alfresco.repo.event.v1.model.Resource;
 
-import org.junit.Test;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Event data object to generate the JSON schema for {@code PeerAssociationResource}.
+ *
  * @author Jamal Kaabi-Mofrad
  */
-public class JsonSchemaGeneratorTest
+// Used with jsonschema-generator to control the order
+@JsonPropertyOrder
+public class PeerAssociationResource implements Resource
 {
+    @Required
+    private String        assocType;
+    @Required
+    private PeerAssocInfo source;
+    @Required
+    private PeerAssocInfo target;
 
-    @Test
-    public void generateSchema() throws Exception
+    public PeerAssociationResource()
     {
-        File outputDir = new File("target/schema/");
-        outputDir.mkdirs();
+    }
 
-        ObjectMapper mapper = new ObjectMapper();
-        SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
-        TypeReference<RepoEvent<EventData<NodeResource>>> typeReference = new TypeReference<>()
-        {
-        };
+    public String getAssocType()
+    {
+        return assocType;
+    }
 
-        JavaType type = mapper.getTypeFactory().constructType(typeReference);
-        mapper.acceptJsonFormatVisitor(type, visitor);
-        JsonSchema schema = visitor.finalSchema();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(outputDir, "RepoEvent.json"), schema);
+    public PeerAssocInfo getSource()
+    {
+        return source;
+    }
+
+    public PeerAssocInfo getTarget()
+    {
+        return target;
     }
 }
