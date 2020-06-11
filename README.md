@@ -441,7 +441,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "eventGroupId": "5f63c476-3dc8-4253-b807-31d7cdc4f0cc",
     "resource": {
       "@type": "ChildAssociationResource",
-      "assocType": "{http://www.alfresco.org/model/content/1.0}contains",
+      "assocType": "cm:contains",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
@@ -468,7 +468,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "eventGroupId": "7e5526fc-8402-4f1f-9560-f997c7fc55d9",
     "resource": {
       "@type": "ChildAssociationResource",
-      "assocType": "{http://www.alfresco.org/model/content/1.0}contains",
+      "assocType": "cm:contains",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
@@ -495,7 +495,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "eventGroupId": "7479d8e5-93d0-48bd-924a-af422ce3fd0a",
     "resource": {
       "@type": "PeerAssociationResource",
-      "assocType": "{http://www.alfresco.org/model/content/1.0}original",
+      "assocType": "cm:original",
       "source": {
         "id": "c9e55962-cbea-49c0-823b-b83f60bd3f36"
       },
@@ -522,7 +522,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "eventGroupId": "bc5a2d21-a5d1-4721-aee9-0eb8ee9cb75e",
     "resource": {
       "@type": "PeerAssociationResource",
-      "assocType": "{http://www.alfresco.org/model/content/1.0}original",
+      "assocType": "cm:original",
       "source": {
         "id": "c9e55962-cbea-49c0-823b-b83f60bd3f36"
       },
