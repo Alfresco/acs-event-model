@@ -25,7 +25,6 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import java.net.URI;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,8 +42,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = EventData.Builder.class)
 public class EventData<R extends Resource> implements DataAttributes<R>
 {
-    public static final URI JSON_SCHEMA = URI.create("urn:jsonschema:org:alfresco:repo:event:v1:model:EventData");
-
     private final String eventGroupId;
 
     @JsonTypeInfo(use = Id.NAME)

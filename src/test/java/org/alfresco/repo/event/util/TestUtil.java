@@ -68,7 +68,7 @@ public class TestUtil
     };
 
     // Ignore array elements ordering
-    private static final ValueMatcher<Object> ASPECTS_NAMES_MATCHER = (o1, o2) -> {
+    public static final ValueMatcher<Object> ELEMENTS_ORDERING_MATCHER = (o1, o2) -> {
         try
         {
             JSONAssert.assertEquals(o1.toString(), o2.toString(), JSONCompareMode.LENIENT);
@@ -80,7 +80,7 @@ public class TestUtil
         }
     };
 
-    public static final CustomComparator JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT,
+    public static final Customization[] CUSTOMIZATIONS = new Customization[] {
                 new Customization("id", UUID_VALUE_MATCHER),
                 new Customization("data.eventGroupId", UUID_VALUE_MATCHER),
                 new Customization("data.resource.id", UUID_VALUE_MATCHER),
@@ -92,7 +92,9 @@ public class TestUtil
                 new Customization("data.resource.createdAt", DATE_TIME_VALUE_MATCHER),
                 new Customization("data.resource.modifiedAt", DATE_TIME_VALUE_MATCHER),
                 new Customization("data.resourceBefore.modifiedAt", DATE_TIME_VALUE_MATCHER),
-                new Customization("data.resource.aspectNames", ASPECTS_NAMES_MATCHER));
+                new Customization("data.resource.aspectNames", ELEMENTS_ORDERING_MATCHER) };
+
+    public static final CustomComparator JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT, CUSTOMIZATIONS);
 
 
     public static String getResourceFileAsString(String fileName) throws Exception
@@ -121,6 +123,11 @@ public class TestUtil
     public static URI getSource()
     {
         return URI.create("/f6d21231-618e-4f12-a920-e498660c5b9d");
+    }
+
+    public static URI getDataSchema(String schemaName)
+    {
+        return URI.create("https://api.alfresco.com/schema/event/repo/v1/" + schemaName);
     }
 
     public static ZonedDateTime parseTime(String time)

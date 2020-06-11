@@ -49,7 +49,7 @@ public class JsonSchemaGeneratorTest
 
         ObjectMapper mapper = new ObjectMapper();
         SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
-        TypeReference<RepoEvent<NodeResource>> typeReference = new TypeReference<>()
+        TypeReference<RepoEvent<EventData<NodeResource>>> typeReference = new TypeReference<>()
         {
         };
 

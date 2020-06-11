@@ -4,7 +4,7 @@
   "id": "97c1b36c-c569-4c66-8a31-7a8d0b6b804a",
   "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
   "time": "2020-04-27T12:37:03.560134+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeCreated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "cb645043-e7d2-4e51-b61d-e6d01582cbab",

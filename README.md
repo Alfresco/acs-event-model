@@ -53,7 +53,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "97c1b36c-c569-4c66-8a31-7a8d0b6b804a",
   "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
   "time": "2020-04-27T12:37:03.560134+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeCreated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "cb645043-e7d2-4e51-b61d-e6d01582cbab",
@@ -103,7 +103,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "8ea88e97-2e7c-4f27-a4a1-3c7ad29839d3",
   "source": "/23c89f0b-d8a0-4029-b9b5-e921cfc3d45c",
   "time": "2020-05-20T16:41:13.847803+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeDownloaded",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "a8244eb2-c15a-4110-9eb3-13c68260846d",
@@ -163,7 +163,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "35378a74-e572-4e6c-8107-5418ed28473b",
   "source": "/8a49c5b4-d9aa-4c1d-9dd6-d57d2e8541a7",
   "time": "2020-05-15T11:27:45.266278+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "5ad32965-fd7d-480f-800d-90821c9d9e0b",
@@ -239,7 +239,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "d1b290e3-fa20-4aaa-b81a-04cfc11ef068",
   "source": "/8a49c5b4-d9aa-4c1d-9dd6-d57d2e8541a7",
   "time": "2020-05-15T14:55:46.326144+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "1870deed-9a41-4a83-a592-1d28beb0f8bf",
@@ -306,7 +306,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "6449e825-5f0d-40b9-904d-4371d717b1d8",
   "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
   "time": "2020-05-15T14:10:58.717856+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "6eef795f-6c9f-46dd-93c2-b248caec8171",
@@ -368,7 +368,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
   "id": "54d95573-1e08-4ed3-946e-123704198c13",
   "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
   "time": "2020-05-15T17:19:18.745537+01:00",
-  "dataschema": "urn:jsonschema:org:alfresco:repo:event:v1:model:EventData",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeDeleted",
   "datacontenttype": "application/json",
   "data": {
     "eventGroupId": "db22f279-bc46-4f1e-b616-fd94c4f813fc",
@@ -457,7 +457,7 @@ For unmarshalling the JSON result to RepoEvent object, Java clients can you use 
 ```java
 ObjectMapper mapper = ObjectMapperFactory.createInstance();
 
-RepoEvent<NodeResource> result = mapper.readValue(jsonString, new TypeReference<>()
+RepoEvent<EventData<NodeResource>> result = mapper.readValue(jsonString, new TypeReference<>()
 {
 });
 ```
