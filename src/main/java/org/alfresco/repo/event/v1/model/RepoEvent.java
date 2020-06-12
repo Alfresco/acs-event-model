@@ -40,7 +40,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  * @author Jamal Kaabi-Mofrad
  */
 @JsonDeserialize(builder = RepoEvent.Builder.class)
-public class RepoEvent<R extends Resource> implements EventAttributes
+public class RepoEvent<D extends DataAttributes<? extends Resource>> implements EventAttributes
 {
     private static final String SPEC_VERSION = "1.0";
     private static final String CONTENT_TYPE = "application/json";
@@ -52,9 +52,9 @@ public class RepoEvent<R extends Resource> implements EventAttributes
     private final ZonedDateTime time;
     private final URI           dataschema;
     private final String        datacontenttype;
-    private final EventData<R>  data;
+    private final D data;
 
-    private RepoEvent(Builder<R> builder)
+    private RepoEvent(Builder<D> builder)
     {
         this.specversion = builder.specversion;
         this.type = builder.type;
@@ -63,10 +63,10 @@ public class RepoEvent<R extends Resource> implements EventAttributes
         this.time = builder.time;
         this.datacontenttype = builder.datacontenttype;
         this.data = builder.data;
-        this.dataschema = EventData.JSON_SCHEMA;
+        this.dataschema = builder.dataschema;
     }
 
-    public static <R extends Resource> Builder<R> builder()
+    public static <D extends DataAttributes<? extends Resource>> Builder<D> builder()
     {
         return new Builder<>();
     }
@@ -113,7 +113,7 @@ public class RepoEvent<R extends Resource> implements EventAttributes
         return datacontenttype;
     }
 
-    public EventData<R> getData()
+    public D getData()
     {
         return data;
     }
@@ -166,59 +166,66 @@ public class RepoEvent<R extends Resource> implements EventAttributes
      * Builder for creating a {@link RepoEvent} instance.
      */
     @JsonPOJOBuilder(withPrefix = "set")
-    public static class Builder<R extends Resource>
+    public static class Builder<D extends DataAttributes<? extends Resource>>
     {
         private String specversion = SPEC_VERSION;
         private String type;
         private String id;
         private URI source;
         private ZonedDateTime time;
+        private URI dataschema;
         private String datacontenttype = CONTENT_TYPE;
-        private EventData<R> data;
+        private D data;
 
-        public Builder<R> setSpecversion(String specversion)
+        public Builder<D> setSpecversion(String specversion)
         {
             this.specversion = specversion;
             return this;
         }
 
-        public Builder<R> setType(String type)
+        public Builder<D> setType(String type)
         {
             this.type = type;
             return this;
         }
 
-        public Builder<R> setId(String id)
+        public Builder<D> setId(String id)
         {
             this.id = id;
             return this;
         }
 
-        public Builder<R> setSource(URI source)
+        public Builder<D> setSource(URI source)
         {
             this.source = source;
             return this;
         }
 
-        public Builder<R> setTime(ZonedDateTime time)
+        public Builder<D> setTime(ZonedDateTime time)
         {
             this.time = time;
             return this;
         }
 
-        public Builder<R> setDatacontenttype(String datacontenttype)
+        public Builder<D> setDataschema(URI dataschema)
+        {
+            this.dataschema = dataschema;
+            return this;
+        }
+
+        public Builder<D> setDatacontenttype(String datacontenttype)
         {
             this.datacontenttype = datacontenttype;
             return this;
         }
 
-        public Builder<R> setData(EventData<R> data)
+        public Builder<D> setData(D data)
         {
             this.data = data;
             return this;
         }
 
-        public RepoEvent<R> build()
+        public RepoEvent<D> build()
         {
             return new RepoEvent<>(this);
         }

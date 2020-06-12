@@ -26,6 +26,7 @@
 package org.alfresco.repo.event.v1.model;
 
 import static org.alfresco.repo.event.util.TestUtil.JSON_COMPARATOR;
+import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
 import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
@@ -76,11 +77,12 @@ public class EventTest
                     .setResource(resource)
                     .build();
 
-        RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(getUUID())
+        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
                     .setType("org.alfresco.event.node.Created")
                     .setData(eventData)
+                    .setDataschema(getDataSchema("nodeCreated"))
                     .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
@@ -94,7 +96,7 @@ public class EventTest
     {
         String nodeCreatedEventJson = TestUtil.getResourceFileAsString("NodeCreatedEvent.json");
         assertNotNull(nodeCreatedEventJson);
-        RepoEvent<NodeResource> result = OBJECT_MAPPER.readValue(nodeCreatedEventJson, new TypeReference<>()
+        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventJson, new TypeReference<>()
         {
         });
 
@@ -118,17 +120,17 @@ public class EventTest
                     "cb645043-e7d2-4e51-b61d-e6d01582cbab")
                     .setResource(resource).build();
 
-        RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(
+        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(
                     "97c1b36c-c569-4c66-8a31-7a8d0b6b804a")
                     .setSource(getSource())
                     .setTime(parseTime("2020-04-27T12:37:03.560134+01:00"))
                     .setType("org.alfresco.event.node.Created")
                     .setData(eventData)
+                    .setDataschema(getDataSchema("nodeCreated"))
                     .build();
 
         assertEquals(repoEvent, result);
     }
-
 
     @Test
     public void nodeUpdatedEvent_marshalling() throws Exception
@@ -161,11 +163,12 @@ public class EventTest
                     .setResourceBefore(resourceBefore)
                     .build();
 
-        RepoEvent<NodeResource> repoEvent = RepoEvent.<NodeResource>builder().setId(getUUID())
+        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
                     .setType("org.alfresco.event.node.Updated")
                     .setData(eventData)
+                    .setDataschema(getDataSchema("nodeUpdated"))
                     .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
@@ -179,7 +182,7 @@ public class EventTest
     {
         String nodeUpdatedEventJson = TestUtil.getResourceFileAsString("NodeUpdatedEvent.json");
         assertNotNull(nodeUpdatedEventJson);
-        RepoEvent<NodeResource> result = OBJECT_MAPPER.readValue(nodeUpdatedEventJson, new TypeReference<>()
+        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeUpdatedEventJson, new TypeReference<>()
         {
         });
 
@@ -211,12 +214,13 @@ public class EventTest
                     .setResourceBefore(expectedResourceBefore)
                     .build();
 
-        RepoEvent<NodeResource> expectedRepoEvent = RepoEvent.<NodeResource>builder().setId(
+        RepoEvent<EventData<NodeResource>> expectedRepoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(
                     "df708027-e0a8-4b30-92a5-0d19235a7800")
                     .setSource(getSource())
                     .setTime(parseTime("2020-04-27T14:25:59.855866+01:00"))
                     .setType("org.alfresco.event.node.Updated")
                     .setData(expectedEventData)
+                    .setDataschema(getDataSchema("nodeUpdated"))
                     .build();
 
         assertEquals(expectedRepoEvent, result);
@@ -232,12 +236,13 @@ public class EventTest
                     .setResource(childAssocResource)
                     .build();
 
-        RepoEvent<ChildAssociationResource> repoEvent = RepoEvent.<ChildAssociationResource>builder()
+        RepoEvent<EventData<ChildAssociationResource>> repoEvent = RepoEvent.<EventData<ChildAssociationResource>>builder()
                     .setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
                     .setType("org.alfresco.event.assoc.child.Created")
                     .setData(eventData)
+                    .setDataschema(getDataSchema("childAssocCreated"))
                     .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
@@ -251,7 +256,7 @@ public class EventTest
     {
         String childAssocCreatedEventJson = TestUtil.getResourceFileAsString("ChildAssocCreated.json");
         assertNotNull(childAssocCreatedEventJson);
-        RepoEvent<ChildAssociationResource> result = OBJECT_MAPPER.readValue(childAssocCreatedEventJson, new TypeReference<>()
+        RepoEvent<EventData<ChildAssociationResource>> result = OBJECT_MAPPER.readValue(childAssocCreatedEventJson, new TypeReference<>()
         {
         });
 
@@ -264,12 +269,13 @@ public class EventTest
                     .setResource(expectedResource)
                     .build();
 
-        RepoEvent<ChildAssociationResource> expectedRepoEvent = RepoEvent.<ChildAssociationResource>builder()
+        RepoEvent<EventData<ChildAssociationResource>> expectedRepoEvent = RepoEvent.<EventData<ChildAssociationResource>>builder()
                     .setId("928c28fc-da23-441d-bb8b-72b068a9ceb5")
                     .setSource(getSource())
                     .setTime(parseTime("2020-05-28T09:56:52.235411+01:00"))
                     .setType("org.alfresco.event.assoc.child.Created")
                     .setData(expectedEventData)
+                    .setDataschema(getDataSchema("childAssocCreated"))
                     .build();
 
         assertEquals(expectedRepoEvent, result);
@@ -280,17 +286,18 @@ public class EventTest
     {
         PeerAssociationResource peerAssocResource = new PeerAssociationResource(getUUID(), getUUID(), "cm:references");
 
-        EventData<PeerAssociationResource > eventData = EventData.<PeerAssociationResource>builder()
+        EventData<PeerAssociationResource> eventData = EventData.<PeerAssociationResource>builder()
                     .setEventGroupId(getUUID())
                     .setResource(peerAssocResource)
                     .build();
 
-        RepoEvent<PeerAssociationResource > repoEvent = RepoEvent.<PeerAssociationResource>builder()
+        RepoEvent<EventData<PeerAssociationResource>> repoEvent = RepoEvent.<EventData<PeerAssociationResource>>builder()
                     .setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
                     .setType("org.alfresco.event.assoc.peer.Created")
                     .setData(eventData)
+                    .setDataschema(getDataSchema("peerAssocCreated"))
                     .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
@@ -304,7 +311,7 @@ public class EventTest
     {
         String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("PeerAssocCreated.json");
         assertNotNull(peerAssocCreatedEventJson);
-        RepoEvent<PeerAssociationResource> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>()
+        RepoEvent<EventData<PeerAssociationResource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>()
         {
         });
 
@@ -317,12 +324,13 @@ public class EventTest
                     .setResource(expectedResource)
                     .build();
 
-        RepoEvent<PeerAssociationResource> expectedRepoEvent = RepoEvent.<PeerAssociationResource>builder()
+        RepoEvent<EventData<PeerAssociationResource>> expectedRepoEvent = RepoEvent.<EventData<PeerAssociationResource>>builder()
                     .setId("8677a369-a30d-469e-b313-e5bf1b590c8e")
                     .setSource(getSource())
                     .setTime(parseTime("2020-05-28T10:36:21.291392+01:00"))
                     .setType("org.alfresco.event.assoc.peer.Created")
                     .setData(expectedEventData)
+                    .setDataschema(getDataSchema("peerAssocCreated"))
                     .build();
 
         assertEquals(expectedRepoEvent, result);

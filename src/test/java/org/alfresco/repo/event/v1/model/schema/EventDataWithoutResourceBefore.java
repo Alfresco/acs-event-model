@@ -23,39 +23,49 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-package org.alfresco.repo.event.v1.model;
+package org.alfresco.repo.event.v1.model.schema;
 
-import java.io.File;
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.Resource;
 
-import org.junit.Test;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Event data object to generate the JSON schema without {@code resourceBefore} property.
+ *
  * @author Jamal Kaabi-Mofrad
  */
-public class JsonSchemaGeneratorTest
+// Used with jsonschema-generator to control the order
+@JsonPropertyOrder
+public class EventDataWithoutResourceBefore<R extends Resource> implements DataAttributes<R>
 {
+    @Required
+    private String eventGroupId;
 
-    @Test
-    public void generateSchema() throws Exception
+    @Required
+    private R resource;
+
+    public EventDataWithoutResourceBefore()
     {
-        File outputDir = new File("target/schema/");
-        outputDir.mkdirs();
+    }
 
-        ObjectMapper mapper = new ObjectMapper();
-        SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
-        TypeReference<RepoEvent<NodeResource>> typeReference = new TypeReference<>()
-        {
-        };
+    @Override
+    public String getEventGroupId()
+    {
+        return eventGroupId;
+    }
 
-        JavaType type = mapper.getTypeFactory().constructType(typeReference);
-        mapper.acceptJsonFormatVisitor(type, visitor);
-        JsonSchema schema = visitor.finalSchema();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(outputDir, "RepoEvent.json"), schema);
+    @Override
+    public R getResource()
+    {
+        return resource;
+    }
+
+    @JsonIgnore
+    @Override
+    public R getResourceBefore()
+    {
+        return null;
     }
 }

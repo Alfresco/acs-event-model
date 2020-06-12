@@ -27,12 +27,15 @@ package org.alfresco.repo.event.databind;
 
 import java.time.ZonedDateTime;
 
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.EventData;
 import org.alfresco.repo.event.v1.model.Resource;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 /**
@@ -44,16 +47,41 @@ public class ObjectMapperFactory
 {
     public static ObjectMapper createInstance()
     {
-        ObjectMapper mapper = new ObjectMapper();
+        return new ObjectMapperFactory().createObjectMapper();
+    }
+
+    public ObjectMapper createObjectMapper()
+    {
+        final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        final SimpleModule module = new SimpleModule("Resource Serializer-Deserializer",
-                                                     new Version(0, 1, 0, "", "", ""));
+        final SimpleModule module = getSimpleModule();
+        final SimpleAbstractTypeResolver resolver = getSimpleAbstractTypeResolver();
+        if(resolver != null)
+        {
+            module.setAbstractTypes(resolver);
+        }
+
+        mapper.registerModule(module);
+        return mapper;
+    }
+
+    protected SimpleModule getSimpleModule()
+    {
+        final SimpleModule module =
+                    new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
         module.addDeserializer(Resource.class, new ResourceDeserializer());
-        mapper.registerModule(module);
-        return mapper;
+
+        return module;
+    }
+
+    protected SimpleAbstractTypeResolver getSimpleAbstractTypeResolver()
+    {
+        SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
+        resolver.addMapping(DataAttributes.class, EventData.class);
+        return resolver;
     }
 }
