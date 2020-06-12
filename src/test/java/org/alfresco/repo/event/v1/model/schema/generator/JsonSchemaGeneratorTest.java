@@ -75,11 +75,6 @@ public class JsonSchemaGeneratorTest
         {
             this.fileNames = fileNames;
         }
-
-        public List<String> getFileNames()
-        {
-            return fileNames;
-        }
     }
 
     @Test
@@ -150,15 +145,6 @@ public class JsonSchemaGeneratorTest
             return (annotation != null);
         });
 
-        // If we need to add '$id'
-        //        configBuilder.forTypesInGeneral().withIdResolver(type -> {
-        //            if (type.getType().getErasedType() == RepoEvent.class)
-        //            {
-        //                return "https://api.alfresco.com";
-        //            }
-        //            return null;
-        //        });
-
         return configBuilder;
     }
 
@@ -167,6 +153,7 @@ public class JsonSchemaGeneratorTest
         File outputDir = new File("target/schema/");
         if (!outputDir.exists())
         {
+            //noinspection ResultOfMethodCallIgnored
             outputDir.mkdirs();
         }
 
