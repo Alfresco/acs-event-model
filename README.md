@@ -37,7 +37,6 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.node.Created` | Occurs when a node is created |
 | `org.alfresco.event.node.Updated` | Occurs when a node is updated or moved. Currently only node's name, type, properties, aspects, and content are supported|
 | `org.alfresco.event.node.Deleted` | Occurs when a node is deleted |
-| `org.alfresco.event.node.Downloaded` | Occurs when a content node is downloaded. Not applicable to zip downloads |
 | `org.alfresco.event.assoc.child.Created` | Occurs when a secondary child association is created |
 | `org.alfresco.event.assoc.child.Deleted` | Occurs when a secondary child association is deleted |
 | `org.alfresco.event.assoc.peer.Created` | Occurs when a peer association is created |
@@ -93,66 +92,6 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
         "cm:titled",
         "cm:auditable"
       ]
-    }
-  }
-}
-```
-
-### File downloaded event example
-
-```json
-{
-  "specversion": "1.0",
-  "type": "org.alfresco.event.node.Downloaded",
-  "id": "8ea88e97-2e7c-4f27-a4a1-3c7ad29839d3",
-  "source": "/23c89f0b-d8a0-4029-b9b5-e921cfc3d45c",
-  "time": "2020-05-20T16:41:13.847803+01:00",
-  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeDownloaded",
-  "datacontenttype": "application/json",
-  "data": {
-    "eventGroupId": "a8244eb2-c15a-4110-9eb3-13c68260846d",
-    "resource": {
-      "id": "43126263-80dd-444d-8aff-6ae363370dc8",
-      "primaryHierarchy": [
-        "c251895b-af90-47a0-a133-cc972cbabf5a",
-        "a2f9d25d-0b4e-44a3-9fec-4dbdfa09fb9f",
-        "43c66524-9525-49ba-bcc4-40390ad3e3ce"
-      ],
-      "name": "myfile1.txt",
-      "nodeType": "cm:content",
-      "createdByUser": {
-        "id": "admin",
-        "displayName": "Administrator"
-      },
-      "createdAt": "2020-05-20T16:39:45.704+01:00",
-      "modifiedByUser": {
-        "id": "admin",
-        "displayName": "Administrator"
-      },
-      "modifiedAt": "2020-05-20T16:39:45.704+01:00",
-      "content": {
-        "mimeType": "text/plain",
-        "sizeInBytes": 9,
-        "encoding": "UTF-8"
-      },
-      "properties": {
-        "app:editInline": true,
-        "cm:lastThumbnailModification": [
-          "pdf:1589989188069",
-          "doclib:1589989197241"
-        ]
-      },
-      "aspectNames": [
-        "app:inlineeditable",
-        "sys:localized",
-        "cm:thumbnailModification",
-        "sys:referenceable",
-        "cm:titled",
-        "rn:renditioned",
-        "cm:auditable"
-      ],
-      "isFile": true,
-      "isFolder": false
     }
   }
 }
