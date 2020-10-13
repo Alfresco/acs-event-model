@@ -80,7 +80,7 @@ public class EventTest
         RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
-                    .setType("org.alfresco.event.node.Created")
+                    .setType(EventType.NODE_CREATED)
                     .setData(eventData)
                     .setDataschema(getDataSchema("nodeCreated"))
                     .build();
@@ -124,7 +124,7 @@ public class EventTest
                     "97c1b36c-c569-4c66-8a31-7a8d0b6b804a")
                     .setSource(getSource())
                     .setTime(parseTime("2020-04-27T12:37:03.560134+01:00"))
-                    .setType("org.alfresco.event.node.Created")
+                    .setType(EventType.NODE_CREATED)
                     .setData(eventData)
                     .setDataschema(getDataSchema("nodeCreated"))
                     .build();
@@ -166,7 +166,7 @@ public class EventTest
         RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder().setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
-                    .setType("org.alfresco.event.node.Updated")
+                    .setType(EventType.NODE_UPDATED)
                     .setData(eventData)
                     .setDataschema(getDataSchema("nodeUpdated"))
                     .build();
@@ -218,7 +218,7 @@ public class EventTest
                     "df708027-e0a8-4b30-92a5-0d19235a7800")
                     .setSource(getSource())
                     .setTime(parseTime("2020-04-27T14:25:59.855866+01:00"))
-                    .setType("org.alfresco.event.node.Updated")
+                    .setType(EventType.NODE_UPDATED)
                     .setData(expectedEventData)
                     .setDataschema(getDataSchema("nodeUpdated"))
                     .build();
@@ -240,7 +240,7 @@ public class EventTest
                     .setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
-                    .setType("org.alfresco.event.assoc.child.Created")
+                    .setType(EventType.CHILD_ASSOC_CREATED)
                     .setData(eventData)
                     .setDataschema(getDataSchema("childAssocCreated"))
                     .build();
@@ -273,7 +273,7 @@ public class EventTest
                     .setId("928c28fc-da23-441d-bb8b-72b068a9ceb5")
                     .setSource(getSource())
                     .setTime(parseTime("2020-05-28T09:56:52.235411+01:00"))
-                    .setType("org.alfresco.event.assoc.child.Created")
+                    .setType(EventType.CHILD_ASSOC_CREATED)
                     .setData(expectedEventData)
                     .setDataschema(getDataSchema("childAssocCreated"))
                     .build();
@@ -295,7 +295,7 @@ public class EventTest
                     .setId(getUUID())
                     .setSource(getSource())
                     .setTime(ZonedDateTime.now())
-                    .setType("org.alfresco.event.assoc.peer.Created")
+                    .setType(EventType.PEER_ASSOC_CREATED)
                     .setData(eventData)
                     .setDataschema(getDataSchema("peerAssocCreated"))
                     .build();
@@ -328,7 +328,7 @@ public class EventTest
                     .setId("8677a369-a30d-469e-b313-e5bf1b590c8e")
                     .setSource(getSource())
                     .setTime(parseTime("2020-05-28T10:36:21.291392+01:00"))
-                    .setType("org.alfresco.event.assoc.peer.Created")
+                    .setType(EventType.PEER_ASSOC_CREATED)
                     .setData(expectedEventData)
                     .setDataschema(getDataSchema("peerAssocCreated"))
                     .build();
