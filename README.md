@@ -240,6 +240,71 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
 }
 ```
 
+### Node updated event example - _content added_ 
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "d1b290e3-fa20-4aaa-b81a-04cfc11ef068",
+  "source": "/8a49c5b4-d9aa-4c1d-9dd6-d57d2e8541a7",
+  "time": "2020-05-15T14:55:46.326144+01:00",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "1870deed-9a41-4a83-a592-1d28beb0f8bf",
+    "resource": {
+      "@type":"NodeResource",
+      "id": "3b827125-987e-4ee4-aad6-1e2a0cc3cb5f",
+      "primaryHierarchy": [
+        "fb78e935-5239-4035-b997-65c7cefaa633",
+        "d88a0730-8616-474b-bf92-b56ff975f5c5",
+        "cf9da5a5-3c82-47a1-adb6-366352ffd822"
+      ],
+      "name": "repo_5129.txt",
+      "nodeType": "cm:content",
+      "createdByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "createdAt": "2020-05-15T14:50:51.508+01:00",
+      "modifiedByUser": {
+        "id": "admin",
+        "displayName": "Administrator"
+      },
+      "modifiedAt": "2020-05-15T14:55:46.271+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589550869589"
+        ]
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFolder": false,
+      "isFile": true
+    },
+    "resourceBefore": {
+      "@type":"NodeResource",
+      "modifiedAt": "2020-05-15T14:54:29.593+01:00",
+      "content": {}
+    }
+  }
+}
+```
+
 ### Node updated event example - _node type changed_ 
 
 ```json
@@ -297,6 +362,142 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     },
     "resourceBefore": {
       "nodeType": "cm:content"
+    }
+  }
+}
+```
+
+### Node updated event example - _property added_ 
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "6449e825-5f0d-40b9-904d-4371d717b1d8",
+  "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
+  "time": "2020-05-15T14:10:58.717856+01:00",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "6eef795f-6c9f-46dd-93c2-b248caec8171",
+    "resource": {
+      "@type":"NodeResource",
+      "id": "9a6e488b-49a3-41ef-8032-82a2afbd153e",
+      "primaryHierarchy": [
+        "3244959b-f3a8-4bb9-82f5-d16300148bb8",
+        "9e5dd366-1d55-4b84-a8e5-54721d1e3748",
+        "190d8f46-13a1-443b-8d16-7e3c9f52cfc7"
+      ],
+      "name": "testFile.txt",
+      "nodeType": "smf:smartFolderTemplate",
+      "createdByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "createdAt": "2020-05-15T14:10:47.314+01:00",
+      "modifiedByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "modifiedAt": "2020-05-15T14:10:58.696+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589548249020"
+        ],
+        "cm:title": "Test file1"
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFile": true,
+      "isFolder": false
+    },
+    "resourceBefore": {
+      "@type":"NodeResource",
+      "modifiedAt":"2020-05-12T15:13:10.889+01:00",
+      "properties": {
+        "cm:title": null
+      }
+    }
+  }
+}
+```
+
+### Node updated event example - _property updated_ 
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "6449e825-5f0d-40b9-904d-4371d717b1d8",
+  "source": "/f52eada4-0673-4dd7-8df6-9838ac911a46",
+  "time": "2020-05-15T14:10:58.717856+01:00",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "6eef795f-6c9f-46dd-93c2-b248caec8171",
+    "resource": {
+      "@type":"NodeResource",
+      "id": "9a6e488b-49a3-41ef-8032-82a2afbd153e",
+      "primaryHierarchy": [
+        "3244959b-f3a8-4bb9-82f5-d16300148bb8",
+        "9e5dd366-1d55-4b84-a8e5-54721d1e3748",
+        "190d8f46-13a1-443b-8d16-7e3c9f52cfc7"
+      ],
+      "name": "testFile.txt",
+      "nodeType": "smf:smartFolderTemplate",
+      "createdByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "createdAt": "2020-05-15T14:10:47.314+01:00",
+      "modifiedByUser": {
+        "id": "john.doe",
+        "displayName": "John Doe"
+      },
+      "modifiedAt": "2020-05-15T14:10:58.696+01:00",
+      "content": {
+        "mimeType": "text/plain",
+        "sizeInBytes": 8,
+        "encoding": "UTF-8"
+      },
+      "properties": {
+        "app:editInline": true,
+        "cm:lastThumbnailModification": [
+          "pdf:1589548249020"
+        ],
+        "cm:title": "Test file2"
+      },
+      "aspectNames": [
+        "app:inlineeditable",
+        "sys:localized",
+        "cm:thumbnailModification",
+        "sys:referenceable",
+        "cm:titled",
+        "rn:renditioned",
+        "cm:auditable"
+      ],
+      "isFile": true,
+      "isFolder": false
+    },
+    "resourceBefore": {
+      "@type":"NodeResource",
+      "modifiedAt":"2020-05-14T15:13:10.889+01:00",
+      "properties": {
+        "cm:title": "Test file1"
+      }
     }
   }
 }
