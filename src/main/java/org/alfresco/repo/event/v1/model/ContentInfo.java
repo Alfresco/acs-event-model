@@ -27,9 +27,13 @@ package org.alfresco.repo.event.v1.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Jamal Kaabi-Mofrad
  */
+@JsonInclude (Include.NON_NULL)
 public class ContentInfo
 {
     private String mimeType;
