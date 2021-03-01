@@ -35,7 +35,8 @@
         "2641bbe1-39ff-44dc-b47f-736552ad46cc"
       ],
       "properties": {
-        "cm:title": "test title"
+        "cm:title": "test title",
+        "cm:from": "1969-12-01T12:15:13.000000+01:00"
       },
       "aspectNames": [
         "cm:titled",

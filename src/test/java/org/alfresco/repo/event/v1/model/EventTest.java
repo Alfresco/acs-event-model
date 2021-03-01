@@ -35,6 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class EventTest
                     .setCreatedAt(ZonedDateTime.now())
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(ZonedDateTime.now())
-                    .setProperties(Map.of("cm:title", "test title"))
+                    .setProperties(Map.of("cm:title", "test title", "cm:from", new Date(-2637887000L)))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
@@ -111,7 +112,7 @@ public class EventTest
                     .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
-                    .setProperties(Map.of("cm:title", "test title"))
+                    .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T12:15:13.000000+01:00"))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();

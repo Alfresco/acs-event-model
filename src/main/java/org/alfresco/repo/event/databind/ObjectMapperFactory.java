@@ -25,6 +25,7 @@
  */
 package org.alfresco.repo.event.databind;
 
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 
 import org.alfresco.repo.event.v1.model.DataAttributes;
@@ -38,6 +39,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
 /**
  * Repo Event object factory.
  *
@@ -45,6 +48,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  */
 public class ObjectMapperFactory
 {
+
+    public static final String ISO_OFFSET_DATE_TIME_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX";
+
     public static ObjectMapper createInstance()
     {
         return new ObjectMapperFactory().createObjectMapper();
@@ -53,6 +59,7 @@ public class ObjectMapperFactory
     public ObjectMapper createObjectMapper()
     {
         final ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat(ISO_OFFSET_DATE_TIME_8601));
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
