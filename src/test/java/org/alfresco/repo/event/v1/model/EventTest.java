@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.alfresco.repo.event.databind.ObjectMapperFactory;
 import org.alfresco.repo.event.util.TestUtil;
@@ -57,6 +58,8 @@ public class EventTest
     @Test
     public void nodeCreatedEvent_marshalling() throws Exception
     {
+        //Set a consistent timezone for this test in order to avoid unpredictable results depending on timezone.
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         NodeResource resource = NodeResource.builder()
                     .setId(getUUID())
                     .setName("testFile.txt")
@@ -112,7 +115,7 @@ public class EventTest
                     .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
-                    .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T12:15:13+01:00"))
+                    .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T11:15:13Z"))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
