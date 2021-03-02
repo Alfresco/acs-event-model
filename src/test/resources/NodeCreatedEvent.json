@@ -36,7 +36,7 @@
       ],
       "properties": {
         "cm:title": "test title",
-        "cm:from": "1969-12-01T12:15:13.000000+01:00"
+        "cm:from": "1969-12-01T12:15:13+01:00"
       },
       "aspectNames": [
         "cm:titled",

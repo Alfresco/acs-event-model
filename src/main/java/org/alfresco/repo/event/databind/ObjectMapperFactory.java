@@ -25,21 +25,18 @@
  */
 package org.alfresco.repo.event.databind;
 
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-
-import org.alfresco.repo.event.v1.model.DataAttributes;
-import org.alfresco.repo.event.v1.model.EventData;
-import org.alfresco.repo.event.v1.model.Resource;
-
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.EventData;
+import org.alfresco.repo.event.v1.model.Resource;
 
-import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * Repo Event object factory.
@@ -49,8 +46,6 @@ import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 public class ObjectMapperFactory
 {
 
-    public static final String ISO_OFFSET_DATE_TIME_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX";
-
     public static ObjectMapper createInstance()
     {
         return new ObjectMapperFactory().createObjectMapper();
@@ -59,7 +54,6 @@ public class ObjectMapperFactory
     public ObjectMapper createObjectMapper()
     {
         final ObjectMapper mapper = new ObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat(ISO_OFFSET_DATE_TIME_8601));
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -80,6 +74,7 @@ public class ObjectMapperFactory
                     new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
+        module.addSerializer(Date.class, new DateUtilSerializer());
         module.addDeserializer(Resource.class, new ResourceDeserializer());
 
         return module;
