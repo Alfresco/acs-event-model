@@ -74,7 +74,7 @@ public class ObjectMapperFactory
                     new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
-        module.addSerializer(Date.class, new DateUtilSerializer());
+        module.addSerializer(Date.class, new DateSerializer());
         module.addDeserializer(Resource.class, new ResourceDeserializer());
 
         return module;
