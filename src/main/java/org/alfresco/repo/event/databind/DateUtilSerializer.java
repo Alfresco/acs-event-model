@@ -13,6 +13,8 @@ import java.util.Date;
 public class DateUtilSerializer extends StdSerializer<Date>
 {
 
+    private static final long serialVersionUID = 8901511880933150511L;
+
     public DateUtilSerializer()
     {
         super(null, false);
@@ -22,7 +24,7 @@ public class DateUtilSerializer extends StdSerializer<Date>
     public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException
     {
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.of("UTC"));
         jsonGenerator.writeString(zonedDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
     }
 }
