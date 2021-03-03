@@ -57,7 +57,6 @@ public class EventTest
     @Test
     public void nodeCreatedEvent_marshalling() throws Exception
     {
-        //Set a consistent timezone for this test in order to avoid unpredictable results depending on timezone.
         NodeResource resource = NodeResource.builder()
                     .setId(getUUID())
                     .setName("testFile.txt")
