@@ -25,18 +25,18 @@
  */
 package org.alfresco.repo.event.databind;
 
-import java.time.ZonedDateTime;
-
-import org.alfresco.repo.event.v1.model.DataAttributes;
-import org.alfresco.repo.event.v1.model.EventData;
-import org.alfresco.repo.event.v1.model.Resource;
-
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.EventData;
+import org.alfresco.repo.event.v1.model.Resource;
+
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * Repo Event object factory.
@@ -45,6 +45,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  */
 public class ObjectMapperFactory
 {
+
     public static ObjectMapper createInstance()
     {
         return new ObjectMapperFactory().createObjectMapper();
@@ -73,6 +74,7 @@ public class ObjectMapperFactory
                     new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
+        module.addSerializer(Date.class, new DateSerializer());
         module.addDeserializer(Resource.class, new ResourceDeserializer());
 
         return module;
