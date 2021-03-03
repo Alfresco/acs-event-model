@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>acs-event-model</artifactId>
-    <version>0.0.12</version>
+    <version>0.0.13-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>acs-event-model</name>
     <description>Alfresco Content Services Event Model</description>
@@ -25,7 +25,7 @@
         <connection>scm:git:https://github.com/Alfresco/acs-event-model.git</connection>
         <developerConnection>scm:git:https://github.com/Alfresco/acs-event-model.git</developerConnection>
         <url>https://github.com/Alfresco/acs-event-model</url>
-        <tag>acs-event-model-0.0.12</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
