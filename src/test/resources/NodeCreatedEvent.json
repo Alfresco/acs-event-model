@@ -12,6 +12,7 @@
       "@type": "NodeResource",
       "id": "7491120a-e2cb-478f-8599-ebf057cc0c7c",
       "name": "testFile.txt",
+      "assocQName": "cm:testFile.txt",
       "nodeType": "cm:content",
       "isFolder": false,
       "isFile": true,

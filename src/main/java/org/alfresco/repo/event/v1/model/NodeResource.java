@@ -59,6 +59,7 @@ public class NodeResource extends AbstractNodeResource
     private final ContentInfo               content;
     private final Map<String, Serializable> properties;
     private final Set<String>               aspectNames;
+    private final String                    assocQName;
 
     private NodeResource(Builder builder)
     {
@@ -74,6 +75,7 @@ public class NodeResource extends AbstractNodeResource
         this.content = builder.content;
         this.properties = builder.properties;
         this.aspectNames = builder.aspectNames;
+        this.assocQName = builder.assocQName;
     }
 
     public static Builder builder()
@@ -138,6 +140,10 @@ public class NodeResource extends AbstractNodeResource
         return aspectNames;
     }
 
+    public String getAssocQName() {
+        return assocQName;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -172,7 +178,7 @@ public class NodeResource extends AbstractNodeResource
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
                             createdAt, modifiedByUser, modifiedAt, content,
-                            properties, aspectNames);
+                            properties, aspectNames, assocQName);
     }
 
     @Override
@@ -192,6 +198,7 @@ public class NodeResource extends AbstractNodeResource
           .append(", properties=").append(properties)
           .append(", aspectNames=").append(aspectNames)
           .append(", primaryHierarchy=").append(primaryHierarchy)
+          .append(", assocQName=").append(assocQName)
           .append(']');
 
         return sb.toString();
@@ -216,6 +223,7 @@ public class NodeResource extends AbstractNodeResource
         private ContentInfo               content;
         private Map<String, Serializable> properties;
         private Set<String>               aspectNames;
+        private String                    assocQName;
 
         public Builder()
         {
@@ -241,6 +249,7 @@ public class NodeResource extends AbstractNodeResource
             this.primaryHierarchy = that.primaryHierarchy;
             this.properties = that.properties;
             this.aspectNames = that.aspectNames;
+            this.assocQName = that.assocQName;
         }
 
         public Builder setId(String id)
@@ -318,6 +327,12 @@ public class NodeResource extends AbstractNodeResource
         public Builder setAspectNames(Set<String> aspectNames)
         {
             this.aspectNames = aspectNames;
+            return this;
+        }
+
+        public Builder setAssocQName(String assocQName)
+        {
+            this.assocQName = assocQName;
             return this;
         }
 
