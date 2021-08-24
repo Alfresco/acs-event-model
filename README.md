@@ -64,6 +64,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "id": "7491120a-e2cb-478f-8599-ebf057cc0c7c",
       "name": "testFile.txt",
       "nodeType": "cm:content",
+      "assocQName": "cm:testFile.txt",
       "isFolder": false,
       "isFile": true,
       "createdByUser": {
@@ -119,6 +120,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "book.jpeg",
       "nodeType": "cm:content",
+      "assocQName": "cm:book.jpeg",
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -195,6 +197,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "repo_5129.txt",
       "nodeType": "cm:content",
+      "assocQName": "cm:repo_5129.txt",
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -263,6 +266,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "repo_5129.txt",
       "nodeType": "cm:content",
+      "assocQName": "cm:repo_5129.txt",
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -327,6 +331,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
+      "assocQName": "cm:testFile.txt",
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -390,6 +395,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
+      "assocQName": "cm:testFile.txt",
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -458,6 +464,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
+      "assocQName": "cm:testFile.txt",
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -525,6 +532,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       ],
       "name": "testFile.txt",
       "nodeType": "cm:content",
+      "assocQName": "cm:testFile.txt",
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -582,6 +590,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "resource": {
       "@type": "ChildAssociationResource",
       "assocType": "cm:contains",
+      "assocQName": "cm:12323-2341-222-3431-de3360d6e66g",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
@@ -609,6 +618,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "resource": {
       "@type": "ChildAssociationResource",
       "assocType": "cm:contains",
+      "assocQName": "cm:12323-2341-222-3431-de3360d6e66g",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
