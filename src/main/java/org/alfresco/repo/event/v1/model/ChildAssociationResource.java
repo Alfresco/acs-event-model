@@ -60,7 +60,8 @@ public class ChildAssociationResource extends AbstractAssociationResource
         return child;
     }
 
-    public String getAssocQName() {
+    public String getAssocQName() 
+    {
         return assocQName;
     }
 
