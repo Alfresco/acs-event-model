@@ -11,6 +11,7 @@
     "resource": {
       "@type": "ChildAssociationResource",
       "assocType": "cm:contains",
+      "assocQName": "cm:213131-1234-1235-5432-12039400a121",
       "parent": {
         "id": "7624edb6-6f28-4130-a4fb-4a5362807a05"
       },
