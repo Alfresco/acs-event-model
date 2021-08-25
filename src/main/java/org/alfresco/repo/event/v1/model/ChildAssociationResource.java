@@ -32,19 +32,22 @@ import java.util.Objects;
  */
 public class ChildAssociationResource extends AbstractAssociationResource
 {
+
     private ChildAssocInfo parent;
     private ChildAssocInfo child;
+    private String assocQName;
 
     public ChildAssociationResource()
     {
         super(null);
     }
 
-    public ChildAssociationResource(String parentId, String childId, String assocType)
+    public ChildAssociationResource(String parentId, String childId, String assocType, String assocQName)
     {
         super(assocType);
         this.parent = new ChildAssocInfo(parentId);
         this.child = new ChildAssocInfo(childId);
+        this.assocQName = assocQName;
     }
 
     public ChildAssocInfo getParent()
@@ -55,6 +58,11 @@ public class ChildAssociationResource extends AbstractAssociationResource
     public ChildAssocInfo getChild()
     {
         return child;
+    }
+
+    public String getAssocQName() 
+    {
+        return assocQName;
     }
 
     @Override
@@ -73,13 +81,13 @@ public class ChildAssociationResource extends AbstractAssociationResource
             return false;
         }
         ChildAssociationResource that = (ChildAssociationResource) o;
-        return Objects.equals(parent, that.parent) && Objects.equals(child, that.child);
+        return Objects.equals(parent, that.parent) && Objects.equals(child, that.child) && Objects.equals(assocQName, that.assocQName);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), parent, child);
+        return Objects.hash(super.hashCode(), parent, child, assocQName);
     }
 
     @Override
@@ -89,6 +97,7 @@ public class ChildAssociationResource extends AbstractAssociationResource
         sb.append("ChildAssociationResource [parent=").append(parent)
           .append(", child=").append(child)
           .append(", assocType=").append(assocType)
+          .append(", assocQName=").append(assocQName)
           .append(']');
         return sb.toString();
     }

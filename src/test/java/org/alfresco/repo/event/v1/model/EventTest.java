@@ -64,6 +64,7 @@ public class EventTest
                     .setIsFile(true)
                     .setIsFolder(false)
                     .setNodeType("cm:content")
+                    .setPrimaryAssocQName("cm:testFile.txt")
                     .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                     .setCreatedAt(ZonedDateTime.now())
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -108,6 +109,7 @@ public class EventTest
                     .setIsFile(true)
                     .setIsFolder(false)
                     .setNodeType("cm:content")
+                    .setPrimaryAssocQName("cm:testFile.txt")
                     .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                     .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -143,6 +145,7 @@ public class EventTest
                      .setIsFile(true)
                      .setIsFolder(false)
                      .setNodeType("cm:content")
+                     .setPrimaryAssocQName("cm:testFile.txt")
                      .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                      .setCreatedAt(ZonedDateTime.now())
                      .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -194,6 +197,7 @@ public class EventTest
                     .setIsFile(true)
                     .setIsFolder(false)
                     .setNodeType("cm:content")
+                    .setPrimaryAssocQName("cm:testFile.txt")
                     .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                     .setCreatedAt(parseTime("2020-04-27T14:25:59.852475+01:00"))
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -230,7 +234,10 @@ public class EventTest
     @Test
     public void childAssocCreatedEvent_marshalling() throws Exception
     {
-        ChildAssociationResource childAssocResource = new ChildAssociationResource(getUUID(), getUUID(), "cm:contains");
+        ChildAssociationResource childAssocResource = new ChildAssociationResource(getUUID(), 
+                                                                                   getUUID(), 
+                                                                                   "cm:contains", 
+                                                                                   "cm:213131-1234-1235-5432-12039400a121");
 
         EventData<ChildAssociationResource> eventData = EventData.<ChildAssociationResource>builder()
                     .setEventGroupId(getUUID())
@@ -263,7 +270,8 @@ public class EventTest
 
         ChildAssociationResource expectedResource = new ChildAssociationResource("7624edb6-6f28-4130-a4fb-4a5362807a05",
                                                                                  "5d9f3d6f-9802-4bb6-8ad3-0f9261d08894",
-                                                                                 "cm:contains");
+                                                                                 "cm:contains",
+                                                                                 "cm:213131-1234-1235-5432-12039400a121");
 
         EventData<ChildAssociationResource> expectedEventData = EventData.<ChildAssociationResource>builder()
                     .setEventGroupId("d933857e-5f4f-406e-aa5f-c747901f5a8f")
