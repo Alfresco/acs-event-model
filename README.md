@@ -590,7 +590,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "resource": {
       "@type": "ChildAssociationResource",
       "assocType": "cm:contains",
-      "primaryAssocQName": "cm:12323-2341-222-3431-de3360d6e66g",
+      "assocQName": "cm:12323-2341-222-3431-de3360d6e66g",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
@@ -618,7 +618,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "resource": {
       "@type": "ChildAssociationResource",
       "assocType": "cm:contains",
-      "primaryAssocQName": "cm:12323-2341-222-3431-de3360d6e66g",
+      "assocQName": "cm:12323-2341-222-3431-de3360d6e66g",
       "parent": {
         "id": "f47613d7-78b8-43b7-bc07-cb2260d6a66f"
       },
