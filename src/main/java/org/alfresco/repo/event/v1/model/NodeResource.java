@@ -59,7 +59,7 @@ public class NodeResource extends AbstractNodeResource
     private final ContentInfo               content;
     private final Map<String, Serializable> properties;
     private final Set<String>               aspectNames;
-    private final String                    assocQName;
+    private final String                    primaryAssocQName;
 
     private NodeResource(Builder builder)
     {
@@ -75,7 +75,7 @@ public class NodeResource extends AbstractNodeResource
         this.content = builder.content;
         this.properties = builder.properties;
         this.aspectNames = builder.aspectNames;
-        this.assocQName = builder.assocQName;
+        this.primaryAssocQName = builder.primaryAssocQName;
     }
 
     public static Builder builder()
@@ -140,8 +140,8 @@ public class NodeResource extends AbstractNodeResource
         return aspectNames;
     }
 
-    public String getAssocQName() {
-        return assocQName;
+    public String getPrimaryAssocQName() {
+        return primaryAssocQName;
     }
 
     @Override
@@ -178,7 +178,7 @@ public class NodeResource extends AbstractNodeResource
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
                             createdAt, modifiedByUser, modifiedAt, content,
-                            properties, aspectNames, assocQName);
+                            properties, aspectNames, primaryAssocQName);
     }
 
     @Override
@@ -198,7 +198,7 @@ public class NodeResource extends AbstractNodeResource
           .append(", properties=").append(properties)
           .append(", aspectNames=").append(aspectNames)
           .append(", primaryHierarchy=").append(primaryHierarchy)
-          .append(", assocQName=").append(assocQName)
+          .append(", primaryAssocQName=").append(primaryAssocQName)
           .append(']');
 
         return sb.toString();
@@ -223,7 +223,7 @@ public class NodeResource extends AbstractNodeResource
         private ContentInfo               content;
         private Map<String, Serializable> properties;
         private Set<String>               aspectNames;
-        private String                    assocQName;
+        private String                    primaryAssocQName;
 
         public Builder()
         {
@@ -249,7 +249,7 @@ public class NodeResource extends AbstractNodeResource
             this.primaryHierarchy = that.primaryHierarchy;
             this.properties = that.properties;
             this.aspectNames = that.aspectNames;
-            this.assocQName = that.assocQName;
+            this.primaryAssocQName = that.primaryAssocQName;
         }
 
         public Builder setId(String id)
@@ -330,9 +330,9 @@ public class NodeResource extends AbstractNodeResource
             return this;
         }
 
-        public Builder setAssocQName(String assocQName)
+        public Builder setPrimaryAssocQName(String primaryAssocQName)
         {
-            this.assocQName = assocQName;
+            this.primaryAssocQName = primaryAssocQName;
             return this;
         }
 
