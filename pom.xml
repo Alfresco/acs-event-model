@@ -16,7 +16,7 @@
 
     <properties>
         <maven.build.sourceVersion>11</maven.build.sourceVersion>
-        <jackson.version>2.13.3</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
 
         <jsonschema-generator.version>4.12.2</jsonschema-generator.version>
         <license-maven-plugin.version>2.0.1.alfresco-1</license-maven-plugin.version>
