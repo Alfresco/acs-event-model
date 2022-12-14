@@ -28,6 +28,8 @@ package org.alfresco.repo.event;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
+import org.alfresco.repo.event.extension.ExtensionAttributes;
+
 /**
  * Event's attributes conforming to
  * <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md">CloudEvents</a> <i>v1.0</i> specification.
@@ -72,4 +74,14 @@ public interface EventAttributes
      * to the <a href="https://tools.ietf.org/html/rfc2046">RFC2046</a>
      */
     String getDatacontenttype();
+
+    /**
+     * @return <b>Optional</b> extension attributes that can be additionally added to the event.
+     * <br>
+     * See CloudEvents v1.0 specification <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#extension-context-attributes">Extension Context Attributes</a> for more details.
+     */
+    default ExtensionAttributes getExtensionAttributes()
+    {
+        return null;
+    }
 }

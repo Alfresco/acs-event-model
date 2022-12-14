@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2022 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -30,7 +30,10 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import org.alfresco.repo.event.EventAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributes;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -53,6 +56,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
     private final URI           dataschema;
     private final String        datacontenttype;
     private final D data;
+    private final ExtensionAttributes extensionAttributes;
 
     private RepoEvent(Builder<D> builder)
     {
@@ -64,6 +68,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
         this.datacontenttype = builder.datacontenttype;
         this.data = builder.data;
         this.dataschema = builder.dataschema;
+        this.extensionAttributes = builder.extensionAttributes;
     }
 
     public static <D extends DataAttributes<? extends Resource>> Builder<D> builder()
@@ -118,6 +123,14 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
         return data;
     }
 
+    // The property will not be serialized if it is null
+    @JsonInclude(Include.NON_NULL)
+    @Override
+    public ExtensionAttributes getExtensionAttributes()
+    {
+        return extensionAttributes;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -137,13 +150,14 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
                     && Objects.equals(dataschema, repoEvent.dataschema)
                     && Objects.equals(time, repoEvent.time)
                     && Objects.equals(datacontenttype, repoEvent.datacontenttype)
-                    && Objects.equals(data, repoEvent.data);
+                    && Objects.equals(data, repoEvent.data)
+                    && Objects.equals(extensionAttributes, repoEvent.extensionAttributes);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(specversion, type, id, source, dataschema, time, datacontenttype, data);
+        return Objects.hash(specversion, type, id, source, dataschema, time, datacontenttype, data, extensionAttributes);
     }
 
     @Override
@@ -158,6 +172,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
           .append(", dataschema=").append(dataschema)
           .append(", datacontenttype=").append(datacontenttype)
           .append(", data=").append(data)
+          .append(", extensionAttributes=").append(extensionAttributes)
           .append(']');
         return sb.toString();
     }
@@ -176,6 +191,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
         private URI dataschema;
         private String datacontenttype = CONTENT_TYPE;
         private D data;
+        private ExtensionAttributes extensionAttributes;
 
         public Builder<D> setSpecversion(String specversion)
         {
@@ -222,6 +238,12 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
         public Builder<D> setData(D data)
         {
             this.data = data;
+            return this;
+        }
+
+        public Builder<D> setExtensionAttributes(ExtensionAttributes extensionAttributes)
+        {
+            this.extensionAttributes = extensionAttributes;
             return this;
         }
 

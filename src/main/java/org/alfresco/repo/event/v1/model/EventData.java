@@ -56,7 +56,6 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         this.eventGroupId = builder.eventGroupId;
         this.resource = builder.resource;
         this.resourceBefore = builder.resourceBefore;
-
     }
 
     public static <R extends Resource> Builder<R> builder()
