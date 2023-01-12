@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2022 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -34,6 +34,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.EventData;
 import org.alfresco.repo.event.v1.model.Resource;
+import org.alfresco.repo.event.extension.ExtensionAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -61,6 +63,9 @@ public class ObjectMapperFactory
         final SimpleAbstractTypeResolver resolver = getSimpleAbstractTypeResolver();
         if(resolver != null)
         {
+            // add the extension when creating the Mapper. As 'getSimpleAbstractTypeResolver' can be
+            // overridden by enterprise code.
+            resolver.addMapping(ExtensionAttributes.class, ExtensionAttributesImpl.class);
             module.setAbstractTypes(resolver);
         }
 
