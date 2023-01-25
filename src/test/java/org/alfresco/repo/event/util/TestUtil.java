@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2022 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import org.alfresco.repo.event.databind.ObjectMapperFactory;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.Customization;
@@ -45,23 +46,27 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.ValueMatcher;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * @author Jamal Kaabi-Mofrad
  */
 public class TestUtil
 {
-    private static final Pattern UUID_PATTERN = Pattern.compile(
-                "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
-    private static final Pattern DATE_TIME_PATTERN = Pattern.compile(
-                "^([0-9]+)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])[Tt]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\\.[0-9]+)?(([Zz])|([\\+|\\-]([01][0-9]|2[0-3]):[0-5][0-9]))$");
+    public static final ObjectMapper OBJECT_MAPPER = ObjectMapperFactory.createInstance();
 
-    private static final ValueMatcher<Object> UUID_VALUE_MATCHER = (o1, o2) -> {
+    public static final Pattern UUID_PATTERN = Pattern.compile(
+                "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
+    public static final Pattern DATE_TIME_PATTERN = Pattern.compile(
+                "^([0-9]+)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])[Tt]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\\.[0-9]+)?(([Zz])|([+|\\-]([01][0-9]|2[0-3]):[0-5][0-9]))$");
+
+    public static final ValueMatcher<Object> UUID_VALUE_MATCHER = (o1, o2) -> {
         // Just check that the "actual" value (o1) and expected value (o2)
         // are conforming to the defined regex. E.g: "521aac1c-20eb-444b-a137-2da3d35ee1a8"
         return UUID_PATTERN.matcher(o1.toString()).matches() && UUID_PATTERN.matcher(o2.toString()).matches();
     };
 
-    private static final ValueMatcher<Object> DATE_TIME_VALUE_MATCHER = (o1, o2) -> {
+    public static final ValueMatcher<Object> DATE_TIME_VALUE_MATCHER = (o1, o2) -> {
         // Just check that the "actual" value (o1) and expected value (o2)
         // are conforming to the defined regex. E.g: "2020-03-19T09:20:42.200386Z"
         return DATE_TIME_PATTERN.matcher(o1.toString()).matches() && DATE_TIME_PATTERN.matcher(o2.toString()).matches();
@@ -92,7 +97,10 @@ public class TestUtil
                 new Customization("data.resource.createdAt", DATE_TIME_VALUE_MATCHER),
                 new Customization("data.resource.modifiedAt", DATE_TIME_VALUE_MATCHER),
                 new Customization("data.resourceBefore.modifiedAt", DATE_TIME_VALUE_MATCHER),
-                new Customization("data.resource.aspectNames", ELEMENTS_ORDERING_MATCHER) };
+                new Customization("data.resource.aspectNames", ELEMENTS_ORDERING_MATCHER),
+                new Customization("extensionAttributes.extObject.id", UUID_VALUE_MATCHER),
+                new Customization("extensionAttributes.extObject.setProp", ELEMENTS_ORDERING_MATCHER),
+                new Customization("extensionAttributes.extObject.mapProp", ELEMENTS_ORDERING_MATCHER),};
 
     public static final CustomComparator JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT, CUSTOMIZATIONS);
 
@@ -104,7 +112,7 @@ public class TestUtil
         {
             return null;
         }
-        try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8.name())))
+        try (Reader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)))
         {
             return IOUtils.toString(reader);
         }
@@ -133,5 +141,10 @@ public class TestUtil
     public static ZonedDateTime parseTime(String time)
     {
         return ZonedDateTime.parse(time);
+    }
+
+    public static void checkExpectedJsonBody(String expectedJsonBody, String actualJsonBody) throws Exception
+    {
+        JSONAssert.assertEquals(expectedJsonBody, actualJsonBody, JSON_COMPARATOR);
     }
 }

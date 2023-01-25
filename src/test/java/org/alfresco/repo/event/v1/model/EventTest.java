@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2022 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -25,7 +25,8 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import static org.alfresco.repo.event.util.TestUtil.JSON_COMPARATOR;
+import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
+import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
 import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
@@ -39,21 +40,16 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-import org.alfresco.repo.event.databind.ObjectMapperFactory;
 import org.alfresco.repo.event.util.TestUtil;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Jamal Kaabi-Mofrad
  */
 public class EventTest
 {
-    private static final ObjectMapper OBJECT_MAPPER = ObjectMapperFactory.createInstance();
-
     @Test
     public void nodeCreatedEvent_marshalling() throws Exception
     {
@@ -345,8 +341,4 @@ public class EventTest
         assertEquals(expectedRepoEvent, result);
     }
 
-    private void checkExpectedJsonBody(String expectedJsonBody, String actualJsonBody) throws Exception
-    {
-        JSONAssert.assertEquals(expectedJsonBody, actualJsonBody, JSON_COMPARATOR);
-    }
 }
