@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2023 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -48,18 +48,19 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends AbstractNodeResource
 {
-    private final String                    name;
-    private final String                    nodeType;
-    private final Boolean                   isFile;
-    private final Boolean                   isFolder;
-    private final UserInfo                  createdByUser;
-    private final ZonedDateTime             createdAt;
-    private final UserInfo                  modifiedByUser;
-    private final ZonedDateTime             modifiedAt;
-    private final ContentInfo               content;
-    private final Map<String, Serializable> properties;
-    private final Set<String>               aspectNames;
-    private final String                    primaryAssocQName;
+    private final String                            name;
+    private final String                            nodeType;
+    private final Boolean                           isFile;
+    private final Boolean                           isFolder;
+    private final UserInfo                          createdByUser;
+    private final ZonedDateTime                     createdAt;
+    private final UserInfo                          modifiedByUser;
+    private final ZonedDateTime                     modifiedAt;
+    private final ContentInfo                       content;
+    private final Map<String, Serializable>         properties;
+    private final Map<String, Map<String, String>>  localizedProperties;
+    private final Set<String>                       aspectNames;
+    private final String                            primaryAssocQName;
 
     private NodeResource(Builder builder)
     {
@@ -74,6 +75,7 @@ public class NodeResource extends AbstractNodeResource
         this.modifiedAt = builder.modifiedAt;
         this.content = builder.content;
         this.properties = builder.properties;
+        this.localizedProperties = builder.localizedProperties;
         this.aspectNames = builder.aspectNames;
         this.primaryAssocQName = builder.primaryAssocQName;
     }
@@ -135,6 +137,11 @@ public class NodeResource extends AbstractNodeResource
         return properties;
     }
 
+    public Map<String, Map<String, String>> getLocalizedProperties()
+    {
+        return localizedProperties;
+    }
+
     public Set<String> getAspectNames()
     {
         return aspectNames;
@@ -170,6 +177,7 @@ public class NodeResource extends AbstractNodeResource
                     && Objects.equals(modifiedAt, that.modifiedAt)
                     && Objects.equals(content, that.content)
                     && Objects.equals(properties, that.properties)
+                    && Objects.equals(localizedProperties, that.localizedProperties)
                     && Objects.equals(aspectNames, that.aspectNames);
     }
 
@@ -178,7 +186,7 @@ public class NodeResource extends AbstractNodeResource
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
                             createdAt, modifiedByUser, modifiedAt, content,
-                            properties, aspectNames, primaryAssocQName);
+                            properties, localizedProperties, aspectNames, primaryAssocQName);
     }
 
     @Override
@@ -196,6 +204,7 @@ public class NodeResource extends AbstractNodeResource
           .append(", modifiedAt=").append(modifiedAt)
           .append(", content=").append(content)
           .append(", properties=").append(properties)
+          .append(", localizedProperties=").append(localizedProperties)
           .append(", aspectNames=").append(aspectNames)
           .append(", primaryHierarchy=").append(primaryHierarchy)
           .append(", primaryAssocQName=").append(primaryAssocQName)
@@ -210,20 +219,21 @@ public class NodeResource extends AbstractNodeResource
     @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder
     {
-        private String                    id;
-        private String                    name;
-        private String                    nodeType;
-        private Boolean                   isFile;
-        private Boolean                   isFolder;
-        private UserInfo                  createdByUser;
-        private ZonedDateTime             createdAt;
-        private UserInfo                  modifiedByUser;
-        private ZonedDateTime             modifiedAt;
-        private List<String>              primaryHierarchy;
-        private ContentInfo               content;
-        private Map<String, Serializable> properties;
-        private Set<String>               aspectNames;
-        private String                    primaryAssocQName;
+        private String                              id;
+        private String                              name;
+        private String                              nodeType;
+        private Boolean                             isFile;
+        private Boolean                             isFolder;
+        private UserInfo                            createdByUser;
+        private ZonedDateTime                       createdAt;
+        private UserInfo                            modifiedByUser;
+        private ZonedDateTime                       modifiedAt;
+        private List<String>                        primaryHierarchy;
+        private ContentInfo                         content;
+        private Map<String, Serializable>           properties;
+        private Map<String, Map<String, String>>    localizedProperties;
+        private Set<String>                         aspectNames;
+        private String                              primaryAssocQName;
 
         public Builder()
         {
@@ -248,6 +258,7 @@ public class NodeResource extends AbstractNodeResource
             this.content = that.content;
             this.primaryHierarchy = that.primaryHierarchy;
             this.properties = that.properties;
+            this.localizedProperties = that.localizedProperties;
             this.aspectNames = that.aspectNames;
             this.primaryAssocQName = that.primaryAssocQName;
         }
@@ -321,6 +332,12 @@ public class NodeResource extends AbstractNodeResource
         public Builder setProperties(Map<String, Serializable> properties)
         {
             this.properties = properties;
+            return this;
+        }
+
+        public Builder setLocalizedProperties(Map<String, Map<String, String>> localizedProperties)
+        {
+            this.localizedProperties = localizedProperties;
             return this;
         }
 

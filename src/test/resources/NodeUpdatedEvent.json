@@ -39,6 +39,12 @@
         "cm:description": "test description.",
         "cm:title": "test title2"
       },
+      "localizedProperties": {
+        "cm:description": {
+          "de":"ruf mich an",
+          "en":"call me"
+        }
+      },
       "aspectNames": [
         "cm:titled",
         "cm:auditable"
@@ -53,6 +59,11 @@
       "modifiedAt": "2020-04-27T14:25:59.854558+01:00",
       "properties": {
         "cm:title": "test title"
+      },
+      "localizedProperties": {
+        "cm:description": {
+          "de":"ruf mi an"
+        }
       }
     }
   }
