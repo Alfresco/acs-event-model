@@ -25,6 +25,9 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import static java.util.Locale.ENGLISH;
+import static java.util.Locale.GERMAN;
+
 import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
@@ -66,6 +69,8 @@ public class EventTest
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(ZonedDateTime.now())
                     .setProperties(Map.of("cm:title", "test title", "cm:from", new Date(-2637887000L)))
+                    .setLocalizedProperties(Map.of("cm:description",
+                            Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
@@ -111,6 +116,8 @@ public class EventTest
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
                     .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T11:15:13Z"))
+                    .setLocalizedProperties(Map.of("cm:description",
+                            Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
@@ -147,6 +154,8 @@ public class EventTest
                      .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                      .setModifiedAt(ZonedDateTime.now())
                      .setProperties(Map.of("cm:title", "test title2", "cm:description", "test description."))
+                     .setLocalizedProperties(Map.of("cm:description",
+                             Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                      .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                      .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                      .build();
@@ -155,6 +164,7 @@ public class EventTest
                      .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                      .setModifiedAt(ZonedDateTime.now())
                      .setProperties(Map.of("cm:title", "test title"))
+                     .setLocalizedProperties(Map.of("cm:description", Map.of(GERMAN.getLanguage(), "ruf mi an")))
                      .build();
 
         EventData<NodeResource> eventData = EventData.<NodeResource>builder()
@@ -199,6 +209,8 @@ public class EventTest
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(parseTime("2020-04-27T14:25:59.854153+01:00"))
                     .setProperties(Map.of("cm:title", "test title2", "cm:description", "test description."))
+                    .setLocalizedProperties(Map.of("cm:description",
+                            Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
                     .build();
@@ -207,6 +219,7 @@ public class EventTest
                     .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
                     .setModifiedAt(parseTime("2020-04-27T14:25:59.854558+01:00"))
                     .setProperties(Map.of("cm:title", "test title"))
+                    .setLocalizedProperties(Map.of("cm:description", Map.of(GERMAN.getLanguage(), "ruf mi an")))
                     .build();
 
         EventData<NodeResource> expectedEventData = EventData.<NodeResource>builder()

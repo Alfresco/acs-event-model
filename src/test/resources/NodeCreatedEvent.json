@@ -39,6 +39,12 @@
         "cm:title": "test title",
         "cm:from": "1969-12-01T11:15:13Z"
       },
+      "localizedProperties": {
+        "cm:description": {
+          "de":"ruf mich an",
+          "en":"call me"
+        }
+      },
       "aspectNames": [
         "cm:titled",
         "cm:auditable"
