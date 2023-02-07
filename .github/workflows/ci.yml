@@ -1,0 +1,18 @@
+name: ACS Event Model CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - feature/**
+  push:
+    branches:
+      - master
+      - feature/**
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    name: "Build and Release"
+    uses: Alfresco/alfresco-build-tools/.github/workflows/build-and-release-maven.yml@v1.34.1
+    secrets: inherit
