@@ -85,25 +85,6 @@ public class NodeResource extends AbstractNodeResource
         return new Builder();
     }
 
-    public Builder getFilledBuilder() {
-        return new Builder()
-                .setAspectNames(this.getAspectNames())
-                .setContent(this.getContent())
-                .setCreatedAt(this.getCreatedAt())
-                .setId(this.getId())
-                .setIsFile(this.isFile())
-                .setCreatedByUser(this.getCreatedByUser())
-                .setIsFolder(this.isFolder())
-                .setLocalizedProperties(this.getLocalizedProperties())
-                .setModifiedAt(this.getModifiedAt())
-                .setModifiedByUser(this.getModifiedByUser())
-                .setName(this.getName())
-                .setNodeType(this.getNodeType())
-                .setPrimaryAssocQName(this.getPrimaryAssocQName())
-                .setPrimaryHierarchy(this.getPrimaryHierarchy())
-                .setProperties(this.getProperties());
-    }
-
     public String getName()
     {
         return name;
