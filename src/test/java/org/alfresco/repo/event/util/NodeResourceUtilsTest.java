@@ -78,7 +78,9 @@ public class NodeResourceUtilsTest
                                 field.setAccessible(true);
                                 assertNotNull(field.get(originalResource));
                         }
-                } catch( IllegalAccessException exception ) {
+                }
+                catch( IllegalAccessException exception )
+                {
                         fail("all fields should be accessible in this test");
                 }
 
