@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.alfresco</groupId>
         <artifactId>alfresco-super-pom</artifactId>
-        <version>10</version>
+        <version>12</version>
     </parent>
 
     <artifactId>acs-event-model</artifactId>
@@ -15,7 +15,11 @@
     <description>Alfresco Content Services Event Model</description>
 
     <properties>
-        <maven.build.sourceVersion>11</maven.build.sourceVersion>
+        <java.version>17</java.version>
+        <maven.build.sourceVersion>${java.version}</maven.build.sourceVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
         <jackson.version>2.13.3</jackson.version>
 
         <jsonschema-generator.version>4.12.2</jsonschema-generator.version>
