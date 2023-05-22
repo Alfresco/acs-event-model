@@ -23,7 +23,7 @@
         <jackson.version>2.13.3</jackson.version>
 
         <jsonschema-generator.version>4.12.2</jsonschema-generator.version>
-        <license-maven-plugin.version>2.0.1.alfresco-1</license-maven-plugin.version>
+        <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
     </properties>
 
     <scm>
