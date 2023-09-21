@@ -31,6 +31,7 @@ import static java.util.Locale.GERMAN;
 import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
+import static org.alfresco.repo.event.util.TestUtil.getSecondaryParents;
 import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
@@ -43,10 +44,10 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import org.alfresco.repo.event.util.TestUtil;
 import org.junit.Test;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * @author Jamal Kaabi-Mofrad
@@ -73,6 +74,7 @@ public class EventTest
                             Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                    .setSecondaryParents(getSecondaryParents())
                     .build();
 
         EventData<NodeResource> eventData = EventData.<NodeResource>builder()
@@ -120,6 +122,7 @@ public class EventTest
                             Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                    .setSecondaryParents(getSecondaryParents())
                     .build();
 
         EventData<NodeResource> eventData = EventData.<NodeResource>builder().setEventGroupId(
@@ -158,6 +161,7 @@ public class EventTest
                              Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                      .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                      .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                     .setSecondaryParents(getSecondaryParents())
                      .build();
 
         NodeResource resourceBefore = NodeResource.builder()
@@ -213,6 +217,7 @@ public class EventTest
                             Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                     .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                     .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                    .setSecondaryParents(getSecondaryParents())
                     .build();
 
         NodeResource expectedResourceBefore = NodeResource.builder()

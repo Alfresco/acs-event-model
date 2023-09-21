@@ -103,6 +103,12 @@
               "items" : {
                 "type" : "string"
               }
+            },
+            "secondaryParents" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
             }
           },
           "required" : [ "id" ]
