@@ -119,10 +119,6 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
         "d88a0730-8616-474b-bf92-b56ff975f5c5",
         "cf9da5a5-3c82-47a1-adb6-366352ffd822"
       ],
-      "secondaryParents": [
-        "ec54bbe2-e9f9-4cb3-9f54-7eda18c4cc41",
-        "268a09b8-2f61-4700-8070-16fbc1dc116b"
-      ],
       "name": "book.jpeg",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:book.jpeg",
