@@ -564,14 +564,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "secondaryParents": [
         "c74a32d1-04c2-4010-af29-968409a93640"
       ]
-    },
-    "resourceReaderAuthorities": [
-      "GROUP_site_sitePrivate-gNfMkOUAzxGwobv_SiteManager",
-      "GROUP_site_sitePrivate-gNfMkOUAzxGwobv_SiteContributor",
-      "GROUP_site_sitePrivate-gNfMkOUAzxGwobv_SiteCollaborator",
-      "GROUP_site_sitePrivate-gNfMkOUAzxGwobv_SiteConsumer"
-    ],
-    "resourceDeniedAuthorities": []
+    }
   }
 }
 ```
