@@ -511,6 +511,64 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
 }
 ```
 
+### Node updated event example - _added secondary parent_
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.node.Updated",
+  "id": "37de61ba-72c9-4f8e-8f76-19e934c5cacf",
+  "source": "/bdf761f0-4190-44e8-853e-37729eec41a7",
+  "time": "2023-09-22T16:01:06.95Z",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/nodeUpdated",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "f1a65c60-3b5d-4774-a858-8d7bff036c8a",
+    "resource": {
+      "@type": "NodeResource",
+      "id": "a070d618-cf99-4413-a17d-c9a6d8d2a5a0",
+      "primaryHierarchy": [
+        "083cd638-79c1-4487-8804-470b45739127",
+        "ada3404d-7f62-4ef1-842b-a21b49cefca7",
+        "64b691f5-be1c-47e8-ab12-55feffdfc05a",
+        "24741732-c8c7-4ffb-9978-432a755768d4",
+        "d4bbdf7a-6ced-4fab-ad14-d293b9949d4d"
+      ],
+      "name": "folderA",
+      "nodeType": "cm:folder",
+      "createdByUser": {
+        "id": "User-EQmyoOlvHPYYHsk",
+        "displayName": "FN-User-EQmyoOlvHPYYHsk LN-User-EQmyoOlvHPYYHsk"
+      },
+      "createdAt": "2023-09-22T15:31:44.687Z",
+      "modifiedByUser": {
+        "id": "User-EQmyoOlvHPYYHsk",
+        "displayName": "FN-User-EQmyoOlvHPYYHsk LN-User-EQmyoOlvHPYYHsk"
+      },
+      "modifiedAt": "2023-09-22T16:00:05.785Z",
+      "properties": {},
+      "aspectNames": [
+        "cm:auditable"
+      ],
+      "primaryAssocQName": "cm:folderA",
+      "secondaryParents": [
+        "c74a32d1-04c2-4010-af29-968409a93640",
+        "1adff44b-a9b8-403f-b053-69c36285d4b2"
+      ],
+      "isFile": false,
+      "isFolder": true
+    },
+    "resourceBefore": {
+      "@type": "NodeResource",
+      "modifiedAt": "2023-09-22T15:59:58.945Z",
+      "secondaryParents": [
+        "c74a32d1-04c2-4010-af29-968409a93640"
+      ]
+    }
+  }
+}
+```
+
 ### File deleted event example
 
 ```json

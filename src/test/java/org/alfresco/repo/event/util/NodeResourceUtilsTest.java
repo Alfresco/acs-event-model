@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2023 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -39,6 +39,8 @@ import java.util.Set;
 
 import static java.util.Locale.ENGLISH;
 import static java.util.Locale.GERMAN;
+
+import static org.alfresco.repo.event.util.TestUtil.getSecondaryParents;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.junit.Assert.assertEquals;
@@ -68,6 +70,7 @@ public class NodeResourceUtilsTest
                                 Map.of(GERMAN.getLanguage(), "ruf mich an", ENGLISH.getLanguage(), "call me")))
                         .setAspectNames(Set.of("cm:titled", "cm:auditable"))
                         .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                        .setSecondaryParents(getSecondaryParents())
                         .build();
 
                 // asserts that all fields have information (are non-null)

@@ -48,6 +48,10 @@
       "aspectNames": [
         "cm:titled",
         "cm:auditable"
+      ],
+      "secondaryParents": [
+        "ec54bbe2-e9f9-4cb3-9f54-7eda18c4cc41",
+        "268a09b8-2f61-4700-8070-16fbc1dc116b"
       ]
     }
   }

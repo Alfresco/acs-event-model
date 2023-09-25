@@ -40,10 +40,10 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents Alfresco node resource.
+ * Any attribute that its value is null, will not be serialized.
  *
  * @author Jamal Kaabi-Mofrad
  */
-//Any attribute that its value is null, will not be serialized.
 @JsonInclude(Include.NON_NULL)
 @JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends AbstractNodeResource
@@ -61,6 +61,7 @@ public class NodeResource extends AbstractNodeResource
     private final Map<String, Map<String, String>>  localizedProperties;
     private final Set<String>                       aspectNames;
     private final String                            primaryAssocQName;
+    private final List<String>                      secondaryParents;
 
     private NodeResource(Builder builder)
     {
@@ -78,6 +79,7 @@ public class NodeResource extends AbstractNodeResource
         this.localizedProperties = builder.localizedProperties;
         this.aspectNames = builder.aspectNames;
         this.primaryAssocQName = builder.primaryAssocQName;
+        this.secondaryParents = builder.secondaryParents;
     }
 
     public static Builder builder()
@@ -151,6 +153,11 @@ public class NodeResource extends AbstractNodeResource
         return primaryAssocQName;
     }
 
+    public List<String> getSecondaryParents()
+    {
+        return secondaryParents;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -178,15 +185,16 @@ public class NodeResource extends AbstractNodeResource
                     && Objects.equals(content, that.content)
                     && Objects.equals(properties, that.properties)
                     && Objects.equals(localizedProperties, that.localizedProperties)
-                    && Objects.equals(aspectNames, that.aspectNames);
+                    && Objects.equals(aspectNames, that.aspectNames)
+                    && Objects.equals(secondaryParents, that.secondaryParents);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
-                            createdAt, modifiedByUser, modifiedAt, content,
-                            properties, localizedProperties, aspectNames, primaryAssocQName);
+                            createdAt, modifiedByUser, modifiedAt, content, properties,
+                            localizedProperties, aspectNames, primaryAssocQName, secondaryParents);
     }
 
     @Override
@@ -208,6 +216,7 @@ public class NodeResource extends AbstractNodeResource
           .append(", aspectNames=").append(aspectNames)
           .append(", primaryHierarchy=").append(primaryHierarchy)
           .append(", primaryAssocQName=").append(primaryAssocQName)
+          .append(", secondaryParents=").append(secondaryParents)
           .append(']');
 
         return sb.toString();
@@ -234,6 +243,7 @@ public class NodeResource extends AbstractNodeResource
         private Map<String, Map<String, String>>    localizedProperties;
         private Set<String>                         aspectNames;
         private String                              primaryAssocQName;
+        private List<String>                        secondaryParents;
 
         public Builder()
         {
@@ -261,6 +271,7 @@ public class NodeResource extends AbstractNodeResource
             this.localizedProperties = that.localizedProperties;
             this.aspectNames = that.aspectNames;
             this.primaryAssocQName = that.primaryAssocQName;
+            this.secondaryParents = that.secondaryParents;
         }
 
         public Builder setId(String id)
@@ -350,6 +361,12 @@ public class NodeResource extends AbstractNodeResource
         public Builder setPrimaryAssocQName(String primaryAssocQName)
         {
             this.primaryAssocQName = primaryAssocQName;
+            return this;
+        }
+
+        public Builder setSecondaryParents(List<String> secondaryParents)
+        {
+            this.secondaryParents = secondaryParents;
             return this;
         }
 

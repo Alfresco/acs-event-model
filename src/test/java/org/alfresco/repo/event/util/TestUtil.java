@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2023 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -126,6 +126,11 @@ public class TestUtil
     public static List<String> getTestNodePrimaryHierarchy()
     {
         return List.of("521aac1c-20eb-444b-a137-2da3d35ee1a8", "2641bbe1-39ff-44dc-b47f-736552ad46cc");
+    }
+
+    public static List<String> getSecondaryParents()
+    {
+        return List.of("ec54bbe2-e9f9-4cb3-9f54-7eda18c4cc41", "268a09b8-2f61-4700-8070-16fbc1dc116b");
     }
 
     public static URI getSource()
