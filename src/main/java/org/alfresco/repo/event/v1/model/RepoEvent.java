@@ -58,7 +58,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
     private final D data;
     private final ExtensionAttributes extensionAttributes;
 
-    private RepoEvent(Builder<D> builder)
+    protected RepoEvent(Builder<D> builder)
     {
         this.specversion = builder.specversion;
         this.type = builder.type;
