@@ -366,7 +366,14 @@ public class NodeResource extends AbstractNodeResource
 
         public Builder setSecondaryParents(List<String> secondaryParents)
         {
-            this.secondaryParents = secondaryParents;
+            if (secondaryParents == null || secondaryParents.isEmpty())
+            {
+                this.secondaryParents = null;
+            }
+            else
+            {
+                this.secondaryParents = secondaryParents;
+            }
             return this;
         }
 
