@@ -66,6 +66,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "isFolder": false,
       "isFile": true,
       "createdByUser": {
@@ -122,6 +123,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "book.jpeg",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:book.jpeg",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -199,6 +201,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "repo_5129.txt",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:repo_5129.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -268,6 +271,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "repo_5129.txt",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:repo_5129.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "admin",
         "displayName": "Administrator"
@@ -333,6 +337,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -397,6 +402,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -466,6 +472,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "smf:smartFolderTemplate",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -592,6 +599,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"
@@ -761,6 +769,7 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "name": "testFile.txt",
       "nodeType": "cm:content",
       "primaryAssocQName": "cm:testFile.txt",
+      "secondaryParents": [],
       "isFolder": false,
       "isFile": true,
       "createdByUser": {
