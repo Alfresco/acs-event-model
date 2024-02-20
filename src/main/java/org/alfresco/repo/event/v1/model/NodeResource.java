@@ -25,8 +25,11 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import static java.util.Collections.emptyList;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -366,9 +369,9 @@ public class NodeResource extends AbstractNodeResource
 
         public Builder setSecondaryParents(List<String> secondaryParents)
         {
-            if (secondaryParents == null || secondaryParents.isEmpty())
+            if (secondaryParents == null)
             {
-                this.secondaryParents = null;
+                this.secondaryParents = emptyList();
             }
             else
             {

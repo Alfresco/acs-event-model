@@ -50,24 +50,24 @@ public class NodeResourceTest
     }
 
     @Test
-    public void setSecondaryParents_emptyListShouldBeConvertedToNull()
+    public void setSecondaryParents_emptyListShouldBePreserved()
     {
         NodeResource.Builder nodeResourceBuilder = new NodeResource.Builder();
 
         nodeResourceBuilder.setSecondaryParents(emptyList());
 
         NodeResource nodeResource = nodeResourceBuilder.build();
-        assertNull("Expected secondary parents list to be null.", nodeResource.getSecondaryParents());
+        assertEquals("Expected empty list of secondary parents.", nodeResource.getSecondaryParents(), emptyList());
     }
 
     @Test
-    public void setSecondaryParents_nullListShouldNotThrowException()
+    public void setSecondaryParents_nullListShouldBeStoredAsEmpty()
     {
         NodeResource.Builder nodeResourceBuilder = new NodeResource.Builder();
 
         nodeResourceBuilder.setSecondaryParents(null);
 
         NodeResource nodeResource = nodeResourceBuilder.build();
-        assertNull("Expected secondary parents list to be null.", nodeResource.getSecondaryParents());
+        assertEquals("Expected empty list of secondary parents.", nodeResource.getSecondaryParents(), emptyList());
     }
 }
