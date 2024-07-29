@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2024 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -28,6 +28,7 @@ package org.alfresco.repo.event.databind;
 import java.io.IOException;
 import java.util.Map;
 
+import org.alfresco.repo.event.v1.model.AuditEntryResource;
 import org.alfresco.repo.event.v1.model.ChildAssociationResource;
 import org.alfresco.repo.event.v1.model.NodeResource;
 import org.alfresco.repo.event.v1.model.PeerAssociationResource;
@@ -50,7 +51,8 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
     private static final Map<String, Class<?>> TYPE_MAP   = Map.of(
                 getName(NodeResource.class), NodeResource.class,
                 getName(ChildAssociationResource.class), ChildAssociationResource.class,
-                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+                getName(PeerAssociationResource.class), PeerAssociationResource.class,
+                getName(AuditEntryResource.class), AuditEntryResource.class);
 
     public ResourceDeserializer()
     {
