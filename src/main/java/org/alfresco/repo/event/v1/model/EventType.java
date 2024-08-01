@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2024 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -35,7 +35,8 @@ public enum EventType
     NODE_CREATED(EventTypeConst.CREATED, ContextType.NODE), NODE_UPDATED(EventTypeConst.UPDATED, ContextType.NODE), NODE_DELETED(EventTypeConst.DELETED, ContextType.NODE),
     CHILD_ASSOC_CREATED(EventTypeConst.CREATED, ContextType.CHILD_ASSOC), CHILD_ASSOC_DELETED(EventTypeConst.DELETED, ContextType.CHILD_ASSOC),
     PEER_ASSOC_CREATED(EventTypeConst.CREATED, ContextType.PEER_ASSOC), PEER_ASSOC_DELETED(EventTypeConst.DELETED, ContextType.PEER_ASSOC),
-    PERMISSION_UPDATED(EventTypeConst.UPDATED, ContextType.PERMISSION);
+    PERMISSION_UPDATED(EventTypeConst.UPDATED, ContextType.PERMISSION),
+    AUDIT_ENTRY_CREATED(EventTypeConst.CREATED, ContextType.AUDIT);
 
     private static final String PREFIX = "org.alfresco.event.";
     private final String type;
@@ -70,7 +71,7 @@ public enum EventType
 
     private enum ContextType
     {
-        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission.");
+        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission."), AUDIT("audit.");
 
         private final String context;
         ContextType(String context)
