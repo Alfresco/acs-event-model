@@ -28,7 +28,6 @@ package org.alfresco.repo.event.databind;
 import java.io.IOException;
 import java.util.Map;
 
-import org.alfresco.repo.event.v1.model.AuditEntryResource;
 import org.alfresco.repo.event.v1.model.ChildAssociationResource;
 import org.alfresco.repo.event.v1.model.NodeResource;
 import org.alfresco.repo.event.v1.model.PeerAssociationResource;
@@ -51,8 +50,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
     private static final Map<String, Class<?>> TYPE_MAP   = Map.of(
                 getName(NodeResource.class), NodeResource.class,
                 getName(ChildAssociationResource.class), ChildAssociationResource.class,
-                getName(PeerAssociationResource.class), PeerAssociationResource.class,
-                getName(AuditEntryResource.class), AuditEntryResource.class);
+                getName(PeerAssociationResource.class), PeerAssociationResource.class);
 
     public ResourceDeserializer()
     {
