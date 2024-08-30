@@ -80,7 +80,7 @@ public class ObjectMapperFactory
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
         module.addSerializer(Date.class, new DateSerializer());
-        module.addDeserializer(Resource.class, new ResourceDeserializer());
+        module.addDeserializer(Resource.class, createResourceDeserializer());
 
         return module;
     }
@@ -90,5 +90,10 @@ public class ObjectMapperFactory
         SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
         resolver.addMapping(DataAttributes.class, EventData.class);
         return resolver;
+    }
+
+    protected ResourceDeserializer createResourceDeserializer()
+    {
+        return new ResourceDeserializer();
     }
 }

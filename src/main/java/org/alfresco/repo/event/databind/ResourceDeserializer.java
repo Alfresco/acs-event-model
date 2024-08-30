@@ -51,7 +51,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
 
     public ResourceDeserializer()
     {
-        this(createTypeMap());
+        this(createDefaultTypeMap());
     }
 
     public ResourceDeserializer(Map<String, Class<?>> typeMap)
@@ -59,7 +59,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
         TYPE_MAP = typeMap;
     }
 
-    public static Map<String, Class<?>> createTypeMap()
+    public static Map<String, Class<?>> createDefaultTypeMap()
     {
         return Map.of(
                 getName(NodeResource.class), NodeResource.class,
