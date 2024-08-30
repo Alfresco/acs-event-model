@@ -46,17 +46,28 @@ import com.fasterxml.jackson.databind.node.TextNode;
  */
 public class ResourceDeserializer extends JsonDeserializer<Resource>
 {
-    private static final String                TYPE_FIELD = "@type";
-    private static final Map<String, Class<?>> TYPE_MAP   = Map.of(
-                getName(NodeResource.class), NodeResource.class,
-                getName(ChildAssociationResource.class), ChildAssociationResource.class,
-                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+    private static final String         TYPE_FIELD  = "@type";
+    private final Map<String, Class<?>> TYPE_MAP;
 
     public ResourceDeserializer()
     {
+        this(createTypeMap());
     }
 
-    private static <T> String getName(Class<T> aClass)
+    public ResourceDeserializer(Map<String, Class<?>> typeMap)
+    {
+        TYPE_MAP = typeMap;
+    }
+
+    public static Map<String, Class<?>> createTypeMap()
+    {
+        return Map.of(
+                getName(NodeResource.class), NodeResource.class,
+                getName(ChildAssociationResource.class), ChildAssociationResource.class,
+                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+    }
+
+    public static  <T> String getName(Class<T> aClass)
     {
         return aClass.getSimpleName();
     }
