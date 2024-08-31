@@ -67,7 +67,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
                 getName(PeerAssociationResource.class), PeerAssociationResource.class);
     }
 
-    public static  <T> String getName(Class<T> aClass)
+    public static <T> String getName(Class<T> aClass)
     {
         return aClass.getSimpleName();
     }
