@@ -46,17 +46,28 @@ import com.fasterxml.jackson.databind.node.TextNode;
  */
 public class ResourceDeserializer extends JsonDeserializer<Resource>
 {
-    private static final String                TYPE_FIELD = "@type";
-    private static final Map<String, Class<?>> TYPE_MAP   = Map.of(
-                getName(NodeResource.class), NodeResource.class,
-                getName(ChildAssociationResource.class), ChildAssociationResource.class,
-                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+    private static final String         TYPE_FIELD  = "@type";
+    private final Map<String, Class<?>> typeMap;
 
     public ResourceDeserializer()
     {
+        this(createDefaultTypeMap());
     }
 
-    private static <T> String getName(Class<T> aClass)
+    public ResourceDeserializer(Map<String, Class<?>> typeMap)
+    {
+        this.typeMap = typeMap;
+    }
+
+    public static Map<String, Class<?>> createDefaultTypeMap()
+    {
+        return Map.of(
+                getName(NodeResource.class), NodeResource.class,
+                getName(ChildAssociationResource.class), ChildAssociationResource.class,
+                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+    }
+
+    public static <T> String getName(Class<T> aClass)
     {
         return aClass.getSimpleName();
     }
@@ -71,7 +82,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
         {
             throw new EventDeserializerException("The resource type '@type' is not defined.");
         }
-        final Class<?> registeredClass = TYPE_MAP.get(type.asText());
+        final Class<?> registeredClass = typeMap.get(type.asText());
         if (registeredClass == null)
         {
             throw new EventDeserializerException("There is no type registered for: " + type.asText());
