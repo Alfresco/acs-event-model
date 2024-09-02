@@ -47,7 +47,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class ResourceDeserializer extends JsonDeserializer<Resource>
 {
     private static final String         TYPE_FIELD  = "@type";
-    private final Map<String, Class<?>> TYPE_MAP;
+    private final Map<String, Class<?>> typeMap;
 
     public ResourceDeserializer()
     {
@@ -56,7 +56,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
 
     public ResourceDeserializer(Map<String, Class<?>> typeMap)
     {
-        TYPE_MAP = typeMap;
+        this.typeMap = typeMap;
     }
 
     public static Map<String, Class<?>> createDefaultTypeMap()
@@ -82,7 +82,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource>
         {
             throw new EventDeserializerException("The resource type '@type' is not defined.");
         }
-        final Class<?> registeredClass = TYPE_MAP.get(type.asText());
+        final Class<?> registeredClass = typeMap.get(type.asText());
         if (registeredClass == null)
         {
             throw new EventDeserializerException("There is no type registered for: " + type.asText());
