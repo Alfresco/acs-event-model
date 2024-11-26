@@ -100,7 +100,11 @@ public class TestUtil
                 new Customization("data.resource.aspectNames", ELEMENTS_ORDERING_MATCHER),
                 new Customization("extensionAttributes.extObject.id", UUID_VALUE_MATCHER),
                 new Customization("extensionAttributes.extObject.setProp", ELEMENTS_ORDERING_MATCHER),
-                new Customization("extensionAttributes.extObject.mapProp", ELEMENTS_ORDERING_MATCHER),};
+                new Customization("extensionAttributes.extObject.mapProp", ELEMENTS_ORDERING_MATCHER),
+                new Customization("data.resourceReaderAuthorities", TestUtil.ELEMENTS_ORDERING_MATCHER),
+                new Customization("data.resourceDeniedAuthorities", TestUtil.ELEMENTS_ORDERING_MATCHER),
+                new Customization("data.resourceReaderSecurityControls", TestUtil.ELEMENTS_ORDERING_MATCHER),
+                new Customization("extensionAttributes.client.id", TestUtil.UUID_VALUE_MATCHER),};
 
     public static final CustomComparator JSON_COMPARATOR = new CustomComparator(JSONCompareMode.STRICT, CUSTOMIZATIONS);
 

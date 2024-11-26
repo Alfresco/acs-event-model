@@ -114,7 +114,7 @@ public class EventExtensionTest
                     .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
-        String expectedJson = TestUtil.getResourceFileAsString("NodeCreatedEventWithExtension.json");
+        String expectedJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
     }
@@ -122,7 +122,7 @@ public class EventExtensionTest
     @Test
     public void nodeCreatedEventWithExtensionAttributes_unmarshalling() throws Exception
     {
-        String nodeCreatedEventWithExtAttJson = TestUtil.getResourceFileAsString("NodeCreatedEventWithExtension.json");
+        String nodeCreatedEventWithExtAttJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
         assertNotNull(nodeCreatedEventWithExtAttJson);
         RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventWithExtAttJson, new TypeReference<>()
         {
@@ -280,11 +280,10 @@ public class EventExtensionTest
             {
                 return true;
             }
-            if (!(o instanceof ExtensionTestObject))
+            if (!(o instanceof ExtensionTestObject that))
             {
                 return false;
             }
-            ExtensionTestObject that = (ExtensionTestObject) o;
             return getIntProp() == that.getIntProp()
                         && Double.compare(that.getDoubleProp(), getDoubleProp()) == 0
                         && isBoolProp() == that.isBoolProp()
