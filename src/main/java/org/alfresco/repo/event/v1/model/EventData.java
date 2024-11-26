@@ -26,6 +26,7 @@
 package org.alfresco.repo.event.v1.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -51,11 +52,26 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     @JsonTypeInfo(use = Id.NAME)
     private final R resourceBefore;
 
+    // Ignored if authorities is disabled
+    @JsonInclude(Include.NON_NULL)
+    private final Set<String> resourceReaderAuthorities;
+
+    // Ignored if authorities is disabled
+    @JsonInclude(Include.NON_NULL)
+    private final Set<String> resourceDeniedAuthorities;
+
+    // Only relevant for AGS module
+    @JsonInclude(Include.NON_NULL)
+    private final Set<String> resourceReaderSecurityControls;
+
     private EventData(Builder<R> builder)
     {
         this.eventGroupId = builder.eventGroupId;
         this.resource = builder.resource;
         this.resourceBefore = builder.resourceBefore;
+        this.resourceReaderAuthorities = builder.resourceReaderAuthorities;
+        this.resourceDeniedAuthorities = builder.resourceDeniedAuthorities;
+        this.resourceReaderSecurityControls = builder.resourceReaderSecurityControls;
     }
 
     public static <R extends Resource> Builder<R> builder()
@@ -81,6 +97,21 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         return resourceBefore;
     }
 
+    public Set<String> getResourceReaderAuthorities()
+    {
+        return resourceReaderAuthorities;
+    }
+
+    public Set<String> getResourceDeniedAuthorities()
+    {
+        return resourceDeniedAuthorities;
+    }
+
+    public Set<String> getResourceReaderSecurityControls()
+    {
+        return resourceReaderSecurityControls;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -88,20 +119,23 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         {
             return true;
         }
-        if (!(o instanceof EventData))
+        if (!(o instanceof EventData<?> that))
         {
             return false;
         }
-        EventData<?> eventData = (EventData<?>) o;
-        return Objects.equals(eventGroupId, eventData.eventGroupId)
-                    && Objects.equals(resource, eventData.resource)
-                    && Objects.equals(resourceBefore, eventData.resourceBefore);
+        return Objects.equals(eventGroupId, that.eventGroupId)
+                && Objects.equals(resource, that.resource)
+                && Objects.equals(resourceBefore, that.resourceBefore)
+                && Objects.equals(resourceReaderAuthorities, that.resourceReaderAuthorities)
+                && Objects.equals(resourceDeniedAuthorities, that.resourceDeniedAuthorities)
+                && Objects.equals(resourceReaderSecurityControls, that.resourceReaderSecurityControls);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(eventGroupId, resource, resourceBefore);
+        return Objects.hash(eventGroupId, resource, resourceBefore, resourceReaderAuthorities,
+                resourceDeniedAuthorities, resourceReaderSecurityControls);
     }
 
     @Override
@@ -109,9 +143,12 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     {
         final StringBuilder sb = new StringBuilder(500);
         sb.append("EventData [eventGroupId=").append(eventGroupId)
-          .append(", resource=").append(resource)
-          .append(", resourceBefore=").append(resourceBefore)
-          .append(']');
+                .append(", resource=").append(resource)
+                .append(", resourceBefore=").append(resourceBefore)
+                .append(", resourceReaderAuthorities=").append(resourceReaderAuthorities)
+                .append(", resourceDeniedAuthorities=").append(resourceDeniedAuthorities)
+                .append(", resourceReaderSecurityControls=").append(resourceReaderSecurityControls)
+                .append(']');
         return sb.toString();
     }
 
@@ -121,9 +158,13 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<R extends Resource>
     {
-        private String eventGroupId;
-        private R resource;
-        private R resourceBefore;
+
+        private String      eventGroupId;
+        private R           resource;
+        private R           resourceBefore;
+        private Set<String> resourceReaderAuthorities;
+        private Set<String> resourceDeniedAuthorities;
+        private Set<String> resourceReaderSecurityControls;
 
         public Builder<R> setEventGroupId(String eventGroupId)
         {
@@ -140,6 +181,24 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         public Builder<R> setResourceBefore(R resourceBefore)
         {
             this.resourceBefore = resourceBefore;
+            return this;
+        }
+
+        public Builder<R> setResourceReaderAuthorities(Set<String> resourceReaderAuthorities)
+        {
+            this.resourceReaderAuthorities = resourceReaderAuthorities;
+            return this;
+        }
+
+        public Builder<R> setResourceDeniedAuthorities(Set<String> resourceDeniedAuthorities)
+        {
+            this.resourceDeniedAuthorities = resourceDeniedAuthorities;
+            return this;
+        }
+
+        public Builder<R> setResourceReaderSecurityControls(Set<String> resourceReaderSecurityControls)
+        {
+            this.resourceReaderSecurityControls = resourceReaderSecurityControls;
             return this;
         }
 
