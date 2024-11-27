@@ -29,13 +29,13 @@ import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-import org.alfresco.repo.event.EventAttributes;
-import org.alfresco.repo.event.extension.ExtensionAttributes;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import org.alfresco.repo.event.EventAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributes;
 
 /**
  * Represents Alfresco event.
@@ -48,13 +48,13 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
     private static final String SPEC_VERSION = "1.0";
     private static final String CONTENT_TYPE = "application/json";
 
-    private final String        specversion;
-    private final String        type;
-    private final String        id;
-    private final URI           source;
+    private final String specversion;
+    private final String type;
+    private final String id;
+    private final URI source;
     private final ZonedDateTime time;
-    private final URI           dataschema;
-    private final String        datacontenttype;
+    private final URI dataschema;
+    private final String datacontenttype;
     private final D data;
     private final ExtensionAttributes extensionAttributes;
 
@@ -144,14 +144,14 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
         }
         RepoEvent<?> repoEvent = (RepoEvent<?>) o;
         return Objects.equals(specversion, repoEvent.specversion)
-                    && Objects.equals(type, repoEvent.type)
-                    && Objects.equals(id, repoEvent.id)
-                    && Objects.equals(source, repoEvent.source)
-                    && Objects.equals(dataschema, repoEvent.dataschema)
-                    && Objects.equals(time, repoEvent.time)
-                    && Objects.equals(datacontenttype, repoEvent.datacontenttype)
-                    && Objects.equals(data, repoEvent.data)
-                    && Objects.equals(extensionAttributes, repoEvent.extensionAttributes);
+                && Objects.equals(type, repoEvent.type)
+                && Objects.equals(id, repoEvent.id)
+                && Objects.equals(source, repoEvent.source)
+                && Objects.equals(dataschema, repoEvent.dataschema)
+                && Objects.equals(time, repoEvent.time)
+                && Objects.equals(datacontenttype, repoEvent.datacontenttype)
+                && Objects.equals(data, repoEvent.data)
+                && Objects.equals(extensionAttributes, repoEvent.extensionAttributes);
     }
 
     @Override
@@ -165,15 +165,15 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
     {
         final StringBuilder sb = new StringBuilder(250);
         sb.append("RepoEvent [specversion=").append(specversion)
-          .append(", type=").append(type)
-          .append(", id=").append(id)
-          .append(", source=").append(source)
-          .append(", time=").append(time)
-          .append(", dataschema=").append(dataschema)
-          .append(", datacontenttype=").append(datacontenttype)
-          .append(", data=").append(data)
-          .append(", extensionAttributes=").append(extensionAttributes)
-          .append(']');
+                .append(", type=").append(type)
+                .append(", id=").append(id)
+                .append(", source=").append(source)
+                .append(", time=").append(time)
+                .append(", dataschema=").append(dataschema)
+                .append(", datacontenttype=").append(datacontenttype)
+                .append(", data=").append(data)
+                .append(", extensionAttributes=").append(extensionAttributes)
+                .append(']');
         return sb.toString();
     }
 

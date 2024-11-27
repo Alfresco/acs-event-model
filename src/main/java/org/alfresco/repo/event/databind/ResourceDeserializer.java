@@ -28,11 +28,6 @@ package org.alfresco.repo.event.databind;
 import java.io.IOException;
 import java.util.Map;
 
-import org.alfresco.repo.event.v1.model.ChildAssociationResource;
-import org.alfresco.repo.event.v1.model.NodeResource;
-import org.alfresco.repo.event.v1.model.PeerAssociationResource;
-import org.alfresco.repo.event.v1.model.Resource;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.TreeNode;
@@ -41,20 +36,24 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
 
+import org.alfresco.repo.event.v1.model.ChildAssociationResource;
+import org.alfresco.repo.event.v1.model.NodeResource;
+import org.alfresco.repo.event.v1.model.PeerAssociationResource;
+import org.alfresco.repo.event.v1.model.Resource;
+
 /**
  * @author Jamal Kaabi-Mofrad
  */
 public class ResourceDeserializer extends JsonDeserializer<Resource>
 {
-    private static final String                TYPE_FIELD = "@type";
-    private static final Map<String, Class<?>> TYPE_MAP   = Map.of(
-                getName(NodeResource.class), NodeResource.class,
-                getName(ChildAssociationResource.class), ChildAssociationResource.class,
-                getName(PeerAssociationResource.class), PeerAssociationResource.class);
+    private static final String TYPE_FIELD = "@type";
+    private static final Map<String, Class<?>> TYPE_MAP = Map.of(
+            getName(NodeResource.class), NodeResource.class,
+            getName(ChildAssociationResource.class), ChildAssociationResource.class,
+            getName(PeerAssociationResource.class), PeerAssociationResource.class);
 
     public ResourceDeserializer()
-    {
-    }
+    {}
 
     private static <T> String getName(Class<T> aClass)
     {

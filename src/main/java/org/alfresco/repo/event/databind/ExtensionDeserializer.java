@@ -27,14 +27,14 @@ package org.alfresco.repo.event.databind;
 
 import java.io.IOException;
 
-import org.alfresco.repo.event.extension.ExtensionAttributes;
-import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import org.alfresco.repo.event.extension.ExtensionAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 
 /**
  * Custom Jackson deserializer for the {@link ExtensionAttributes} type.
@@ -44,8 +44,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class ExtensionDeserializer extends JsonDeserializer<ExtensionAttributes>
 {
     public ExtensionDeserializer()
-    {
-    }
+    {}
 
     @Override
     public ExtensionAttributes deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException
@@ -61,21 +60,19 @@ public class ExtensionDeserializer extends JsonDeserializer<ExtensionAttributes>
 
             switch (extValue.getNodeType())
             {
-                case STRING:
-                    extension.addExtension(extName, extValue.textValue());
-                    break;
-                case NUMBER:
-                    extension.addExtension(extName, extValue.numberValue());
-                    break;
-                case BOOLEAN:
-                    extension.addExtension(extName, extValue.booleanValue());
-                    break;
-                default:
-                    extension.addExtension(extName, extValue.toString());
+            case STRING:
+                extension.addExtension(extName, extValue.textValue());
+                break;
+            case NUMBER:
+                extension.addExtension(extName, extValue.numberValue());
+                break;
+            case BOOLEAN:
+                extension.addExtension(extName, extValue.booleanValue());
+                break;
+            default:
+                extension.addExtension(extName, extValue.toString());
             }
         });
         return extension;
     }
 }
-
-

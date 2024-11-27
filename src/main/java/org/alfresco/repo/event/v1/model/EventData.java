@@ -159,9 +159,9 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     public static class Builder<R extends Resource>
     {
 
-        private String      eventGroupId;
-        private R           resource;
-        private R           resourceBefore;
+        private String eventGroupId;
+        private R resource;
+        private R resourceBefore;
         private Set<String> resourceReaderAuthorities;
         private Set<String> resourceDeniedAuthorities;
         private Set<String> resourceReaderSecurityControls;

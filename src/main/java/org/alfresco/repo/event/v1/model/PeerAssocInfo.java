@@ -36,8 +36,7 @@ public class PeerAssocInfo
     private String id;
 
     public PeerAssocInfo()
-    {
-    }
+    {}
 
     public PeerAssocInfo(String id)
     {

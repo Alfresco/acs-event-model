@@ -60,7 +60,7 @@ public class ChildAssociationResource extends AbstractAssociationResource
         return child;
     }
 
-    public String getAssocQName() 
+    public String getAssocQName()
     {
         return assocQName;
     }
@@ -95,10 +95,10 @@ public class ChildAssociationResource extends AbstractAssociationResource
     {
         final StringBuilder sb = new StringBuilder(100);
         sb.append("ChildAssociationResource [parent=").append(parent)
-          .append(", child=").append(child)
-          .append(", assocType=").append(assocType)
-          .append(", assocQName=").append(assocQName)
-          .append(']');
+                .append(", child=").append(child)
+                .append(", assocType=").append(assocType)
+                .append(", assocQName=").append(assocQName)
+                .append(']');
         return sb.toString();
     }
 }

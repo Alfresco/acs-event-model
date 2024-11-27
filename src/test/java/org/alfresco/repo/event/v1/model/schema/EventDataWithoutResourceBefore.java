@@ -25,11 +25,11 @@
  */
 package org.alfresco.repo.event.v1.model.schema;
 
-import org.alfresco.repo.event.v1.model.DataAttributes;
-import org.alfresco.repo.event.v1.model.Resource;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.Resource;
 
 /**
  * Event data object to generate the JSON schema without {@code resourceBefore} property.
@@ -47,8 +47,7 @@ public class EventDataWithoutResourceBefore<R extends Resource> implements DataA
     private R resource;
 
     public EventDataWithoutResourceBefore()
-    {
-    }
+    {}
 
     @Override
     public String getEventGroupId()

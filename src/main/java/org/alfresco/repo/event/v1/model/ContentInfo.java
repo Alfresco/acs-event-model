@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * @author Jamal Kaabi-Mofrad
  */
-@JsonInclude (Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class ContentInfo
 {
     private String mimeType;
-    private Long   sizeInBytes;
+    private Long sizeInBytes;
     private String encoding;
 
     public ContentInfo()
-    {
-    }
+    {}
 
     public ContentInfo(String mimeType, Long sizeInBytes, String encoding)
     {
@@ -79,8 +78,8 @@ public class ContentInfo
         }
         ContentInfo that = (ContentInfo) o;
         return Objects.equals(mimeType, that.mimeType)
-                    && Objects.equals(sizeInBytes, that.sizeInBytes)
-                    && Objects.equals(encoding, that.encoding);
+                && Objects.equals(sizeInBytes, that.sizeInBytes)
+                && Objects.equals(encoding, that.encoding);
     }
 
     @Override
@@ -94,9 +93,9 @@ public class ContentInfo
     {
         final StringBuilder sb = new StringBuilder(100);
         sb.append("ContentInfo [mimeType=").append(mimeType)
-          .append(", sizeInBytes=").append(sizeInBytes)
-          .append(", encoding=").append(encoding)
-          .append(']');
+                .append(", sizeInBytes=").append(sizeInBytes)
+                .append(", encoding=").append(encoding)
+                .append(']');
         return sb.toString();
     }
 }

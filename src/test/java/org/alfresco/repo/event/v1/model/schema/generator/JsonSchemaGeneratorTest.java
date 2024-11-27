@@ -36,17 +36,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.alfresco.repo.event.v1.model.DataAttributes;
-import org.alfresco.repo.event.v1.model.Resource;
-import org.alfresco.repo.event.v1.model.schema.ChildAssociationResource;
-import org.alfresco.repo.event.v1.model.schema.EventDataWithResourceBefore;
-import org.alfresco.repo.event.v1.model.schema.EventDataWithoutResourceBefore;
-import org.alfresco.repo.event.v1.model.schema.NodeResource;
-import org.alfresco.repo.event.v1.model.schema.PeerAssociationResource;
-import org.alfresco.repo.event.v1.model.schema.RepoEvent;
-import org.alfresco.repo.event.v1.model.schema.Required;
-import org.junit.Test;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
@@ -56,6 +45,17 @@ import com.github.victools.jsonschema.generator.SchemaVersion;
 import com.github.victools.jsonschema.generator.TypeContext;
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import com.github.victools.jsonschema.module.jackson.JacksonOption;
+import org.junit.jupiter.api.Test;
+
+import org.alfresco.repo.event.v1.model.DataAttributes;
+import org.alfresco.repo.event.v1.model.Resource;
+import org.alfresco.repo.event.v1.model.schema.ChildAssociationResource;
+import org.alfresco.repo.event.v1.model.schema.EventDataWithResourceBefore;
+import org.alfresco.repo.event.v1.model.schema.EventDataWithoutResourceBefore;
+import org.alfresco.repo.event.v1.model.schema.NodeResource;
+import org.alfresco.repo.event.v1.model.schema.PeerAssociationResource;
+import org.alfresco.repo.event.v1.model.schema.RepoEvent;
+import org.alfresco.repo.event.v1.model.schema.Required;
 
 /**
  * @author Jamal Kaabi-Mofrad
@@ -64,10 +64,7 @@ public class JsonSchemaGeneratorTest
 {
     enum EventEntry
     {
-        NODE_ENTRY(List.of("nodeCreated.json", "nodeDeleted.json")),
-        NODE_UPDATED_ENTRY(List.of("nodeUpdated.json")),
-        CHILD_ASSOC_ENTRY(List.of("childAssocCreated.json", "childAssocDeleted.json")),
-        PEER_ASSOC_ENTRY(List.of("peerAssocCreated.json", "peerAssocDeleted.json"));
+        NODE_ENTRY(List.of("nodeCreated.json", "nodeDeleted.json")), NODE_UPDATED_ENTRY(List.of("nodeUpdated.json")), CHILD_ASSOC_ENTRY(List.of("childAssocCreated.json", "childAssocDeleted.json")), PEER_ASSOC_ENTRY(List.of("peerAssocCreated.json", "peerAssocDeleted.json"));
 
         private final List<String> fileNames;
 
@@ -97,8 +94,7 @@ public class JsonSchemaGeneratorTest
     {
         JacksonModule module = new JacksonModule(JacksonOption.RESPECT_JSONPROPERTY_ORDER);
 
-        SchemaGeneratorConfigBuilder configBuilder =
-                    new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON).with(module);
+        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON).with(module);
 
         configBuilder.forTypesInGeneral().withSubtypeResolver((declaredType, generationContext) -> {
             if (declaredType.getErasedType() == Resource.class)
@@ -106,12 +102,12 @@ public class JsonSchemaGeneratorTest
                 TypeContext typeContext = generationContext.getTypeContext();
                 switch (entry)
                 {
-                    case NODE_ENTRY:
-                        return List.of(typeContext.resolveSubtype(declaredType, NodeResource.class));
-                    case CHILD_ASSOC_ENTRY:
-                        return List.of(typeContext.resolveSubtype(declaredType, ChildAssociationResource.class));
-                    case PEER_ASSOC_ENTRY:
-                        return List.of(typeContext.resolveSubtype(declaredType, PeerAssociationResource.class));
+                case NODE_ENTRY:
+                    return List.of(typeContext.resolveSubtype(declaredType, NodeResource.class));
+                case CHILD_ASSOC_ENTRY:
+                    return List.of(typeContext.resolveSubtype(declaredType, ChildAssociationResource.class));
+                case PEER_ASSOC_ENTRY:
+                    return List.of(typeContext.resolveSubtype(declaredType, PeerAssociationResource.class));
                 }
             }
 
@@ -134,8 +130,8 @@ public class JsonSchemaGeneratorTest
             if (field.getDeclaredType().getErasedType() == URI.class)
             {
                 return Stream.of(String.class)
-                            .map(specificSubtype -> field.getContext().resolve(String.class))
-                            .collect(Collectors.toList());
+                        .map(specificSubtype -> field.getContext().resolve(String.class))
+                        .collect(Collectors.toList());
             }
             return null;
         });
@@ -153,12 +149,12 @@ public class JsonSchemaGeneratorTest
         File outputDir = new File("target/schema/");
         if (!outputDir.exists())
         {
-            //noinspection ResultOfMethodCallIgnored
+            // noinspection ResultOfMethodCallIgnored
             outputDir.mkdirs();
         }
 
         try (FileOutputStream outputStream = new FileOutputStream(new File(outputDir, fileName));
-             PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)))
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)))
         {
             writer.print(jsonSchema.toPrettyString());
         }

@@ -30,11 +30,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import org.alfresco.repo.event.databind.ExtensionDeserializer;
-import org.alfresco.repo.event.databind.ExtensionSerializer;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.alfresco.repo.event.databind.ExtensionDeserializer;
+import org.alfresco.repo.event.databind.ExtensionSerializer;
 
 /**
  * @author Jamal Kaabi-Mofrad

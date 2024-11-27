@@ -29,7 +29,6 @@ import static java.util.Collections.emptyList;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -42,8 +41,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
- * Represents Alfresco node resource.
- * Any attribute that its value is null, will not be serialized.
+ * Represents Alfresco node resource. Any attribute that its value is null, will not be serialized.
  *
  * @author Jamal Kaabi-Mofrad
  */
@@ -51,20 +49,20 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends AbstractNodeResource
 {
-    private final String                            name;
-    private final String                            nodeType;
-    private final Boolean                           isFile;
-    private final Boolean                           isFolder;
-    private final UserInfo                          createdByUser;
-    private final ZonedDateTime                     createdAt;
-    private final UserInfo                          modifiedByUser;
-    private final ZonedDateTime                     modifiedAt;
-    private final ContentInfo                       content;
-    private final Map<String, Serializable>         properties;
-    private final Map<String, Map<String, String>>  localizedProperties;
-    private final Set<String>                       aspectNames;
-    private final String                            primaryAssocQName;
-    private final List<String>                      secondaryParents;
+    private final String name;
+    private final String nodeType;
+    private final Boolean isFile;
+    private final Boolean isFolder;
+    private final UserInfo createdByUser;
+    private final ZonedDateTime createdAt;
+    private final UserInfo modifiedByUser;
+    private final ZonedDateTime modifiedAt;
+    private final ContentInfo content;
+    private final Map<String, Serializable> properties;
+    private final Map<String, Map<String, String>> localizedProperties;
+    private final Set<String> aspectNames;
+    private final String primaryAssocQName;
+    private final List<String> secondaryParents;
 
     private NodeResource(Builder builder)
     {
@@ -152,7 +150,8 @@ public class NodeResource extends AbstractNodeResource
         return aspectNames;
     }
 
-    public String getPrimaryAssocQName() {
+    public String getPrimaryAssocQName()
+    {
         return primaryAssocQName;
     }
 
@@ -178,26 +177,26 @@ public class NodeResource extends AbstractNodeResource
         }
         NodeResource that = (NodeResource) o;
         return Objects.equals(name, that.name)
-                    && Objects.equals(nodeType, that.nodeType)
-                    && Objects.equals(isFile, that.isFile)
-                    && Objects.equals(isFolder, that.isFolder)
-                    && Objects.equals(createdByUser, that.createdByUser)
-                    && Objects.equals(createdAt, that.createdAt)
-                    && Objects.equals(modifiedByUser, that.modifiedByUser)
-                    && Objects.equals(modifiedAt, that.modifiedAt)
-                    && Objects.equals(content, that.content)
-                    && Objects.equals(properties, that.properties)
-                    && Objects.equals(localizedProperties, that.localizedProperties)
-                    && Objects.equals(aspectNames, that.aspectNames)
-                    && Objects.equals(secondaryParents, that.secondaryParents);
+                && Objects.equals(nodeType, that.nodeType)
+                && Objects.equals(isFile, that.isFile)
+                && Objects.equals(isFolder, that.isFolder)
+                && Objects.equals(createdByUser, that.createdByUser)
+                && Objects.equals(createdAt, that.createdAt)
+                && Objects.equals(modifiedByUser, that.modifiedByUser)
+                && Objects.equals(modifiedAt, that.modifiedAt)
+                && Objects.equals(content, that.content)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(localizedProperties, that.localizedProperties)
+                && Objects.equals(aspectNames, that.aspectNames)
+                && Objects.equals(secondaryParents, that.secondaryParents);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
-                            createdAt, modifiedByUser, modifiedAt, content, properties,
-                            localizedProperties, aspectNames, primaryAssocQName, secondaryParents);
+                createdAt, modifiedByUser, modifiedAt, content, properties,
+                localizedProperties, aspectNames, primaryAssocQName, secondaryParents);
     }
 
     @Override
@@ -205,22 +204,22 @@ public class NodeResource extends AbstractNodeResource
     {
         final StringBuilder sb = new StringBuilder(500);
         sb.append("NodeResource [id=").append(id)
-          .append(", name=").append(name)
-          .append(", nodeType=").append(nodeType)
-          .append(", isFile=").append(isFile)
-          .append(", isFolder=").append(isFolder)
-          .append(", createdByUser=").append(createdByUser)
-          .append(", createdAt=").append(createdAt)
-          .append(", modifiedByUser=").append(modifiedByUser)
-          .append(", modifiedAt=").append(modifiedAt)
-          .append(", content=").append(content)
-          .append(", properties=").append(properties)
-          .append(", localizedProperties=").append(localizedProperties)
-          .append(", aspectNames=").append(aspectNames)
-          .append(", primaryHierarchy=").append(primaryHierarchy)
-          .append(", primaryAssocQName=").append(primaryAssocQName)
-          .append(", secondaryParents=").append(secondaryParents)
-          .append(']');
+                .append(", name=").append(name)
+                .append(", nodeType=").append(nodeType)
+                .append(", isFile=").append(isFile)
+                .append(", isFolder=").append(isFolder)
+                .append(", createdByUser=").append(createdByUser)
+                .append(", createdAt=").append(createdAt)
+                .append(", modifiedByUser=").append(modifiedByUser)
+                .append(", modifiedAt=").append(modifiedAt)
+                .append(", content=").append(content)
+                .append(", properties=").append(properties)
+                .append(", localizedProperties=").append(localizedProperties)
+                .append(", aspectNames=").append(aspectNames)
+                .append(", primaryHierarchy=").append(primaryHierarchy)
+                .append(", primaryAssocQName=").append(primaryAssocQName)
+                .append(", secondaryParents=").append(secondaryParents)
+                .append(']');
 
         return sb.toString();
     }
@@ -231,31 +230,31 @@ public class NodeResource extends AbstractNodeResource
     @JsonPOJOBuilder(withPrefix = "set")
     public static class Builder
     {
-        private String                              id;
-        private String                              name;
-        private String                              nodeType;
-        private Boolean                             isFile;
-        private Boolean                             isFolder;
-        private UserInfo                            createdByUser;
-        private ZonedDateTime                       createdAt;
-        private UserInfo                            modifiedByUser;
-        private ZonedDateTime                       modifiedAt;
-        private List<String>                        primaryHierarchy;
-        private ContentInfo                         content;
-        private Map<String, Serializable>           properties;
-        private Map<String, Map<String, String>>    localizedProperties;
-        private Set<String>                         aspectNames;
-        private String                              primaryAssocQName;
-        private List<String>                        secondaryParents;
+        private String id;
+        private String name;
+        private String nodeType;
+        private Boolean isFile;
+        private Boolean isFolder;
+        private UserInfo createdByUser;
+        private ZonedDateTime createdAt;
+        private UserInfo modifiedByUser;
+        private ZonedDateTime modifiedAt;
+        private List<String> primaryHierarchy;
+        private ContentInfo content;
+        private Map<String, Serializable> properties;
+        private Map<String, Map<String, String>> localizedProperties;
+        private Set<String> aspectNames;
+        private String primaryAssocQName;
+        private List<String> secondaryParents;
 
         public Builder()
-        {
-        }
+        {}
 
         /**
          * Copy builder
          *
-         * @param that existing {@code Builder} object
+         * @param that
+         *            existing {@code Builder} object
          */
         public Builder(Builder that)
         {

@@ -55,7 +55,7 @@ public class DateTimeSerializer extends StdSerializer<ZonedDateTime>
 
     @Override
     public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator,
-                          SerializerProvider serializerProvider) throws IOException
+            SerializerProvider serializerProvider) throws IOException
     {
         jsonGenerator.writeString(zonedDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
     }

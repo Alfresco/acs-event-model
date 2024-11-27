@@ -36,15 +36,15 @@ public interface ExtensionAttributes
 {
 
     /**
-     * Gets the extension value. The value's type can only be one of the following types:
-     * <br>
+     * Gets the extension value. The value's type can only be one of the following types: <br>
      * <ul>
-     *   <li>String</li>
-     *   <li>Number</li>
-     *   <li>Boolean</li>
+     * <li>String</li>
+     * <li>Number</li>
+     * <li>Boolean</li>
      * </ul>
      *
-     * @param extensionName the extension name (i.e. Json field name)
+     * @param extensionName
+     *            the extension name (i.e. Json field name)
      * @return the extension value
      */
     Object getExtension(String extensionName);
@@ -52,8 +52,10 @@ public interface ExtensionAttributes
     /**
      * Adds extension
      *
-     * @param extensionName the extension name (i.e. key)
-     * @param extension     the extension value
+     * @param extensionName
+     *            the extension name (i.e. key)
+     * @param extension
+     *            the extension value
      */
     void addExtension(String extensionName, Object extension);
 

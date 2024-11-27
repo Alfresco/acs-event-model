@@ -28,11 +28,11 @@ package org.alfresco.repo.event.v1.model.schema;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import org.alfresco.repo.event.EventAttributes;
 import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.Resource;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Event data object to generate the JSON schema for {@code RepoEvent}.
@@ -44,21 +44,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class RepoEvent<D extends DataAttributes<? extends Resource>> implements EventAttributes
 {
     @Required
-    private String        specversion;
+    private String specversion;
     @Required
-    private String        type;
+    private String type;
     @Required
-    private String        id;
+    private String id;
     @Required
-    private URI           source;
+    private URI source;
     @Required
     private ZonedDateTime time;
     @Required
-    private URI           dataschema;
+    private URI dataschema;
     @Required
-    private String        datacontenttype;
+    private String datacontenttype;
     @Required
-    private D             data;
+    private D data;
 
     @Override
     public String getSpecversion()

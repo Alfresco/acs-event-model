@@ -31,12 +31,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import org.alfresco.repo.event.v1.model.ContentInfo;
 import org.alfresco.repo.event.v1.model.Resource;
 import org.alfresco.repo.event.v1.model.UserInfo;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Event data object to generate the JSON schema for {@code NodeResource}.
@@ -48,23 +48,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class NodeResource implements Resource
 {
     @Required
-    private String                    id;
-    private String                    name;
-    private String                    nodeType;
-    private Boolean                   file;
-    private Boolean                   folder;
-    private UserInfo                  createdByUser;
-    private ZonedDateTime             createdAt;
-    private UserInfo                  modifiedByUser;
-    private ZonedDateTime             modifiedAt;
-    private ContentInfo               content;
-    private List<String>              primaryHierarchy;
+    private String id;
+    private String name;
+    private String nodeType;
+    private Boolean file;
+    private Boolean folder;
+    private UserInfo createdByUser;
+    private ZonedDateTime createdAt;
+    private UserInfo modifiedByUser;
+    private ZonedDateTime modifiedAt;
+    private ContentInfo content;
+    private List<String> primaryHierarchy;
     private Map<String, Serializable> properties;
-    private Set<String>               aspectNames;
+    private Set<String> aspectNames;
 
     public NodeResource()
-    {
-    }
+    {}
 
     public String getId()
     {

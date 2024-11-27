@@ -25,20 +25,21 @@
  */
 package org.alfresco.repo.event.databind;
 
+import java.time.ZonedDateTime;
+import java.util.Date;
+
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import org.alfresco.repo.event.extension.ExtensionAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.EventData;
 import org.alfresco.repo.event.v1.model.Resource;
-import org.alfresco.repo.event.extension.ExtensionAttributes;
-import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
-
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * Repo Event object factory.
@@ -61,10 +62,9 @@ public class ObjectMapperFactory
 
         final SimpleModule module = getSimpleModule();
         final SimpleAbstractTypeResolver resolver = getSimpleAbstractTypeResolver();
-        if(resolver != null)
+        if (resolver != null)
         {
-            // add the extension when creating the Mapper. As 'getSimpleAbstractTypeResolver' can be
-            // overridden by enterprise code.
+            // add the extension when creating the Mapper.
             resolver.addMapping(ExtensionAttributes.class, ExtensionAttributesImpl.class);
             module.setAbstractTypes(resolver);
         }
@@ -75,8 +75,7 @@ public class ObjectMapperFactory
 
     protected SimpleModule getSimpleModule()
     {
-        final SimpleModule module =
-                    new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
+        final SimpleModule module = new SimpleModule("Resource Serializer-Deserializer", new Version(0, 1, 0, "", "", ""));
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
         module.addSerializer(Date.class, new DateSerializer());
