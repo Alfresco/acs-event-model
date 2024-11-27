@@ -36,8 +36,8 @@ import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -47,7 +47,7 @@ import java.util.Set;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.alfresco.repo.event.util.TestUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Jamal Kaabi-Mofrad

@@ -25,16 +25,15 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import static java.util.Collections.emptyList;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Test;
 
-/** Unit tests for {@NodeResource}. */
+/** Unit tests for {{@code @NodeResource}} . */
 public class NodeResourceTest
 {
     @Test
@@ -46,7 +45,7 @@ public class NodeResourceTest
         nodeResourceBuilder.setSecondaryParents(secondaryParents);
 
         NodeResource nodeResource = nodeResourceBuilder.build();
-        assertEquals("Unexpected secondary parents.", nodeResource.getSecondaryParents(), secondaryParents);
+        assertEquals(nodeResource.getSecondaryParents(), secondaryParents, "Unexpected secondary parents.");
     }
 
     @Test
@@ -57,7 +56,7 @@ public class NodeResourceTest
         nodeResourceBuilder.setSecondaryParents(emptyList());
 
         NodeResource nodeResource = nodeResourceBuilder.build();
-        assertEquals("Expected empty list of secondary parents.", nodeResource.getSecondaryParents(), emptyList());
+        assertEquals(nodeResource.getSecondaryParents(), emptyList(), "Expected empty list of secondary parents.");
     }
 
     @Test
@@ -68,6 +67,6 @@ public class NodeResourceTest
         nodeResourceBuilder.setSecondaryParents(null);
 
         NodeResource nodeResource = nodeResourceBuilder.build();
-        assertEquals("Expected empty list of secondary parents.", nodeResource.getSecondaryParents(), emptyList());
+        assertEquals(nodeResource.getSecondaryParents(), emptyList(), "Expected empty list of secondary parents.");
     }
 }

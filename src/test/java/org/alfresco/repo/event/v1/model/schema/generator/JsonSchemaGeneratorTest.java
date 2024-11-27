@@ -45,7 +45,6 @@ import org.alfresco.repo.event.v1.model.schema.NodeResource;
 import org.alfresco.repo.event.v1.model.schema.PeerAssociationResource;
 import org.alfresco.repo.event.v1.model.schema.RepoEvent;
 import org.alfresco.repo.event.v1.model.schema.Required;
-import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.victools.jsonschema.generator.OptionPreset;
@@ -56,6 +55,7 @@ import com.github.victools.jsonschema.generator.SchemaVersion;
 import com.github.victools.jsonschema.generator.TypeContext;
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import com.github.victools.jsonschema.module.jackson.JacksonOption;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Jamal Kaabi-Mofrad

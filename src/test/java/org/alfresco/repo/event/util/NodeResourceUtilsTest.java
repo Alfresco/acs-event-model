@@ -29,7 +29,7 @@ package org.alfresco.repo.event.util;
 import org.alfresco.repo.event.v1.model.ContentInfo;
 import org.alfresco.repo.event.v1.model.NodeResource;
 import org.alfresco.repo.event.v1.model.UserInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
@@ -43,9 +43,9 @@ import static java.util.Locale.GERMAN;
 import static org.alfresco.repo.event.util.TestUtil.getSecondaryParents;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class NodeResourceUtilsTest
 {

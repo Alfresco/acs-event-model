@@ -32,8 +32,8 @@ import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -51,9 +51,9 @@ import org.alfresco.repo.event.v1.model.EventType;
 import org.alfresco.repo.event.v1.model.NodeResource;
 import org.alfresco.repo.event.v1.model.RepoEvent;
 import org.alfresco.repo.event.v1.model.UserInfo;
-import org.junit.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Jamal Kaabi-Mofrad
@@ -170,7 +170,7 @@ public class EventExtensionTest
 
         // Get the extension attributes map
         ExtensionAttributes resultExtensionAttributes = result.getExtensionAttributes();
-        assertNotNull("There should have been an extension.", resultExtensionAttributes);
+        assertNotNull(resultExtensionAttributes, "There should have been an extension.");
 
         // Get the extension with the name 'client'
         Object extObjectValue = resultExtensionAttributes.getExtension("extObject");
