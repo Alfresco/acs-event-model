@@ -20,6 +20,9 @@ The library contains the events models and databind helpers to help the clients 
 | `data.resource`       |Object (varies)| The object representing the resource affected                                                                                                                                    |
 | `data.resourceBefore` |Object (varies)| The object representing the old values of the changed resource's attributes. Note, this object is only available on the `Updated` event type                                     |
 | `extensionAttributes` |Object (varies)| (Optional) The object representing extension attributes (if any) that can be additionally added to the event. Note, this object will not be serialized if it is null.            |                       |
+|`data.resourceReaderAuthorities`     | Array| The authority IDs that have READ access to the resource affected by the event. **Note:** this property will not be present in the event when `authorities generation` is disabled|
+|`data.resourceDeniedAuthorities`     | Array| The authority IDs that are denied READ access to the resource affected by the event. **Note:** this property will not be present in the event when `authorities generation` is disabled|
+|`data.resourceReaderSecurityControls`| Array| The Governance security controls that have been placed on the resource affected by the event. **Note:** this property is only available for AGS. Also, it will not be present in the event response when `authorities generation` is disabled or AGS module is not installed|
 
 
 ### Resource Object
@@ -94,6 +97,16 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
       "aspectNames": [
         "cm:titled",
         "cm:auditable"
+      ],
+      "resourceReaderAuthorities": [
+        "GROUP_EVERYONE",
+        "GROUP_site_u1privatesite",
+        "GROUP_site_u1privatesite_SiteConsumer"
+      ],
+      "resourceDeniedAuthorities": [],
+      "resourceReaderSecurityControls": [
+        "e428663f-9171-42e2-b233-d8f2cd3f54f7:m6gFifJH",
+        "e428663f-9171-42e2-b233-d8f2cd3f54f7:mF2foUuA"
       ]
     }
   }
