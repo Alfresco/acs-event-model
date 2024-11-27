@@ -838,7 +838,7 @@ mvn clean install
 ### Artifacts
 
 The artifact can be obtained by:
-* downloading from [Alfresco repository](https://artifacts.alfresco.com/nexus/content/groups/public)
+* downloading from [Alfresco repository](https://artifacts.alfresco.com/nexus/#browse/browse:public)
 * getting as Maven dependency by adding the dependency to your pom file:
 
 ~~~
