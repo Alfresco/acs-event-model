@@ -36,8 +36,7 @@ public class UserInfo
     private String displayName;
 
     public UserInfo()
-    {
-    }
+    {}
 
     public UserInfo(String id, String firstName, String lastName)
     {
@@ -68,7 +67,7 @@ public class UserInfo
         }
         UserInfo userInfo = (UserInfo) o;
         return Objects.equals(id, userInfo.id)
-                    && Objects.equals(displayName, userInfo.displayName);
+                && Objects.equals(displayName, userInfo.displayName);
     }
 
     @Override
@@ -82,8 +81,8 @@ public class UserInfo
     {
         final StringBuilder sb = new StringBuilder(100);
         sb.append("UserInfo [id=").append(id)
-          .append(", displayName=").append(displayName)
-          .append(']');
+                .append(", displayName=").append(displayName)
+                .append(']');
 
         return sb.toString();
     }

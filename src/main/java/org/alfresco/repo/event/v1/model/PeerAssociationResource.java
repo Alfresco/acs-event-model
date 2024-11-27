@@ -87,9 +87,9 @@ public class PeerAssociationResource extends AbstractAssociationResource
     {
         final StringBuilder sb = new StringBuilder(100);
         sb.append("PeerAssociationResource [source=").append(source)
-          .append(", target=").append(target)
-          .append(", assocType=").append(assocType)
-          .append(']');
+                .append(", target=").append(target)
+                .append(", assocType=").append(assocType)
+                .append(']');
         return sb.toString();
     }
 }

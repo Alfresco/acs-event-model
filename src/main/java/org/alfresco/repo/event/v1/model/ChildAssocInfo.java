@@ -35,8 +35,7 @@ public class ChildAssocInfo
     private String id;
 
     public ChildAssocInfo()
-    {
-    }
+    {}
 
     public ChildAssocInfo(String id)
     {

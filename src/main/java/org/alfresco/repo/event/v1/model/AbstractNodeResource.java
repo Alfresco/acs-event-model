@@ -78,7 +78,7 @@ public abstract class AbstractNodeResource implements Resource
         }
         AbstractNodeResource resource = (AbstractNodeResource) o;
         return Objects.equals(id, resource.id)
-                    && Objects.equals(primaryHierarchy, resource.primaryHierarchy);
+                && Objects.equals(primaryHierarchy, resource.primaryHierarchy);
     }
 
     @Override

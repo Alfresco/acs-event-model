@@ -25,10 +25,10 @@
  */
 package org.alfresco.repo.event.v1.model.schema;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.Resource;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Event data object to generate the JSON schema for the node update event.
@@ -49,8 +49,7 @@ public class EventDataWithResourceBefore<R extends Resource> implements DataAttr
     private R resourceBefore;
 
     public EventDataWithResourceBefore()
-    {
-    }
+    {}
 
     @Override
     public String getEventGroupId()

@@ -31,5 +31,4 @@ package org.alfresco.repo.event.v1.model;
  * @author Jamal Kaabi-Mofrad
  */
 public interface Resource
-{
-}
+{}

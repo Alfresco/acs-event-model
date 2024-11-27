@@ -25,6 +25,9 @@
  */
 package org.alfresco.repo.event.v1.model.extension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
@@ -32,8 +35,6 @@ import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -41,6 +42,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.junit.jupiter.api.Test;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
@@ -52,9 +56,6 @@ import org.alfresco.repo.event.v1.model.NodeResource;
 import org.alfresco.repo.event.v1.model.RepoEvent;
 import org.alfresco.repo.event.v1.model.UserInfo;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.junit.jupiter.api.Test;
-
 /**
  * @author Jamal Kaabi-Mofrad
  */
@@ -64,26 +65,26 @@ public class EventExtensionTest
     public void nodeCreatedEventWithExtensionAttributes_marshalling() throws Exception
     {
         NodeResource resource = NodeResource.builder()
-                    .setId(getUUID())
-                    .setName("testFile.txt")
-                    .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(true)
-                    .setIsFolder(false)
-                    .setNodeType("cm:content")
-                    .setPrimaryAssocQName("cm:testFile.txt")
-                    .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
-                    .setCreatedAt(ZonedDateTime.now())
-                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
-                    .setModifiedAt(ZonedDateTime.now())
-                    .setProperties(Map.of("cm:title", "test title", "cm:from", new Date(-2637887000L)))
-                    .setAspectNames(Set.of("cm:titled", "cm:auditable"))
-                    .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
-                    .build();
+                .setId(getUUID())
+                .setName("testFile.txt")
+                .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
+                .setIsFile(true)
+                .setIsFolder(false)
+                .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
+                .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                .setCreatedAt(ZonedDateTime.now())
+                .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                .setModifiedAt(ZonedDateTime.now())
+                .setProperties(Map.of("cm:title", "test title", "cm:from", new Date(-2637887000L)))
+                .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                .build();
 
-        EventData<NodeResource> eventData = EventData.<NodeResource>builder()
-                    .setEventGroupId(getUUID())
-                    .setResource(resource)
-                    .build();
+        EventData<NodeResource> eventData = EventData.<NodeResource> builder()
+                .setEventGroupId(getUUID())
+                .setResource(resource)
+                .build();
 
         // Add extensions
         ExtensionAttributes extAttributes = new ExtensionAttributesImpl();
@@ -103,15 +104,15 @@ public class EventExtensionTest
         extAttributes.addExtension("doubleAttTest", 1234.56789);
         extAttributes.addExtension("boolAttTest", false);
 
-        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder()
-                    .setId(getUUID())
-                    .setSource(getSource())
-                    .setTime(ZonedDateTime.now())
-                    .setType(EventType.NODE_CREATED.getType())
-                    .setData(eventData)
-                    .setDataschema(getDataSchema("nodeCreated"))
-                    .setExtensionAttributes(extAttributes)
-                    .build();
+        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>> builder()
+                .setId(getUUID())
+                .setSource(getSource())
+                .setTime(ZonedDateTime.now())
+                .setType(EventType.NODE_CREATED.getType())
+                .setData(eventData)
+                .setDataschema(getDataSchema("nodeCreated"))
+                .setExtensionAttributes(extAttributes)
+                .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
@@ -124,40 +125,38 @@ public class EventExtensionTest
     {
         String nodeCreatedEventWithExtAttJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
         assertNotNull(nodeCreatedEventWithExtAttJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventWithExtAttJson, new TypeReference<>()
-        {
-        });
+        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventWithExtAttJson, new TypeReference<>() {});
 
         NodeResource resource = NodeResource.builder()
-                    .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
-                    .setName("testFile.txt")
-                    .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
-                    .setIsFile(true)
-                    .setIsFolder(false)
-                    .setNodeType("cm:content")
-                    .setPrimaryAssocQName("cm:testFile.txt")
-                    .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
-                    .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
-                    .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
-                    .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
-                    .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T11:15:13Z"))
-                    .setAspectNames(Set.of("cm:titled", "cm:auditable"))
-                    .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
-                    .build();
+                .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
+                .setName("testFile.txt")
+                .setPrimaryHierarchy(getTestNodePrimaryHierarchy())
+                .setIsFile(true)
+                .setIsFolder(false)
+                .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
+                .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
+                .setCreatedAt(parseTime("2020-04-27T12:37:03.555624+01:00"))
+                .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
+                .setModifiedAt(parseTime("2020-04-27T12:37:03.557956+01:00"))
+                .setProperties(Map.of("cm:title", "test title", "cm:from", "1969-12-01T11:15:13Z"))
+                .setAspectNames(Set.of("cm:titled", "cm:auditable"))
+                .setContent(new ContentInfo("text/plain", 16L, "UTF-8"))
+                .build();
 
-        EventData<NodeResource> eventData = EventData.<NodeResource>builder()
-                    .setEventGroupId("cb645043-e7d2-4e51-b61d-e6d01582cbab")
-                    .setResource(resource)
-                    .build();
+        EventData<NodeResource> eventData = EventData.<NodeResource> builder()
+                .setEventGroupId("cb645043-e7d2-4e51-b61d-e6d01582cbab")
+                .setResource(resource)
+                .build();
 
-        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>>builder()
-                    .setId("97c1b36c-c569-4c66-8a31-7a8d0b6b804a")
-                    .setSource(getSource())
-                    .setTime(parseTime("2020-04-27T12:37:03.560134+01:00"))
-                    .setType(EventType.NODE_CREATED.getType())
-                    .setData(eventData)
-                    .setDataschema(getDataSchema("nodeCreated"))
-                    .build();
+        RepoEvent<EventData<NodeResource>> repoEvent = RepoEvent.<EventData<NodeResource>> builder()
+                .setId("97c1b36c-c569-4c66-8a31-7a8d0b6b804a")
+                .setSource(getSource())
+                .setTime(parseTime("2020-04-27T12:37:03.560134+01:00"))
+                .setType(EventType.NODE_CREATED.getType())
+                .setData(eventData)
+                .setDataschema(getDataSchema("nodeCreated"))
+                .build();
 
         assertEquals(repoEvent.getId(), result.getId());
         assertEquals(repoEvent.getType(), result.getType());
@@ -195,10 +194,10 @@ public class EventExtensionTest
 
     public static class ExtensionTestObject
     {
-        private String       id;
-        private int          intProp;
-        private double       doubleProp;
-        private boolean      boolProp;
+        private String id;
+        private int intProp;
+        private double doubleProp;
+        private boolean boolProp;
         private List<String> listProp;
         private Set<String> setProp;
         private Map<String, String> mapProp;
@@ -285,19 +284,19 @@ public class EventExtensionTest
                 return false;
             }
             return getIntProp() == that.getIntProp()
-                        && Double.compare(that.getDoubleProp(), getDoubleProp()) == 0
-                        && isBoolProp() == that.isBoolProp()
-                        && Objects.equals(getId(), that.getId())
-                        && Objects.equals(getListProp(), that.getListProp())
-                        && Objects.equals(getSetProp(), that.getSetProp())
-                        && Objects.equals(getMapProp(), that.getMapProp());
+                    && Double.compare(that.getDoubleProp(), getDoubleProp()) == 0
+                    && isBoolProp() == that.isBoolProp()
+                    && Objects.equals(getId(), that.getId())
+                    && Objects.equals(getListProp(), that.getListProp())
+                    && Objects.equals(getSetProp(), that.getSetProp())
+                    && Objects.equals(getMapProp(), that.getMapProp());
         }
 
         @Override
         public int hashCode()
         {
             return Objects.hash(getId(), getIntProp(), getDoubleProp(), isBoolProp(),
-                                getListProp(), getSetProp(), getMapProp());
+                    getListProp(), getSetProp(), getMapProp());
         }
     }
 }

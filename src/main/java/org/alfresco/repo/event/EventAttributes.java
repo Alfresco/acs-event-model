@@ -31,8 +31,7 @@ import java.time.ZonedDateTime;
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 
 /**
- * Event's attributes conforming to
- * <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md">CloudEvents</a> <i>v1.0</i> specification.
+ * Event's attributes conforming to <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md">CloudEvents</a> <i>v1.0</i> specification.
  *
  * @author Jamal Kaabi-Mofrad
  */
@@ -49,8 +48,7 @@ public interface EventAttributes
     String getType();
 
     /**
-     * @return The context in which an event happened.
-     * E.g. The instance of a DBP component that produced the event.
+     * @return The context in which an event happened. E.g. The instance of a DBP component that produced the event.
      */
     URI getSource();
 
@@ -70,15 +68,13 @@ public interface EventAttributes
     ZonedDateTime getTime();
 
     /**
-     * @return The content type of the data attribute adhering
-     * to the <a href="https://tools.ietf.org/html/rfc2046">RFC2046</a>
+     * @return The content type of the data attribute adhering to the <a href="https://tools.ietf.org/html/rfc2046">RFC2046</a>
      */
     String getDatacontenttype();
 
     /**
-     * @return <b>Optional</b> extension attributes that can be additionally added to the event.
-     * <br>
-     * See CloudEvents v1.0 specification <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#extension-context-attributes">Extension Context Attributes</a> for more details.
+     * @return <b>Optional</b> extension attributes that can be additionally added to the event. <br>
+     *         See CloudEvents v1.0 specification <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#extension-context-attributes">Extension Context Attributes</a> for more details.
      */
     default ExtensionAttributes getExtensionAttributes()
     {

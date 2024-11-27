@@ -25,13 +25,13 @@
  */
 package org.alfresco.repo.event.v1.model;
 
-import org.junit.jupiter.api.Test;
-
 import static java.util.Collections.emptyList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 
 /** Unit tests for {@link NodeResource} . */
 public class NodeResourceTest

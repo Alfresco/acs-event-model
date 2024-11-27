@@ -25,10 +25,10 @@
  */
 package org.alfresco.repo.event.v1.model.schema;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import org.alfresco.repo.event.v1.model.PeerAssocInfo;
 import org.alfresco.repo.event.v1.model.Resource;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Event data object to generate the JSON schema for {@code PeerAssociationResource}.
@@ -40,15 +40,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PeerAssociationResource implements Resource
 {
     @Required
-    private String        assocType;
+    private String assocType;
     @Required
     private PeerAssocInfo source;
     @Required
     private PeerAssocInfo target;
 
     public PeerAssociationResource()
-    {
-    }
+    {}
 
     public String getAssocType()
     {

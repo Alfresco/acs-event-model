@@ -25,10 +25,10 @@
  */
 package org.alfresco.repo.event.v1.model.schema;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import org.alfresco.repo.event.v1.model.ChildAssocInfo;
 import org.alfresco.repo.event.v1.model.Resource;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Event data object to generate the JSON schema for {@code ChildAssociationResource}.
@@ -40,15 +40,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ChildAssociationResource implements Resource
 {
     @Required
-    private String         assocType;
+    private String assocType;
     @Required
     private ChildAssocInfo parent;
     @Required
     private ChildAssocInfo child;
 
     public ChildAssociationResource()
-    {
-    }
+    {}
 
     public String getAssocType()
     {
