@@ -25,6 +25,11 @@ hs_err_pid*
 
 # maven
 target/
+*.log.*
+pom.xml.*
+.flattened-pom.xml
+.flattened-pom.xml.*
+release.properties
 
 # IDE
 .classpath
@@ -35,3 +40,8 @@ target/
 .idea
 *.iml
 *.ipr
+.gradle
+.history
+
+# Mac
+.DS_Store
