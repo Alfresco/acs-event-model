@@ -29,6 +29,9 @@
   </distributionManagement>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     <java.version>17</java.version>
     <maven.build.sourceVersion>${java.version}</maven.build.sourceVersion>
     <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -38,11 +41,12 @@
     <jsonschema-generator.version>4.12.2</jsonschema-generator.version>
     <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
 
-    <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
     <dependency.jackson.version>2.18.0</dependency.jackson.version>
     <dependency.junit-jupiter.version>5.11.3</dependency.junit-jupiter.version>
     <dependency.commons-io.version>2.17.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
+    <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
+    <dependency.spotless-maven-plugin.version>2.43.0</dependency.spotless-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -122,7 +126,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
+        <version>${dependency.maven-jar-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -134,7 +138,7 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless-maven-plugin.version}</version>
+        <version>${dependency.spotless-maven-plugin.version}</version>
         <configuration>
           <java>
             <eclipse>

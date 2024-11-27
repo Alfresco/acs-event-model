@@ -5,22 +5,6 @@
 Alfresco Content Services Event Model is a library packaged as a jar file which is part of [Alfresco Content Services Repository](https://community.alfresco.com/docs/DOC-6385-project-overview-repository).
 The library contains the events models and databind helpers to help the clients to marshall and unmarshall the events.
 
-### Code Quality
-
-This project uses spotless that enforces Alfresco formatting to ensure code quality.
-
-To check code-style violations you can use:
-
-```shell
-mvn spotless:check
-```
-
-To reformat files you can use:
-
-```shell
-mvn spotless:apply
-```
-
 ### Event Object
 
 |               Property                |      Type       |                                                                                                                                 Description                                                                                                                                  |
@@ -905,5 +889,23 @@ String myExt = (String) resultExtensionAttributes.getExtension("someStringExt");
 
 ### Contributing guide
 
-Please use [this guide](CONTRIBUTING.md) to make a contribution to the project.
+Thanks for your interest in contributing to this project!
 
+The following is a set of guidelines for contributing to this library.
+Most of them will make the life of the reviewer easier and therefore decrease the time required for the patch be included in the next version.
+
+#### Code Quality
+
+This project uses spotless that enforces Alfresco formatting to ensure code quality.
+
+To check code-style violations you can use:
+
+```shell
+mvn spotless:check
+```
+
+To reformat files you can use:
+
+```shell
+mvn spotless:apply
+```

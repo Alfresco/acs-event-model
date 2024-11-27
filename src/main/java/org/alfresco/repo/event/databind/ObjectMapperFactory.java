@@ -64,8 +64,7 @@ public class ObjectMapperFactory
         final SimpleAbstractTypeResolver resolver = getSimpleAbstractTypeResolver();
         if (resolver != null)
         {
-            // add the extension when creating the Mapper. As 'getSimpleAbstractTypeResolver' can be
-            // overridden by enterprise code.
+            // add the extension when creating the Mapper.
             resolver.addMapping(ExtensionAttributes.class, ExtensionAttributesImpl.class);
             module.setAbstractTypes(resolver);
         }
