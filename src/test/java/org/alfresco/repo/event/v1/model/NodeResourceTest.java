@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 
-/** Unit tests for {{@code @NodeResource}} . */
+/** Unit tests for {@link NodeResource} . */
 public class NodeResourceTest
 {
     @Test
