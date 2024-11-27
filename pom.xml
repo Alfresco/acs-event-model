@@ -38,7 +38,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
-    <jsonschema-generator.version>4.12.2</jsonschema-generator.version>
+    <jsonschema-generator.version>4.37.0</jsonschema-generator.version>
     <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
 
     <dependency.jackson.version>2.18.0</dependency.jackson.version>
