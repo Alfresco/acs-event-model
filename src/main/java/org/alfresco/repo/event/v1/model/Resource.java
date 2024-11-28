@@ -25,6 +25,7 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
@@ -32,6 +33,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  *
  * @author Jamal Kaabi-Mofrad
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, defaultImpl = Void.class)
+@JsonTypeInfo(use = JsonTypeInfo.Id.SIMPLE_NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, defaultImpl = Void.class)
+@JsonSubTypes({
+        @JsonSubTypes.Type(NodeResource.class),
+        @JsonSubTypes.Type(ChildAssociationResource.class),
+        @JsonSubTypes.Type(PeerAssociationResource.class)
+})
 public interface Resource
 {}
