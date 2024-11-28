@@ -649,7 +649,7 @@ public class EventTest
     }
 
     @Test
-    public void nonExistingResourceUnmarshallingTest() throws Exception
+    public void nonExistingResource_unmarshalling() throws Exception
     {
         String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("NonExistingResource.json");
         assertNotNull(peerAssocCreatedEventJson);
