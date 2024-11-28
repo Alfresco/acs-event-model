@@ -32,6 +32,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  *
  * @author Jamal Kaabi-Mofrad
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, defaultImpl = Void.class)
 public interface Resource
 {}
