@@ -25,10 +25,13 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Marker interface for resource classes.
  *
  * @author Jamal Kaabi-Mofrad
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 public interface Resource
 {}
