@@ -39,7 +39,6 @@ import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.EventData;
-import org.alfresco.repo.event.v1.model.Resource;
 
 /**
  * Repo Event object factory.
@@ -79,7 +78,6 @@ public class ObjectMapperFactory
         module.addSerializer(ZonedDateTime.class, new DateTimeSerializer());
         module.addDeserializer(ZonedDateTime.class, new DateTimeDeserializer());
         module.addSerializer(Date.class, new DateSerializer());
-        module.addDeserializer(Resource.class, new ResourceDeserializer());
 
         return module;
     }

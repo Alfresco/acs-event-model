@@ -30,6 +30,7 @@ import static java.util.Locale.GERMAN;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
@@ -645,5 +646,14 @@ public class EventTest
                 .build();
 
         assertEquals(expectedRepoEvent, result);
+    }
+
+    @Test
+    public void nonExistingResource_unmarshalling() throws Exception
+    {
+        String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("NonExistingResource.json");
+        assertNotNull(peerAssocCreatedEventJson);
+        RepoEvent<EventData<Resource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>() {});
+        assertNull(result.getData().getResource());
     }
 }
