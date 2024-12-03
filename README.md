@@ -46,6 +46,9 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.assoc.peer.Created`  | Occurs when a peer association is created                                                                                |
 | `org.alfresco.event.assoc.peer.Deleted`  | Occurs when a peer association is deleted                                                                                |
 
+All event type models should be declared in the `org.alfresco.repo.event.v1.model.Resource` as `@JsonSubTypes` annotation.
+If an event is not declared in the `Resource` class, the data will be ignored during the serialization and deserialization process and null will be returned
+
 ### JSON Schema
 
 For a detailed view of the event content refer to [Repo Event JSON schema](src/main/resources/json-schema).
