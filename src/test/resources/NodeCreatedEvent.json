@@ -16,6 +16,7 @@
       "nodeType": "cm:content",
       "isFolder": false,
       "isFile": true,
+      "isPermanentlyDeleted": true,
       "createdByUser": {
         "id": "john.doe",
         "displayName": "John Doe"

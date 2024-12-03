@@ -59,6 +59,7 @@ public final class NodeResourceUtils
                         .setPrimaryAssocQName(nodeResource.getPrimaryAssocQName())
                         .setPrimaryHierarchy(nodeResource.getPrimaryHierarchy())
                         .setProperties(nodeResource.getProperties())
-                        .setSecondaryParents(nodeResource.getSecondaryParents());
+                        .setSecondaryParents(nodeResource.getSecondaryParents())
+                        .setIsPermanentlyDeleted(nodeResource.isPermanentlyDeleted());
         }
 }
