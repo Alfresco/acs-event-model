@@ -46,7 +46,7 @@
     <dependency.commons-io.version>2.18.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
     <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
-    <dependency.spotless-maven-plugin.version>2.43.0</dependency.spotless-maven-plugin.version>
+    <dependency.spotless-maven-plugin.version>2.44.1</dependency.spotless-maven-plugin.version>
   </properties>
 
   <dependencies>
