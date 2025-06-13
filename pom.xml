@@ -76,6 +76,12 @@
       <version>${dependency.commons-io.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>uk.co.jemos.podam</groupId>
+      <artifactId>podam</artifactId>
+      <version>8.0.2.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
 
     <!-- JSON schema dependencies -->
     <dependency>
