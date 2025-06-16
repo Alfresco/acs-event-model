@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2023 Alfresco Software Limited
+ * Copyright (C) 2005 - 2025 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -47,8 +47,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.alfresco.repo.event.util.RandomModelGenerator;
 import org.alfresco.repo.event.util.TestUtil;
 
 /**
@@ -655,5 +657,19 @@ public class EventTest
         assertNotNull(peerAssocCreatedEventJson);
         RepoEvent<EventData<Resource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>() {});
         assertNull(result.getData().getResource());
+    }
+
+    @Test
+    @DisplayName("should correctly clone RepoEvent object using toBuilder method")
+    void shouldClone()
+    {
+        // given
+        var src = RandomModelGenerator.generateRepoEvent();
+
+        // when
+        var dst = src.toBuilder().build();
+
+        // then
+        assertEquals(src, dst);
     }
 }

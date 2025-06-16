@@ -35,6 +35,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import org.alfresco.repo.event.util.EventDataUtils;
+
 /**
  * Represents Alfresco event's data.
  *
@@ -110,6 +112,11 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     public Set<String> getResourceReaderSecurityControls()
     {
         return resourceReaderSecurityControls;
+    }
+
+    public EventData.Builder<R> toBuilder()
+    {
+        return EventDataUtils.getFilledBuilder(this);
     }
 
     @Override

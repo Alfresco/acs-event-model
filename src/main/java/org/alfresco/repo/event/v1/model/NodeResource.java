@@ -40,6 +40,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import org.alfresco.repo.event.util.NodeResourceUtils;
+
 /**
  * Represents Alfresco node resource. Any attribute that its value is null, will not be serialized.
  *
@@ -158,6 +160,11 @@ public class NodeResource extends AbstractNodeResource
     public List<String> getSecondaryParents()
     {
         return secondaryParents;
+    }
+
+    public NodeResource.Builder toBuilder()
+    {
+        return NodeResourceUtils.getFilledBuilder(this);
     }
 
     @Override

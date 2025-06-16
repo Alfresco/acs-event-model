@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import org.alfresco.repo.event.EventAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributes;
+import org.alfresco.repo.event.util.RepoEventUtils;
 
 /**
  * Represents Alfresco event.
@@ -129,6 +130,11 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
     public ExtensionAttributes getExtensionAttributes()
     {
         return extensionAttributes;
+    }
+
+    public RepoEvent.Builder<D> toBuilder()
+    {
+        return RepoEventUtils.getFilledBuilder(this);
     }
 
     @Override

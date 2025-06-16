@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2025 Alfresco Software Limited
+ * Copyright (C) 2025 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -23,27 +23,28 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
 package org.alfresco.repo.event.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Objects;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.alfresco.repo.event.v1.model.EventData;
+import org.alfresco.repo.event.v1.model.Resource;
 
-public class NodeResourceUtilsTest
+public class EventDataUtils
 {
-    @Test
-    @DisplayName("should correctly clone NodeResource object using builder")
-    void shouldClone()
+    private EventDataUtils()
+    {}
+
+    public static <R extends Resource> EventData.Builder<R> getFilledBuilder(EventData<R> eventData)
     {
-        // given
-        var src = RandomModelGenerator.generateNodeResource();
+        Objects.requireNonNull(eventData);
 
-        // when
-        var dst = NodeResourceUtils.getFilledBuilder(src).build();
-
-        // then
-        assertEquals(src, dst);
+        return new EventData.Builder<R>()
+                .setEventGroupId(eventData.getEventGroupId())
+                .setResource(eventData.getResource())
+                .setResourceBefore(eventData.getResourceBefore())
+                .setResourceReaderAuthorities(eventData.getResourceReaderAuthorities())
+                .setResourceDeniedAuthorities(eventData.getResourceDeniedAuthorities())
+                .setResourceReaderSecurityControls(eventData.getResourceReaderSecurityControls());
     }
 }

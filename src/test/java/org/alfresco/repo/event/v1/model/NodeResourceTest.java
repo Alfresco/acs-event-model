@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2024 Alfresco Software Limited
+ * Copyright (C) 2005 - 2025 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -31,7 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import org.alfresco.repo.event.util.RandomModelGenerator;
 
 /** Unit tests for {@link NodeResource} . */
 public class NodeResourceTest
@@ -68,5 +71,19 @@ public class NodeResourceTest
 
         NodeResource nodeResource = nodeResourceBuilder.build();
         assertEquals(nodeResource.getSecondaryParents(), emptyList(), "Expected empty list of secondary parents.");
+    }
+
+    @Test
+    @DisplayName("should correctly clone NodeResource object using toBuilder method")
+    void shouldClone()
+    {
+        // given
+        var src = RandomModelGenerator.generateNodeResource();
+
+        // when
+        var dst = src.toBuilder().build();
+
+        // then
+        assertEquals(src, dst);
     }
 }

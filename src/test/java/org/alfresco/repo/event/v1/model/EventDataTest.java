@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2025 Alfresco Software Limited
+ * Copyright (C) 2025 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -23,25 +23,26 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
-package org.alfresco.repo.event.util;
+package org.alfresco.repo.event.v1.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class NodeResourceUtilsTest
+import org.alfresco.repo.event.util.RandomModelGenerator;
+
+class EventDataTest
 {
     @Test
-    @DisplayName("should correctly clone NodeResource object using builder")
-    void shouldClone()
+    @DisplayName("should correctly clone EventData object using toBuilder method")
+    void shouldClone2()
     {
         // given
-        var src = RandomModelGenerator.generateNodeResource();
+        var src = RandomModelGenerator.generateEventData();
 
         // when
-        var dst = NodeResourceUtils.getFilledBuilder(src).build();
+        var dst = src.toBuilder().build();
 
         // then
         assertEquals(src, dst);
