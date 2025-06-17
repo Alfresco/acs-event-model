@@ -25,6 +25,9 @@
  */
 package org.alfresco.repo.event.v1.model;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * List of supported event types.
  *
@@ -87,5 +90,12 @@ public enum EventType
         private static final String CREATED = "Created";
         private static final String UPDATED = "Updated";
         private static final String DELETED = "Deleted";
+    }
+
+    public static Optional<EventType> findByType(String type)
+    {
+        return Arrays.stream(EventType.values())
+                .filter(eventType -> eventType.getType().equals(type))
+                .findFirst();
     }
 }
