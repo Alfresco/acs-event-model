@@ -1,46 +1,18 @@
 package org.alfresco.repo.event.v1.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-
-import java.time.ZonedDateTime;
 import java.util.Map;
-
-
+import java.util.Objects;
 
 public class AuditEntryResource implements Resource
 {
-    private final String auditedActionType;
-    private final ZonedDateTime createdAt;
-    private final UserInfo createdByUser;
-    private final Map<String, ?> auditData;
+    private Map<String, ?> auditData;
 
-    private AuditEntryResource(Builder builder)
+    public AuditEntryResource()
+    {}
+
+    public AuditEntryResource(Map<String, ?> auditData)
     {
-        this.auditedActionType = builder.auditedActionType;
-        this.createdAt = builder.createdAt;
-        this.createdByUser = builder.createdByUser;
-        this.auditData = builder.auditData;
-    }
-
-    public static Builder builder()
-    {
-        return new Builder();
-    }
-
-
-    public String getAuditedActionType()
-    {
-        return auditedActionType;
-    }
-
-    public ZonedDateTime getCreatedAt()
-    {
-        return createdAt;
-    }
-
-    public UserInfo getCreatedByUser()
-    {
-        return createdByUser;
+        this.auditData = auditData;
     }
 
     public Map<String, ?> getAuditData()
@@ -48,40 +20,18 @@ public class AuditEntryResource implements Resource
         return auditData;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == null || getClass() != o.getClass())
+            return false;
+        AuditEntryResource that = (AuditEntryResource) o;
+        return Objects.equals(auditData, that.auditData);
+    }
 
-    @JsonPOJOBuilder(withPrefix = "set")
-    public static class Builder {
-        private String auditedActionType;
-        private ZonedDateTime createdAt;
-        private UserInfo createdByUser;
-        private Map<String, ?> auditData;
-
-        public Builder setAuditedActionType(String auditedActionType)
-        {
-            this.auditedActionType = auditedActionType;
-            return this;
-        }
-
-        public Builder setCreatedAt(ZonedDateTime createdAt)
-        {
-            this.createdAt = createdAt;
-            return this;
-        }
-
-        public Builder setCreatedByUser(UserInfo createdByUser)
-        {
-            this.createdByUser = createdByUser;
-            return this;
-        }
-
-        public Builder setAuditData(Map<String, ?> auditData)
-        {
-            this.auditData = auditData;
-            return this;
-        }
-
-        public AuditEntryResource build() {
-            return new AuditEntryResource(this);
-        }
+    @Override
+    public int hashCode()
+    {
+        return Objects.hashCode(auditData);
     }
 }
