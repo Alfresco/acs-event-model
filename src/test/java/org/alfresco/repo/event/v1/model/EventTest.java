@@ -656,7 +656,7 @@ public class EventTest
     @Test
     public void auditEntryEvent_marshalling() throws Exception
     {
-        Map<String, Serializable> auditData = Map.of(
+        Map<String, ?> auditData = Map.of(
                 "somekey", "somevalue",
                 "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
 

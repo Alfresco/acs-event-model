@@ -25,8 +25,9 @@ public class AuditEntryResource implements Resource
     {
         if (o == null || getClass() != o.getClass())
             return false;
+
         AuditEntryResource that = (AuditEntryResource) o;
-        return Objects.equals(auditData, that.auditData);
+        return auditData.equals(that.auditData);
     }
 
     @Override
