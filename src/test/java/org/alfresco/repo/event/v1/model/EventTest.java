@@ -662,7 +662,7 @@ public class EventTest
 
         EventData<AuditEntryResource> eventData = EventData.<AuditEntryResource> builder()
                 .setEventGroupId(getUUID())
-                .setResource(new AuditEntryResource(auditData))
+                .setResource(new AuditEntryResource("auditedApp", auditData))
                 .build();
 
         RepoEvent<EventData<AuditEntryResource>> repoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()
@@ -693,7 +693,7 @@ public class EventTest
 
         EventData<AuditEntryResource> expectedEventData = EventData.<AuditEntryResource> builder()
                 .setEventGroupId("b23f75d0-45da-40d1-9063-eb800a4f2444")
-                .setResource(new AuditEntryResource(auditData))
+                .setResource(new AuditEntryResource("auditedApp", auditData))
                 .build();
 
         RepoEvent<EventData<AuditEntryResource>> expectedRepoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()

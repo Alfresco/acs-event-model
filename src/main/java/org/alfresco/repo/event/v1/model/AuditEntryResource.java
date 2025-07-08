@@ -1,23 +1,29 @@
 package org.alfresco.repo.event.v1.model;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class AuditEntryResource implements Resource
 {
+    private String auditApplicationId;
     private Map<String, ?> auditData;
 
     public AuditEntryResource()
     {}
 
-    public AuditEntryResource(Map<String, ?> auditData)
+    public AuditEntryResource(String auditApplicationId, Map<String, ?> auditData)
     {
+        this.auditApplicationId = auditApplicationId;
         this.auditData = auditData;
     }
 
     public Map<String, ?> getAuditData()
     {
         return auditData;
+    }
+
+    public String getAuditApplicationId()
+    {
+        return auditApplicationId;
     }
 
     @Override
@@ -27,12 +33,14 @@ public class AuditEntryResource implements Resource
             return false;
 
         AuditEntryResource that = (AuditEntryResource) o;
-        return auditData.equals(that.auditData);
+        return auditApplicationId.equals(that.auditApplicationId) && auditData.equals(that.auditData);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hashCode(auditData);
+        int result = auditApplicationId.hashCode();
+        result = 31 * result + auditData.hashCode();
+        return result;
     }
 }

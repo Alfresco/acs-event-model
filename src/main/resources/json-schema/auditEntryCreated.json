@@ -45,6 +45,9 @@
         "resource" : {
           "type" : "object",
           "properties" : {
+            "auditApplicationId" : {
+              "type" : "string"
+            },
             "auditData" : {
               "type" : "object"
             }
