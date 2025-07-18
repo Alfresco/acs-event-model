@@ -1,19 +1,24 @@
 package org.alfresco.repo.event.v1.model;
 
-public abstract class AuditRecordResource implements Resource
+import java.util.Map;
+
+public class AuditRecordResource implements Resource
 {
     private String auditApplicationId;
-    private String auditData;
+    private Map<String, ?> auditRecordData;
 
     public AuditRecordResource()
-    {
+    {}
 
-    }
-
-    public AuditRecordResource(String auditApplicationId, String auditData)
+    public AuditRecordResource(String auditApplicationId, Map<String, ?> auditRecordData)
     {
         this.auditApplicationId = auditApplicationId;
-        this.auditData = auditData;
+        this.auditRecordData = auditRecordData;
+    }
+
+    public Map<String, ?> getAuditRecordData()
+    {
+        return auditRecordData;
     }
 
     public String getAuditApplicationId()
@@ -21,18 +26,21 @@ public abstract class AuditRecordResource implements Resource
         return auditApplicationId;
     }
 
-    public void setAuditApplicationId(String auditApplicationId)
+    @Override
+    public boolean equals(Object o)
     {
-        this.auditApplicationId = auditApplicationId;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        AuditEntryResource that = (AuditEntryResource) o;
+        return auditApplicationId.equals(that.getAuditApplicationId()) && auditRecordData.equals(that.getAuditData());
     }
 
-    public String getAuditData()
+    @Override
+    public int hashCode()
     {
-        return auditData;
-    }
-
-    public void setAuditData(String auditData)
-    {
-        this.auditData = auditData;
+        int result = auditApplicationId.hashCode();
+        result = 31 * result + auditRecordData.hashCode();
+        return result;
     }
 }

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "properties": {
+    "specversion": { "type": "string" },
+    "type": { "type": "string" },
+    "id": { "type": "string" },
+    "source": { "type": ["string", "null"] },
+    "time": { "type": "string", "format": "date-time" },
+    "dataschema": { "type": "string" },
+    "datacontenttype": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "eventGroupId": { "type": ["string", "null"] },
+        "resource": {
+          "type": "object",
+          "properties": {
+            "@type": { "type": "string" },
+            "auditApplicationId": { "type": "string" },
+            "auditData": {
+              "type": "object",
+              "properties": {
+                "transaction": {
+                  "type": "object",
+                  "properties": {
+                    "path": { "type": "string" },
+                    "sub-actions": { "type": "string" },
+                    "aspects": {
+                      "type": "object",
+                      "properties": {
+                        "add": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "namespaceURI": { "type": "string" },
+                              "localName": { "type": "string" },
+                              "prefixString": { "type": "string" }
+                            },
+                            "required": ["namespaceURI", "localName", "prefixString"]
+                          }
+                        }
+                      }
+                    },
+                    "action": { "type": "string" },
+                    "type": { "type": "string" },
+                    "user": { "type": "string" },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "add": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  },
+                  "required": ["path", "sub-actions", "aspects", "action", "type", "user", "properties"]
+                }
+              },
+              "required": ["transaction"]
+            }
+          },
+          "required": ["@type", "auditApplicationId", "auditData"]
+        }
+      },
+      "required": ["eventGroupId", "resource"]
+    }
+  },
+  "required": ["specversion", "type", "id", "source", "time", "dataschema", "datacontenttype", "data"]
+}
