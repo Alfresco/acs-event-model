@@ -41,7 +41,7 @@
     <jsonschema-generator.version>4.38.0</jsonschema-generator.version>
     <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
 
-    <dependency.jackson.version>2.19.1</dependency.jackson.version>
+    <dependency.jackson.version>2.19.2</dependency.jackson.version>
     <dependency.junit-jupiter.version>5.13.3</dependency.junit-jupiter.version>
     <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
