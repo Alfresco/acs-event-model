@@ -1,46 +1,23 @@
 {
-  "type": "org.alfresco.event.audit.entryCreated",
-  "id": "47fbc01e-dc47-4f4e-9a60-710045a3d65a",
-  "time": "2025-07-09T10:26:25.105444+02:00",
-  "data": {
-    "auditSourceName": "AuditEntryResource",
-    "applicationId": "TXN_READ_ONLY",
-    "user": "admin",
-    "action": "CREATE",
-    "path": "/app:company_home/st:sites/cm:surf-config/cm:components/cm:page.component-1-1.user~admin~dashboard.xml",
-    "type": "cm:content",
-    "subActions": [
-      "createNode",
-      "updateNodeProperties",
-      "addNodeAspect",
-      "createContent"
-    ],
-    "aspectsAdded": [
-      "cm:indexControl",
-      "cm:ownable"
-    ],
-    "properties": {
-      "isIndexed": false,
-      "created": "2025-07-09T08:25:45.245Z",
-      "isContentIndexed": true,
-      "creator": "admin",
-      "node-uuid": "29d0c5f5-8b53-4bc7-90c5-f58b53dbc7e6",
-      "name": "page.component-1-1.user~admin~dashboard.xml",
-      "store-protocol": "workspace",
-      "content": {
-        "contentUrl": "store://2025/7/9/10/25/f58fcb51-ec31-476a-8fcb-51ec31276a61.bin",
-        "mimetype": "text/xml",
-        "size": 307,
-        "encoding": "UTF-8",
-        "locale": "en_US",
-        "id": 247
-      },
-      "store-identifier": "SpacesStore",
-      "node-dbid": 866,
-      "locale": "en_US",
-      "modifier": "admin",
-      "owner": "admin",
-      "modified": "2025-07-09T08:25:45.245Z"
+  "specversion" : "1.0",
+  "type" : "org.alfresco.event.audit.entryCreated",
+  "id" : "47fbc01e-dc47-4f4e-9a60-710045a3d65a",
+  "source" : null,
+  "time" : "2025-07-09T10:26:25.105444+02:00",
+  "dataschema" : "https://api.alfresco.com/schema/event/repo/v1/auditEntryCreated",
+  "datacontenttype" : "application/json",
+  "data" : {
+    "eventGroupId" : null,
+    "resource" : {
+      "@type" : "AuditEntryResource",
+      "auditApplicationId" : "TXN_READ_ONLY",
+      "auditData": {
+        "somekey": "somevalue",
+        "anotherkey": [
+          "firstvalue",
+          "secondvalue"
+        ]
+      }
     }
   }
 }

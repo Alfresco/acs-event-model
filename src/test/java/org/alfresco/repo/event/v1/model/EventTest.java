@@ -683,18 +683,17 @@ public class EventTest
     @Test
     public void auditRecordEvent_marshalling() throws Exception
     {
-        Map<String, ?> auditData = Map.of(
+        Map<String, Object> auditData = Map.of(
                 "somekey", "somevalue",
                 "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
 
         EventData<AuditRecordResource> eventData = EventData.<AuditRecordResource> builder()
-                .setEventGroupId(getUUID())
-                .setResource(new AuditRecordResource("auditedApp", auditData))
+                .setEventGroupId(null)
+                .setResource(new AuditRecordResource("TXN_READ_ONLY", auditData))
                 .build();
 
         RepoEvent<EventData<AuditRecordResource>> repoEvent = RepoEvent.<EventData<AuditRecordResource>> builder()
                 .setId(getUUID())
-                .setSource(getSource())
                 .setTime(ZonedDateTime.now())
                 .setType("org.alfresco.event.audit.entryCreated")
                 .setData(eventData)
@@ -702,7 +701,7 @@ public class EventTest
                 .build();
 
         String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
-        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResource.json");
+        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
     }

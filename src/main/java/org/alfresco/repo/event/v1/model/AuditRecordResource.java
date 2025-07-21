@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("AuditEntryResource")
+@JsonTypeName("AuditRecordResource")
 public class AuditRecordResource implements Resource
 {
     private String auditApplicationId;
