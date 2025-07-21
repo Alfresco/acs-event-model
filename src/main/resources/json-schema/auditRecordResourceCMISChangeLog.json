@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "properties": {
+    "specversion": { "type": "string" },
+    "type": { "type": "string" },
+    "id": { "type": "string" },
+    "source": { "type": ["string", "null"] },
+    "time": { "type": "string", "format": "date-time" },
+    "dataschema": { "type": "string" },
+    "datacontenttype": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "eventGroupId": { "type": ["string", "null"] },
+        "resource": {
+          "type": "object",
+          "properties": {
+            "@type": { "type": "string" },
+            "auditApplicationId": { "type": "string" },
+            "auditData": {
+              "type": "object",
+              "properties": {
+                "CREATED": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "nodeRef": {
+                              "type": "object",
+                              "properties": {
+                                "storeRef": {
+                                  "type": "object",
+                                  "properties": {
+                                    "protocol": { "type": "string" },
+                                    "identifier": { "type": "string" }
+                                  },
+                                  "required": ["protocol", "identifier"]
+                                },
+                                "id": { "type": "string" }
+                              },
+                              "required": ["storeRef", "id"]
+                            },
+                            "objectId": { "type": "string" }
+                          },
+                          "required": ["nodeRef", "objectId"]
+                        }
+                      },
+                      "required": ["value"]
+                    }
+                  },
+                  "required": ["result"]
+                }
+              },
+              "required": ["CREATED"]
+            }
+          },
+          "required": ["@type", "auditApplicationId", "auditData"]
+        }
+      },
+      "required": ["eventGroupId", "resource"]
+    }
+  },
+  "required": [
+    "specversion",
+    "type",
+    "id",
+    "source",
+    "time",
+    "dataschema",
+    "datacontenttype",
+    "data"
+  ]
+}

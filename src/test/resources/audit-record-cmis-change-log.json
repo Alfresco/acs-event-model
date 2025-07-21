@@ -1,0 +1,12 @@
+{
+  "type": "org.alfresco.event.audit.entryCreated",
+  "id": "6505565d-4134-4f72-b93f-419a9f90af1b",
+  "time": "2025-07-18T11:58:47.047136+02:00",
+  "data": {
+    "auditSourceName": "AuditEntryResource",
+    "applicationId": "CMISChangeLog",
+    "action": "CREATED",
+    "nodeRef": "workspace://SpacesStore/5877f79c-f1c7-417f-b7f7-9cf1c7217fe5",
+    "objectId": "5877f79c-f1c7-417f-b7f7-9cf1c7217fe5"
+  }
+}
