@@ -33,13 +33,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  *
  * @author Jamal Kaabi-Mofrad
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.SIMPLE_NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, defaultImpl = Void.class)
+@JsonTypeInfo(use = JsonTypeInfo.Id.SIMPLE_NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "@type", defaultImpl = Void.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(NodeResource.class),
         @JsonSubTypes.Type(ChildAssociationResource.class),
         @JsonSubTypes.Type(PeerAssociationResource.class),
-        @JsonSubTypes.Type(AuditEntryResource.class),
-        @JsonSubTypes.Type(AuditRecordResource.class)
+        @JsonSubTypes.Type(value = AuditRecordResource.class, name = "AuditEntryResource")
 })
 public interface Resource
 {}
