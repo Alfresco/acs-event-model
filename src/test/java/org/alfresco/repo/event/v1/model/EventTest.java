@@ -684,7 +684,7 @@ public class EventTest
 
     @Test
     public void auditRecordEvent_marshalling() throws Exception {
-        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResource.json");
+        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
         assertNotNull(expectedJson, "Expected JSON should not be null");
 
         RepoEvent<EventData<AuditRecordResource>> expectedRepoEvent = OBJECT_MAPPER.readValue(
