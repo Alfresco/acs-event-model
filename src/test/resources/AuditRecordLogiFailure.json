@@ -1,0 +1,11 @@
+{
+  "type": "org.alfresco.event.audit.entryCreated",
+  "id": "12faecde-f9b8-42cb-99da-da318c467cd8",
+  "time": "2025-07-18T12:01:37.70492+02:00",
+  "data": {
+    "auditSourceName": "AuditEntryResource",
+    "applicationId": "alfresco-access",
+    "action": "loginFailure",
+    "user": "admin"
+  }
+}

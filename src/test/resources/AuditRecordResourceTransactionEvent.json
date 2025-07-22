@@ -1,0 +1,23 @@
+{
+  "specversion" : "1.0",
+  "type" : "org.alfresco.event.audit.entryCreated",
+  "id" : "47fbc01e-dc47-4f4e-9a60-710045a3d65a",
+  "source" : null,
+  "time" : "2025-07-09T10:26:25.105444+02:00",
+  "dataschema" : "https://api.alfresco.com/schema/event/repo/v1/auditEntryCreated",
+  "datacontenttype" : "application/json",
+  "data" : {
+    "eventGroupId" : null,
+    "resource" : {
+      "@type" : "AuditEntryResource",
+      "auditApplicationId" : "TXN_READ_ONLY",
+      "auditData": {
+        "somekey": "somevalue",
+        "anotherkey": [
+          "firstvalue",
+          "secondvalue"
+        ]
+      }
+    }
+  }
+}
