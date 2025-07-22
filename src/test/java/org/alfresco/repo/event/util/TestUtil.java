@@ -61,10 +61,17 @@ public class TestUtil
             "^([0-9]+)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])[Tt]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\\.[0-9]+)?(([Zz])|([+|\\-]([01][0-9]|2[0-3]):[0-5][0-9]))$");
 
     public static final ValueMatcher<Object> UUID_VALUE_MATCHER = (o1, o2) -> {
-        // Just check that the "actual" value (o1) and expected value (o2)
+        if (o1 == null && o2 == null) return true;
+        if (o1 == null || o2 == null) return false;
+//        // Just check that the "actual" value (o1) and expected value (o2)
         // are conforming to the defined regex. E.g: "521aac1c-20eb-444b-a137-2da3d35ee1a8"
         return UUID_PATTERN.matcher(o1.toString()).matches() && UUID_PATTERN.matcher(o2.toString()).matches();
     };
+//public static final ValueMatcher<Object> UUID_VALUE_MATCHER = (actual, expected) -> {
+//    if (actual == null) return expected == null;
+//    return UUID_PATTERN.matcher(actual.toString()).matches();
+//};
+
 
     public static final ValueMatcher<Object> DATE_TIME_VALUE_MATCHER = (o1, o2) -> {
         // Just check that the "actual" value (o1) and expected value (o2)
@@ -87,7 +94,12 @@ public class TestUtil
 
     public static final Customization[] CUSTOMIZATIONS = new Customization[]{
             new Customization("id", UUID_VALUE_MATCHER),
-            new Customization("data.eventGroupId", UUID_VALUE_MATCHER),
+//            new Customization("data.eventGroupId", UUID_VALUE_MATCHER),
+            new Customization("data.eventGroupId", (o1, o2) -> {
+                if (o1 == null && o2 == null) return true;
+                if (o1 == null || o2 == null) return false;
+                return o1.equals(o2);
+            }),
             new Customization("data.resource.id", UUID_VALUE_MATCHER),
             new Customization("data.resource.parent.id", UUID_VALUE_MATCHER),
             new Customization("data.resource.child.id", UUID_VALUE_MATCHER),
