@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(NodeResource.class),
         @JsonSubTypes.Type(ChildAssociationResource.class),
         @JsonSubTypes.Type(PeerAssociationResource.class),
-        @JsonSubTypes.Type(value = AuditRecordResource.class, name = "AuditEntryResource")
+        @JsonSubTypes.Type(value = AuditEntryResource.class, name = "AuditEntryResource")
 })
 public interface Resource
 {}
