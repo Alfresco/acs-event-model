@@ -10,8 +10,8 @@
     "eventGroupId": "b23f75d0-45da-40d1-9063-eb800a4f2444",
     "resource": {
       "@type": "AuditEntryResource",
-      "auditApplicationId": "auditedApp",
-      "auditData": {
+      "entryType": "auditedApp",
+      "entryData": {
         "somekey": "somevalue",
         "anotherkey": [
           "firstvalue",

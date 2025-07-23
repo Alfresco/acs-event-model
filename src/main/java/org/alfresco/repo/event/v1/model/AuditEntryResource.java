@@ -5,26 +5,26 @@ import java.util.Map;
 
 public class AuditEntryResource implements Resource
 {
-    private String auditApplicationId;
-    private Map<String, Serializable> auditData;
+    private String entryType;
+    private Map<String, Serializable> entryData;
 
     public AuditEntryResource()
     {}
 
-    public AuditEntryResource(String auditApplicationId, Map<String, Serializable> auditData)
+    public AuditEntryResource(String entryType, Map<String, Serializable> entryData)
     {
-        this.auditApplicationId = auditApplicationId;
-        this.auditData = auditData;
+        this.entryType = entryType;
+        this.entryData = entryData;
     }
 
-    public Map<String, ?> getAuditData()
+    public Map<String, ?> getEntryData()
     {
-        return auditData;
+        return entryData;
     }
 
-    public String getAuditApplicationId()
+    public String getEntryType()
     {
-        return auditApplicationId;
+        return entryType;
     }
 
     @Override
@@ -34,14 +34,14 @@ public class AuditEntryResource implements Resource
             return false;
 
         AuditEntryResource that = (AuditEntryResource) o;
-        return auditApplicationId.equals(that.auditApplicationId) && auditData.equals(that.auditData);
+        return entryType.equals(that.entryType) && entryData.equals(that.entryData);
     }
 
     @Override
     public int hashCode()
     {
-        int result = auditApplicationId.hashCode();
-        result = 31 * result + auditData.hashCode();
+        int result = entryType.hashCode();
+        result = 31 * result + entryData.hashCode();
         return result;
     }
 }
