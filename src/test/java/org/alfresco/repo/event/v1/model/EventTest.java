@@ -41,8 +41,11 @@ import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -645,6 +648,61 @@ public class EventTest
                 .setType("org.alfresco.event.assoc.peer.Created")
                 .setData(expectedEventData)
                 .setDataschema(getDataSchema("peerAssocCreated"))
+                .build();
+
+        assertEquals(expectedRepoEvent, result);
+    }
+
+    @Test
+    public void auditEntryEvent_marshalling() throws Exception
+    {
+        Map<String, Serializable> auditData = Map.of(
+                "somekey", "somevalue",
+                "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
+
+        EventData<AuditEntryResource> eventData = EventData.<AuditEntryResource> builder()
+                .setEventGroupId(getUUID())
+                .setResource(new AuditEntryResource("auditedApp", auditData))
+                .build();
+
+        RepoEvent<EventData<AuditEntryResource>> repoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()
+                .setId(getUUID())
+                .setSource(getSource())
+                .setTime(ZonedDateTime.now())
+                .setType("org.alfresco.event.audit.Created")
+                .setData(eventData)
+                .setDataschema(getDataSchema("auditEntryCreated"))
+                .build();
+
+        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String expectedJson = TestUtil.getResourceFileAsString("AuditEntryCreated.json");
+        // Compare the Json files
+        checkExpectedJsonBody(expectedJson, result);
+    }
+
+    @Test
+    public void auditEntryEvent_unmarshalling() throws Exception
+    {
+        String auditEntryEventJson = TestUtil.getResourceFileAsString("AuditEntryCreated.json");
+        assertNotNull(auditEntryEventJson);
+        RepoEvent<EventData<AuditEntryResource>> result = OBJECT_MAPPER.readValue(auditEntryEventJson, new TypeReference<>() {});
+
+        Map<String, Serializable> auditData = Map.of(
+                "somekey", "somevalue",
+                "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
+
+        EventData<AuditEntryResource> expectedEventData = EventData.<AuditEntryResource> builder()
+                .setEventGroupId("b23f75d0-45da-40d1-9063-eb800a4f2444")
+                .setResource(new AuditEntryResource("auditedApp", auditData))
+                .build();
+
+        RepoEvent<EventData<AuditEntryResource>> expectedRepoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()
+                .setId("8877b428-da23-441d-bb8b-e5bf1b59abfe")
+                .setSource(getSource())
+                .setTime(parseTime("2020-06-10T09:56:52.235411+01:00"))
+                .setType("org.alfresco.event.audit.Created")
+                .setData(expectedEventData)
+                .setDataschema(getDataSchema("auditEntryCreated"))
                 .build();
 
         assertEquals(expectedRepoEvent, result);
