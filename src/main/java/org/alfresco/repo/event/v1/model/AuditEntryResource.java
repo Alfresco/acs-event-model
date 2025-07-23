@@ -1,16 +1,17 @@
 package org.alfresco.repo.event.v1.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 public class AuditEntryResource implements Resource
 {
     private String auditApplicationId;
-    private Map<String, ?> auditData;
+    private Map<String, Serializable> auditData;
 
     public AuditEntryResource()
     {}
 
-    public AuditEntryResource(String auditApplicationId, Map<String, ?> auditData)
+    public AuditEntryResource(String auditApplicationId, Map<String, Serializable> auditData)
     {
         this.auditApplicationId = auditApplicationId;
         this.auditData = auditData;
