@@ -17,7 +17,7 @@ public class AuditEntryResource implements Resource
         this.entryData = entryData;
     }
 
-    public Map<String, ?> getEntryData()
+    public Map<String, Serializable> getEntryData()
     {
         return entryData;
     }
