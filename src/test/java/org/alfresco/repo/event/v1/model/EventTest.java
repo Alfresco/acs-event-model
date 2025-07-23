@@ -56,7 +56,6 @@ import org.junit.jupiter.api.Test;
 
 import org.alfresco.repo.event.util.RandomModelGenerator;
 import org.alfresco.repo.event.util.TestUtil;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 /**
  * @author Jamal Kaabi-Mofrad
@@ -683,23 +682,18 @@ public class EventTest
     }
 
     @Test
-    public void auditRecordEvent_marshalling() throws Exception {
-        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
-        assertNotNull(expectedJson, "Expected JSON should not be null");
+    public void auditRecordEvent_marshalling() throws Exception
+    {
+        Map<String, ?> auditData = Map.of(
+                "somekey", "somevalue",
+                "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
 
-        RepoEvent<EventData<AuditEntryResource>> expectedRepoEvent = OBJECT_MAPPER.readValue(
-                expectedJson,
-                new TypeReference<>() {
-                }
-        );
-        Map<String, ?> auditData = expectedRepoEvent.getData().getResource().getAuditData();
-
-        EventData<AuditEntryResource> eventData = EventData.<AuditEntryResource>builder()
+        EventData<AuditEntryResource> eventData = EventData.<AuditEntryResource> builder()
                 .setEventGroupId(null)
                 .setResource(new AuditEntryResource("TXN_READ_ONLY", auditData))
                 .build();
 
-        RepoEvent<EventData<AuditEntryResource>> actualRepoEvent = RepoEvent.<EventData<AuditEntryResource>>builder()
+        RepoEvent<EventData<AuditEntryResource>> actualRepoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()
                 .setId("47fbc01e-dc47-4f4e-9a60-710045a3d65a")
                 .setSource(null)
                 .setTime(ZonedDateTime.parse("2025-07-09T10:26:25.105444+02:00"))
@@ -709,41 +703,38 @@ public class EventTest
                 .build();
 
         String actualJson = OBJECT_MAPPER.writeValueAsString(actualRepoEvent);
+        String expectedJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
+        assertNotNull(expectedJson, "Expected JSON should not be null");
         checkExpectedJsonBody(expectedJson, actualJson);
     }
 
-//    @Test
-//    public void auditRecordEvent_unmarshalling() throws Exception
-//    {
-//        String auditEntryEventJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
-//        assertNotNull(auditEntryEventJson);
-//        RepoEvent<EventData<AuditEntryResource>> result = OBJECT_MAPPER.readValue(auditEntryEventJson, new TypeReference<>() {});
-//
-//        RepoEvent<EventData<AuditRecordResource>> expectedRepoEvent = OBJECT_MAPPER.readValue(
-//                expectedJson,
-//                new TypeReference<>() {
-//                }
-//        );
-//        Map<String, Object> auditData = expectedRepoEvent.getData().getResource().getAuditData();
-//
-//
-//        EventData<AuditRecordResource> expectedEventData = EventData.<AuditRecordResource> builder()
-//                .setEventGroupId(null)
-//                .setResource(new AuditRecordResource("auditedApp", auditData))
-//                .build();
-//
-//        RepoEvent<EventData<AuditRecordResource>> expectedRepoEvent = RepoEvent.<EventData<AuditRecordResource>> builder()
-//                .setId("47fbc01e-dc47-4f4e-9a60-710045a3d65a")
-//                .setSource(null)
-//                .setTime(parseTime("2025-07-09T10:26:25.105444+02:00"))
-//                .setType("org.alfresco.event.audit.entryCreated")
-//                .setData(expectedEventData)
-//                .setDataschema(URI.create("https://api.alfresco.com/schema/event/repo/v1/auditEntryCreated"))
-//                .build();
-//
-//        assertEquals(expectedRepoEvent, result);
-//    }
+     @Test
+     public void auditRecordEvent_unmarshalling() throws Exception
+     {
+         String auditEntryEventJson = TestUtil.getResourceFileAsString("AuditRecordResourceTransactionEvent.json");
+         assertNotNull(auditEntryEventJson);
+         RepoEvent<EventData<AuditEntryResource>> result = OBJECT_MAPPER.readValue(auditEntryEventJson, new TypeReference<>() {});
 
+         Map<String, Serializable> auditData = Map.of(
+                 "somekey", "somevalue",
+                 "anotherkey", new ArrayList<>(List.of("firstvalue", "secondvalue")));
+
+         EventData<AuditEntryResource> expectedEventData = EventData.<AuditEntryResource> builder()
+            .setEventGroupId(null)
+            .setResource(new AuditEntryResource("auditedApp", auditData))
+            .build();
+
+         RepoEvent<EventData<AuditEntryResource>> expectedRepoEvent = RepoEvent.<EventData<AuditEntryResource>> builder()
+            .setId("47fbc01e-dc47-4f4e-9a60-710045a3d65a")
+            .setSource(null)
+            .setTime(parseTime("2025-07-09T10:26:25.105444+02:00"))
+            .setType("org.alfresco.event.audit.entryCreated")
+            .setData(expectedEventData)
+            .setDataschema(URI.create("https://api.alfresco.com/schema/event/repo/v1/auditEntryCreated"))
+            .build();
+
+         assertEquals(expectedRepoEvent, result);
+     }
 
     @Test
     public void auditEntryEvent_unmarshalling() throws Exception

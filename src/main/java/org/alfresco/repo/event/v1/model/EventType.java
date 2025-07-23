@@ -70,7 +70,7 @@ public enum EventType
 
     private enum ContextType
     {
-        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission."), AUDIT_ENTRY("audit.entry"), AUDIT("audit.");
+        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission."), AUDIT_ENTRY("audit.entry");
 
         private final String context;
 
@@ -90,7 +90,6 @@ public enum EventType
         private static final String CREATED = "Created";
         private static final String UPDATED = "Updated";
         private static final String DELETED = "Deleted";
-        private static final String ENTRY_CREATED = "entryCreated";
     }
 
     public static Optional<EventType> findByType(String type)
