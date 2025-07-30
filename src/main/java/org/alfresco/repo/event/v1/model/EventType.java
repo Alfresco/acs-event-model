@@ -70,7 +70,7 @@ public enum EventType
 
     private enum ContextType
     {
-        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission."), AUDIT_ENTRY("audit.entry");
+        NODE("node."), CHILD_ASSOC("assoc.child."), PEER_ASSOC("assoc.peer."), PERMISSION("permission."), AUDIT_ENTRY("audit.entry.");
 
         private final String context;
 
