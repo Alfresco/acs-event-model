@@ -43,6 +43,8 @@
 
     <dependency.jackson.version>2.19.2</dependency.jackson.version>
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
+    <dependency.mockito.version>5.19.0</dependency.mockito.version>
+    <dependency.assertj.version>3.27.4</dependency.assertj.version>
     <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
     <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
@@ -62,6 +64,18 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>${dependency.junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${dependency.mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${dependency.assertj.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
