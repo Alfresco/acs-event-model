@@ -14,7 +14,7 @@ public class AuditEntryResource implements Resource
     public AuditEntryResource()
     {}
 
-    public AuditEntryResource(String entryType, Map<String, Serializable> entryData, String username, Long entryDBId)
+    public AuditEntryResource(String entryType, String username, Long entryDBId, Map<String, Serializable> entryData)
     {
         this.entryType = entryType;
         this.username = username;
