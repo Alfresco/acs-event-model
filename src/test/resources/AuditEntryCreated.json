@@ -11,6 +11,8 @@
     "resource": {
       "@type": "AuditEntryResource",
       "entryType": "auditedApp",
+      "entryDBId": 1,
+      "username": "admin",
       "entryData": {
         "somekey": "somevalue",
         "anotherkey": [

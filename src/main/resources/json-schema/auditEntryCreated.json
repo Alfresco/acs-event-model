@@ -48,6 +48,12 @@
             "entryType" : {
               "type" : "string"
             },
+            "username" : {
+              "type" : "string"
+            },
+            "entryDBId" : {
+              "type" : "long"
+            },
             "entryData" : {
               "type" : "object"
             }
