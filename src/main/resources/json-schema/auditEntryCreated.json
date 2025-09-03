@@ -48,11 +48,17 @@
             "entryType" : {
               "type" : "string"
             },
+            "username" : {
+              "type" : "string"
+            },
+            "entryDBId" : {
+              "type" : "long"
+            },
             "entryData" : {
               "type" : "object"
             }
           },
-          "required" : [ "createdAt", "auditData" ]
+          "required" : [ "entryType", "entryData" ]
         }
       },
       "required" : [ "eventGroupId", "resource" ]
