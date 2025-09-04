@@ -60,6 +60,16 @@ class DataAttributesUtilsTest
     }
 
     @Test
+    void testContainsNotBlankContent_nullSizeInBytes()
+    {
+        // given
+        when(contentInfo.getSizeInBytes()).thenReturn(null);
+
+        // when and then
+        assertThat(containsNotBlankContent(dataAttributes)).isFalse();
+    }
+
+    @Test
     void testContainsNotBlankContent_nullContentSize()
     {
         // given
