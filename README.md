@@ -36,7 +36,7 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 
 ### Event Types
 
-| Name                                     | Description                                                                                                              |
+|                   Name                   |                                                       Description                                                        |
 |------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | `org.alfresco.event.node.Created`        | Occurs when a node is created                                                                                            |
 | `org.alfresco.event.node.Updated`        | Occurs when a node is updated or moved. Currently only node's name, type, properties, aspects, and content are supported |
@@ -46,7 +46,6 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.assoc.peer.Created`  | Occurs when a peer association is created                                                                                |
 | `org.alfresco.event.assoc.peer.Deleted`  | Occurs when a peer association is deleted                                                                                |
 | `org.alfresco.event.audit.entry.Created` | Occurs when a audit entry is created                                                                                     |
-
 
 All event type models should be declared in the `org.alfresco.repo.event.v1.model.Resource` as `@JsonSubTypes` annotation.
 If an event is not declared in the `Resource` class, the data will be ignored during the serialization and deserialization process and null will be returned.
