@@ -669,7 +669,7 @@ public class EventTest
                 .setId(getUUID())
                 .setSource(getSource())
                 .setTime(ZonedDateTime.now())
-                .setType("org.alfresco.event.audit.Created")
+                .setType("org.alfresco.event.audit.entry.Created")
                 .setData(eventData)
                 .setDataschema(getDataSchema("auditEntryCreated"))
                 .build();
@@ -700,7 +700,7 @@ public class EventTest
                 .setId("8877b428-da23-441d-bb8b-e5bf1b59abfe")
                 .setSource(getSource())
                 .setTime(parseTime("2020-06-10T09:56:52.235411+01:00"))
-                .setType("org.alfresco.event.audit.Created")
+                .setType("org.alfresco.event.audit.entry.Created")
                 .setData(expectedEventData)
                 .setDataschema(getDataSchema("auditEntryCreated"))
                 .build();

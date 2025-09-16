@@ -1,6 +1,6 @@
 {
   "specversion": "1.0",
-  "type": "org.alfresco.event.audit.Created",
+  "type": "org.alfresco.event.audit.entry.Created",
   "id": "8877b428-da23-441d-bb8b-e5bf1b59abfe",
   "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
   "time": "2020-06-10T09:56:52.235411+01:00",

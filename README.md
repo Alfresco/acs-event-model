@@ -36,7 +36,7 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 
 ### Event Types
 
-|                   Name                   |                                                       Description                                                        |
+| Name                                     | Description                                                                                                              |
 |------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | `org.alfresco.event.node.Created`        | Occurs when a node is created                                                                                            |
 | `org.alfresco.event.node.Updated`        | Occurs when a node is updated or moved. Currently only node's name, type, properties, aspects, and content are supported |
@@ -45,6 +45,8 @@ The rest of resource object attributes are self explanatory. See [JSON Schema](#
 | `org.alfresco.event.assoc.child.Deleted` | Occurs when a secondary child association is deleted                                                                     |
 | `org.alfresco.event.assoc.peer.Created`  | Occurs when a peer association is created                                                                                |
 | `org.alfresco.event.assoc.peer.Deleted`  | Occurs when a peer association is deleted                                                                                |
+| `org.alfresco.event.audit.entry.Created` | Occurs when a audit entry is created                                                                                     |
+
 
 All event type models should be declared in the `org.alfresco.repo.event.v1.model.Resource` as `@JsonSubTypes` annotation.
 If an event is not declared in the `Resource` class, the data will be ignored during the serialization and deserialization process and null will be returned.
@@ -828,6 +830,37 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
     "additionalNumber": 1234
   }
 }
+```
+
+### Audit entry created event with sample values
+
+```json
+{
+  "specversion": "1.0",
+  "type": "org.alfresco.event.audit.entry.Created",
+  "id": "8877b428-da23-441d-bb8b-e5bf1b59abfe",
+  "source": "/f6d21231-618e-4f12-a920-e498660c5b9d",
+  "time": "2020-06-10T09:56:52.235411+01:00",
+  "dataschema": "https://api.alfresco.com/schema/event/repo/v1/auditEntryCreated",
+  "datacontenttype": "application/json",
+  "data": {
+    "eventGroupId": "b23f75d0-45da-40d1-9063-eb800a4f2444",
+    "resource": {
+      "@type": "AuditEntryResource",
+      "entryType": "auditedApp",
+      "entryDBId": 1,
+      "username": "admin",
+      "entryData": {
+        "somekey": "somevalue",
+        "anotherkey": [
+          "firstvalue",
+          "secondvalue"
+        ]
+      }
+    }
+  }
+}
+
 ```
 
 ## Building and testing
