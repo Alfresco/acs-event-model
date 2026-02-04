@@ -45,7 +45,7 @@
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
     <dependency.mockito.version>5.19.0</dependency.mockito.version>
     <dependency.assertj.version>3.27.4</dependency.assertj.version>
-    <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
+    <dependency.commons-io.version>2.21.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
     <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
     <dependency.spotless-maven-plugin.version>2.46.1</dependency.spotless-maven-plugin.version>
