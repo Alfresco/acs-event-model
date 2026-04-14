@@ -43,8 +43,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;

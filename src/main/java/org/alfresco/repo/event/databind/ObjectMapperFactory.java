@@ -28,12 +28,12 @@ package org.alfresco.repo.event.databind;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.core.Version;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleAbstractTypeResolver;
+import tools.jackson.databind.module.SimpleModule;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
@@ -48,17 +48,13 @@ import org.alfresco.repo.event.v1.model.EventData;
 public class ObjectMapperFactory
 {
 
-    public static ObjectMapper createInstance()
+    public static JsonMapper createInstance()
     {
         return new ObjectMapperFactory().createObjectMapper();
     }
 
-    public ObjectMapper createObjectMapper()
+    public JsonMapper createObjectMapper()
     {
-        final ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
         final SimpleModule module = getSimpleModule();
         final SimpleAbstractTypeResolver resolver = getSimpleAbstractTypeResolver();
         if (resolver != null)
@@ -68,8 +64,11 @@ public class ObjectMapperFactory
             module.setAbstractTypes(resolver);
         }
 
-        mapper.registerModule(module);
-        return mapper;
+        return JsonMapper.builder()
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .addModule(module)
+                .build();
     }
 
     protected SimpleModule getSimpleModule()

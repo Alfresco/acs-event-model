@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.Customization;
@@ -45,6 +44,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.ValueMatcher;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.alfresco.repo.event.databind.ObjectMapperFactory;
 
@@ -53,7 +53,7 @@ import org.alfresco.repo.event.databind.ObjectMapperFactory;
  */
 public class TestUtil
 {
-    public static final ObjectMapper OBJECT_MAPPER = ObjectMapperFactory.createInstance();
+    public static final JsonMapper OBJECT_MAPPER = ObjectMapperFactory.createInstance();
 
     public static final Pattern UUID_PATTERN = Pattern.compile(
             "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");

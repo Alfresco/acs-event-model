@@ -25,11 +25,9 @@
  */
 package org.alfresco.repo.event.databind;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ser.std.StdSerializer;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 
@@ -42,19 +40,19 @@ public class ExtensionSerializer extends StdSerializer<ExtensionAttributes>
 {
     protected ExtensionSerializer()
     {
-        super(null, false);
+        super(ExtensionAttributes.class);
     }
 
     @Override
     public void serialize(ExtensionAttributes eventExtension, JsonGenerator jsonGenerator,
-            SerializerProvider serializerProvider) throws IOException
+            SerializationContext serializationContext)
     {
         jsonGenerator.writeStartObject();
         for (String ext : eventExtension.getExtensionNames())
         {
             Object extension = eventExtension.getExtension(ext);
-            jsonGenerator.writeFieldName(ext);
-            jsonGenerator.writeObject(extension);
+            jsonGenerator.writeName(ext);
+            jsonGenerator.writePOJO(extension);
         }
         jsonGenerator.writeEndObject();
     }

@@ -26,13 +26,12 @@
 
 package org.alfresco.repo.event.databind;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ser.std.StdSerializer;
 
 /**
  * Jackson serializer for the values of type {@link ZonedDateTime}.
@@ -41,21 +40,14 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
  */
 public class DateTimeSerializer extends StdSerializer<ZonedDateTime>
 {
-    private static final long serialVersionUID = -5916748200020469756L;
-
     public DateTimeSerializer()
     {
-        this(null, false);
-    }
-
-    protected DateTimeSerializer(Class<?> t, boolean dummy)
-    {
-        super(t, dummy);
+        super(ZonedDateTime.class);
     }
 
     @Override
     public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator,
-            SerializerProvider serializerProvider) throws IOException
+            SerializationContext serializationContext)
     {
         jsonGenerator.writeString(zonedDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
     }

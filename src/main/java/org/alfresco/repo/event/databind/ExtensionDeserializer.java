@@ -25,13 +25,12 @@
  */
 package org.alfresco.repo.event.databind;
 
-import java.io.IOException;
+import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ValueDeserializer;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
@@ -41,20 +40,20 @@ import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
  *
  * @author Jamal Kaabi-Mofrad
  */
-public class ExtensionDeserializer extends JsonDeserializer<ExtensionAttributes>
+public class ExtensionDeserializer extends ValueDeserializer<ExtensionAttributes>
 {
     public ExtensionDeserializer()
     {}
 
     @Override
-    public ExtensionAttributes deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException
+    public ExtensionAttributes deserialize(JsonParser parser, DeserializationContext ctxt)
     {
-        final ObjectCodec objectCodec = parser.getCodec();
-        final JsonNode jsonNode = objectCodec.readTree(parser);
+        final JsonNode jsonNode = parser.readValueAsTree();
 
         ExtensionAttributes extension = new ExtensionAttributesImpl();
 
-        jsonNode.fields().forEachRemaining(entry -> {
+        for (Map.Entry<String, JsonNode> entry : jsonNode.properties())
+        {
             String extName = entry.getKey();
             JsonNode extValue = entry.getValue();
 
@@ -72,7 +71,7 @@ public class ExtensionDeserializer extends JsonDeserializer<ExtensionAttributes>
             default:
                 extension.addExtension(extName, extValue.toString());
             }
-        });
+        }
         return extension;
     }
 }

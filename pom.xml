@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>acs-event-model</artifactId>
-  <version>1.0.12-SNAPSHOT</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>acs-event-model</name>
   <description>Alfresco Content Services Event Model</description>
@@ -32,28 +32,29 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <java.version>17</java.version>
+    <java.version>25</java.version>
     <maven.build.sourceVersion>${java.version}</maven.build.sourceVersion>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
-    <jsonschema-generator.version>4.38.0</jsonschema-generator.version>
+    <jsonschema-generator.version>5.0.0</jsonschema-generator.version>
     <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
 
-    <dependency.jackson.version>2.19.2</dependency.jackson.version>
+    <dependency.jackson.version>3.1.0</dependency.jackson.version>
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
-    <dependency.mockito.version>5.19.0</dependency.mockito.version>
+    <dependency.mockito.version>5.23.0</dependency.mockito.version>
     <dependency.assertj.version>3.27.4</dependency.assertj.version>
     <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
+    <dependency.maven-surefire-plugin.version>3.5.3</dependency.maven-surefire-plugin.version>
     <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
     <dependency.spotless-maven-plugin.version>2.46.1</dependency.spotless-maven-plugin.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${dependency.jackson.version}</version>
       <scope>provided</scope>
@@ -99,12 +100,6 @@
 
     <!-- JSON schema dependencies -->
     <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-jsonSchema</artifactId>
-      <version>${dependency.jackson.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.github.victools</groupId>
       <artifactId>jsonschema-generator</artifactId>
       <version>${jsonschema-generator.version}</version>
@@ -142,6 +137,14 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${dependency.maven-surefire-plugin.version}</version>
+        <configuration>
+          <argLine>-Dnet.bytebuddy.experimental=true</argLine>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

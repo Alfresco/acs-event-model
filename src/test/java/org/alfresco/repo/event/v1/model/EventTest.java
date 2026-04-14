@@ -49,9 +49,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
 
 import org.alfresco.repo.event.util.RandomModelGenerator;
 import org.alfresco.repo.event.util.TestUtil;
