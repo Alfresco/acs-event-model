@@ -34,9 +34,7 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.deser.std.StdDeserializer;
 
 /**
- * Jackson deserializer for the {@link ZonedDateTime} type.
- *
- * @author Jamal Kaabi-Mofrad
+ * Jackson 3 deserializer for the {@link ZonedDateTime} type.
  */
 public class DateTimeDeserializerJackson3 extends StdDeserializer<ZonedDateTime>
 {

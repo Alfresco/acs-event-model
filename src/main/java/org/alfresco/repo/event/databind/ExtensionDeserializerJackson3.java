@@ -36,9 +36,7 @@ import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 
 /**
- * Custom Jackson deserializer for the {@link ExtensionAttributes} type.
- *
- * @author Jamal Kaabi-Mofrad
+ * Custom Jackson 3 deserializer for the {@link ExtensionAttributes} type.
  */
 public class ExtensionDeserializerJackson3 extends ValueDeserializer<ExtensionAttributes>
 {

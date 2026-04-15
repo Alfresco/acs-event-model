@@ -41,9 +41,7 @@ import org.alfresco.repo.event.v1.model.DataAttributes;
 import org.alfresco.repo.event.v1.model.EventData;
 
 /**
- * Repo Event object factory.
- *
- * @author Jamal Kaabi-Mofrad
+ * Repo Event json factory.
  */
 public class JsonMapperFactory
 {

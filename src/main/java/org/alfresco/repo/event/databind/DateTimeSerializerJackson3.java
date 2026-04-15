@@ -23,7 +23,6 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
 package org.alfresco.repo.event.databind;
 
 import java.time.ZonedDateTime;
@@ -34,9 +33,7 @@ import tools.jackson.databind.SerializationContext;
 import tools.jackson.databind.ser.std.StdSerializer;
 
 /**
- * Jackson serializer for the values of type {@link ZonedDateTime}.
- *
- * @author Jamal Kaabi-Mofrad
+ * Jackson 3 serializer for the values of type {@link ZonedDateTime}.
  */
 public class DateTimeSerializerJackson3 extends StdSerializer<ZonedDateTime>
 {

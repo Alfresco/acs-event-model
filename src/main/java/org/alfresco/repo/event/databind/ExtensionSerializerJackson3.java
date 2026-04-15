@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -32,9 +32,7 @@ import tools.jackson.databind.ser.std.StdSerializer;
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 
 /**
- * Custom Jackson serializer for the {@link ExtensionAttributes} type.
- *
- * @author Jamal Kaabi-Mofrad
+ * Custom Jackson 3 serializer for the {@link ExtensionAttributes} type.
  */
 public class ExtensionSerializerJackson3 extends StdSerializer<ExtensionAttributes>
 {
