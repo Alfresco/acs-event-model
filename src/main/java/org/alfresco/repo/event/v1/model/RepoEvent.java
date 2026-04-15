@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -44,6 +44,7 @@ import org.alfresco.repo.event.util.RepoEventUtils;
  * @author Jamal Kaabi-Mofrad
  */
 @JsonDeserialize(builder = RepoEvent.Builder.class)
+@tools.jackson.databind.annotation.JsonDeserialize(builder = RepoEvent.Builder.class)
 public class RepoEvent<D extends DataAttributes<? extends Resource>> implements EventAttributes
 {
     private static final String SPEC_VERSION = "1.0";
@@ -187,6 +188,7 @@ public class RepoEvent<D extends DataAttributes<? extends Resource>> implements 
      * Builder for creating a {@link RepoEvent} instance.
      */
     @JsonPOJOBuilder(withPrefix = "set")
+    @tools.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<D extends DataAttributes<? extends Resource>>
     {
         private String specversion = SPEC_VERSION;

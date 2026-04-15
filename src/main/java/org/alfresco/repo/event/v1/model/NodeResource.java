@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2023 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -49,6 +49,7 @@ import org.alfresco.repo.event.util.NodeResourceUtils;
  */
 @JsonInclude(Include.NON_NULL)
 @JsonDeserialize(builder = NodeResource.Builder.class)
+@tools.jackson.databind.annotation.JsonDeserialize(builder = NodeResource.Builder.class)
 public class NodeResource extends AbstractNodeResource
 {
     private final String name;
@@ -235,6 +236,7 @@ public class NodeResource extends AbstractNodeResource
      * Builder for creating a {@link NodeResource} instance.
      */
     @JsonPOJOBuilder(withPrefix = "set")
+    @tools.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "set")
     public static class Builder
     {
         private String id;

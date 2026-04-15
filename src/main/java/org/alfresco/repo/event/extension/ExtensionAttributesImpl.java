@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -34,13 +34,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.alfresco.repo.event.databind.ExtensionDeserializer;
+import org.alfresco.repo.event.databind.ExtensionDeserializerJackson3;
 import org.alfresco.repo.event.databind.ExtensionSerializer;
+import org.alfresco.repo.event.databind.ExtensionSerializerJackson3;
 
 /**
  * @author Jamal Kaabi-Mofrad
  */
 @JsonSerialize(using = ExtensionSerializer.class)
+@tools.jackson.databind.annotation.JsonSerialize(using = ExtensionSerializerJackson3.class)
 @JsonDeserialize(using = ExtensionDeserializer.class)
+@tools.jackson.databind.annotation.JsonDeserialize(using = ExtensionDeserializerJackson3.class)
 public class ExtensionAttributesImpl implements ExtensionAttributes
 {
     private final Map<String, Object> map;

@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -43,6 +43,7 @@ import org.alfresco.repo.event.util.EventDataUtils;
  * @author Jamal Kaabi-Mofrad
  */
 @JsonDeserialize(builder = EventData.Builder.class)
+@tools.jackson.databind.annotation.JsonDeserialize(builder = EventData.Builder.class)
 public class EventData<R extends Resource> implements DataAttributes<R>
 {
     private final String eventGroupId;
@@ -163,6 +164,7 @@ public class EventData<R extends Resource> implements DataAttributes<R>
      * Builder for creating a {@link EventData} instance.
      */
     @JsonPOJOBuilder(withPrefix = "set")
+    @tools.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "set")
     public static class Builder<R extends Resource>
     {
 
