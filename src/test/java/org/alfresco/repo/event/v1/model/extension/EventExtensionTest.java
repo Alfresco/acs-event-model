@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2022 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -25,10 +25,11 @@
  */
 package org.alfresco.repo.event.v1.model.extension;
 
+import static java.util.Objects.requireNonNull;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
 import static org.alfresco.repo.event.util.TestUtil.getSource;
@@ -37,17 +38,15 @@ import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedClass;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import org.alfresco.repo.event.extension.ExtensionAttributes;
 import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
+import org.alfresco.repo.event.util.Mapper;
 import org.alfresco.repo.event.util.TestUtil;
 import org.alfresco.repo.event.v1.model.ContentInfo;
 import org.alfresco.repo.event.v1.model.EventData;
@@ -59,8 +58,17 @@ import org.alfresco.repo.event.v1.model.UserInfo;
 /**
  * @author Jamal Kaabi-Mofrad
  */
+@ParameterizedClass
+@MethodSource("org.alfresco.repo.event.util.TestUtil#availableMappers")
 public class EventExtensionTest
 {
+    private final Mapper mapper;
+
+    public EventExtensionTest(Mapper mapper)
+    {
+        this.mapper = requireNonNull(mapper);
+    }
+
     @Test
     public void nodeCreatedEventWithExtensionAttributes_marshalling() throws Exception
     {
@@ -114,7 +122,7 @@ public class EventExtensionTest
                 .setExtensionAttributes(extAttributes)
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -125,7 +133,7 @@ public class EventExtensionTest
     {
         String nodeCreatedEventWithExtAttJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEventWithExtension.json");
         assertNotNull(nodeCreatedEventWithExtAttJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventWithExtAttJson, new TypeReference<>() {});
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeCreatedEventWithExtAttJson, RepoEvent.class);
 
         NodeResource resource = NodeResource.builder()
                 .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
@@ -173,7 +181,7 @@ public class EventExtensionTest
 
         // Get the extension with the name 'client'
         Object extObjectValue = resultExtensionAttributes.getExtension("extObject");
-        ExtensionTestObject objectOne = OBJECT_MAPPER.readValue(extObjectValue.toString(), ExtensionTestObject.class);
+        ExtensionTestObject objectOne = mapper.readValue(extObjectValue.toString(), ExtensionTestObject.class);
         // Construct the object, so it'd be easier to compare with the result
         ExtensionTestObject extObject = new ExtensionTestObject();
         extObject.setId("4cf25559-4c09-4457-96ea-af6c8a569e76");

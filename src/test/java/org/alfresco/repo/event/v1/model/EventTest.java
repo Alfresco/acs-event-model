@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2025 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -27,12 +27,12 @@ package org.alfresco.repo.event.v1.model;
 
 import static java.util.Locale.ENGLISH;
 import static java.util.Locale.GERMAN;
+import static java.util.Objects.requireNonNull;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import static org.alfresco.repo.event.util.TestUtil.OBJECT_MAPPER;
 import static org.alfresco.repo.event.util.TestUtil.checkExpectedJsonBody;
 import static org.alfresco.repo.event.util.TestUtil.getDataSchema;
 import static org.alfresco.repo.event.util.TestUtil.getSecondaryParents;
@@ -49,18 +49,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedClass;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import org.alfresco.repo.event.util.Mapper;
 import org.alfresco.repo.event.util.RandomModelGenerator;
 import org.alfresco.repo.event.util.TestUtil;
 
 /**
  * @author Jamal Kaabi-Mofrad
  */
+@ParameterizedClass
+@MethodSource("org.alfresco.repo.event.util.TestUtil#availableMappers")
 public class EventTest
 {
+    private final Mapper mapper;
+
+    public EventTest(Mapper mapper)
+    {
+        this.mapper = requireNonNull(mapper);
+    }
+
     @Test
     public void nodeCreatedEvent_marshalling() throws Exception
     {
@@ -97,7 +108,7 @@ public class EventTest
                 .setDataschema(getDataSchema("nodeCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -108,7 +119,7 @@ public class EventTest
     {
         String nodeCreatedEventJson = TestUtil.getResourceFileAsString("noAuth/NodeCreatedEvent.json");
         assertNotNull(nodeCreatedEventJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeCreatedEventJson, RepoEvent.class);
 
         NodeResource resource = NodeResource.builder()
                 .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
@@ -190,7 +201,7 @@ public class EventTest
                 .setDataschema(getDataSchema("nodeUpdated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/NodeUpdatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -201,7 +212,7 @@ public class EventTest
     {
         String nodeUpdatedEventJson = TestUtil.getResourceFileAsString("noAuth/NodeUpdatedEvent.json");
         assertNotNull(nodeUpdatedEventJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeUpdatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeUpdatedEventJson, RepoEvent.class);
 
         NodeResource expectedResource = NodeResource.builder()
                 .setId("d366f805-853f-46ac-a81c-af9c257ee876")
@@ -270,7 +281,7 @@ public class EventTest
                 .setDataschema(getDataSchema("childAssocCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/ChildAssocCreated.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -281,7 +292,7 @@ public class EventTest
     {
         String childAssocCreatedEventJson = TestUtil.getResourceFileAsString("noAuth/ChildAssocCreated.json");
         assertNotNull(childAssocCreatedEventJson);
-        RepoEvent<EventData<ChildAssociationResource>> result = OBJECT_MAPPER.readValue(childAssocCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<ChildAssociationResource>> result = mapper.readValue(childAssocCreatedEventJson, RepoEvent.class);
 
         ChildAssociationResource expectedResource = new ChildAssociationResource("7624edb6-6f28-4130-a4fb-4a5362807a05",
                 "5d9f3d6f-9802-4bb6-8ad3-0f9261d08894",
@@ -324,7 +335,7 @@ public class EventTest
                 .setDataschema(getDataSchema("peerAssocCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("noAuth/PeerAssocCreated.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -335,7 +346,7 @@ public class EventTest
     {
         String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("noAuth/PeerAssocCreated.json");
         assertNotNull(peerAssocCreatedEventJson);
-        RepoEvent<EventData<PeerAssociationResource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<PeerAssociationResource>> result = mapper.readValue(peerAssocCreatedEventJson, RepoEvent.class);
 
         PeerAssociationResource expectedResource = new PeerAssociationResource("d323671c-9bd0-483e-8471-bd64cea73c09",
                 "595c55b0-64b3-4f1b-95f8-c1cc6b3843a2",
@@ -393,7 +404,7 @@ public class EventTest
                 .setDataschema(getDataSchema("nodeCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("auth/NodeCreatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -404,7 +415,7 @@ public class EventTest
     {
         String nodeCreatedEventJson = TestUtil.getResourceFileAsString("auth/NodeCreatedEvent.json");
         assertNotNull(nodeCreatedEventJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeCreatedEventJson, RepoEvent.class);
 
         NodeResource resource = NodeResource.builder()
                 .setId("7491120a-e2cb-478f-8599-ebf057cc0c7c")
@@ -482,7 +493,7 @@ public class EventTest
                 .setDataschema(getDataSchema("nodeUpdated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("auth/NodeUpdatedEvent.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -493,7 +504,7 @@ public class EventTest
     {
         String nodeUpdatedEventJson = TestUtil.getResourceFileAsString("auth/NodeUpdatedEvent.json");
         assertNotNull(nodeUpdatedEventJson);
-        RepoEvent<EventData<NodeResource>> result = OBJECT_MAPPER.readValue(nodeUpdatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeUpdatedEventJson, RepoEvent.class);
 
         NodeResource expectedResource = NodeResource.builder()
                 .setId("d366f805-853f-46ac-a81c-af9c257ee876")
@@ -559,7 +570,7 @@ public class EventTest
                 .setDataschema(getDataSchema("childAssocCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("auth/ChildAssocCreated.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -570,7 +581,7 @@ public class EventTest
     {
         String childAssocCreatedEventJson = TestUtil.getResourceFileAsString("auth/ChildAssocCreated.json");
         assertNotNull(childAssocCreatedEventJson);
-        RepoEvent<EventData<ChildAssociationResource>> result = OBJECT_MAPPER.readValue(childAssocCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<ChildAssociationResource>> result = mapper.readValue(childAssocCreatedEventJson, RepoEvent.class);
 
         ChildAssociationResource expectedResource = new ChildAssociationResource("7624edb6-6f28-4130-a4fb-4a5362807a05",
                 "5d9f3d6f-9802-4bb6-8ad3-0f9261d08894",
@@ -617,7 +628,7 @@ public class EventTest
                 .setDataschema(getDataSchema("peerAssocCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("auth/PeerAssocCreated.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -628,7 +639,7 @@ public class EventTest
     {
         String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("auth/PeerAssocCreated.json");
         assertNotNull(peerAssocCreatedEventJson);
-        RepoEvent<EventData<PeerAssociationResource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<PeerAssociationResource>> result = mapper.readValue(peerAssocCreatedEventJson, RepoEvent.class);
 
         PeerAssociationResource expectedResource = new PeerAssociationResource("d323671c-9bd0-483e-8471-bd64cea73c09",
                 "595c55b0-64b3-4f1b-95f8-c1cc6b3843a2",
@@ -674,7 +685,7 @@ public class EventTest
                 .setDataschema(getDataSchema("auditEntryCreated"))
                 .build();
 
-        String result = OBJECT_MAPPER.writeValueAsString(repoEvent);
+        String result = mapper.writeValueAsString(repoEvent);
         String expectedJson = TestUtil.getResourceFileAsString("AuditEntryCreated.json");
         // Compare the Json files
         checkExpectedJsonBody(expectedJson, result);
@@ -685,7 +696,7 @@ public class EventTest
     {
         String auditEntryEventJson = TestUtil.getResourceFileAsString("AuditEntryCreated.json");
         assertNotNull(auditEntryEventJson);
-        RepoEvent<EventData<AuditEntryResource>> result = OBJECT_MAPPER.readValue(auditEntryEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<AuditEntryResource>> result = mapper.readValue(auditEntryEventJson, RepoEvent.class);
 
         Map<String, Serializable> auditData = Map.of(
                 "somekey", "somevalue",
@@ -713,7 +724,7 @@ public class EventTest
     {
         String peerAssocCreatedEventJson = TestUtil.getResourceFileAsString("NonExistingResource.json");
         assertNotNull(peerAssocCreatedEventJson);
-        RepoEvent<EventData<Resource>> result = OBJECT_MAPPER.readValue(peerAssocCreatedEventJson, new TypeReference<>() {});
+        RepoEvent<EventData<Resource>> result = mapper.readValue(peerAssocCreatedEventJson, RepoEvent.class);
         assertNull(result.getData().getResource());
     }
 
