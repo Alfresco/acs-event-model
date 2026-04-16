@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>acs-event-model</artifactId>
-  <version>1.0.13-SNAPSHOT</version>
+  <version>1.1.0-A.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>acs-event-model</name>
   <description>Alfresco Content Services Event Model</description>
@@ -41,10 +41,11 @@
     <jsonschema-generator.version>4.38.0</jsonschema-generator.version>
     <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
 
-    <dependency.jackson.version>2.19.2</dependency.jackson.version>
+    <dependency.jackson.version>2.21.2</dependency.jackson.version>
+    <dependency.jackson3.version>3.1.2</dependency.jackson3.version>
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
     <dependency.mockito.version>5.19.0</dependency.mockito.version>
-    <dependency.assertj.version>3.27.4</dependency.assertj.version>
+    <dependency.assertj.version>3.27.7</dependency.assertj.version>
     <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
     <dependency.maven-jar-plugin.version>3.4.2</dependency.maven-jar-plugin.version>
@@ -57,6 +58,14 @@
       <artifactId>jackson-databind</artifactId>
       <version>${dependency.jackson.version}</version>
       <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>tools.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${dependency.jackson3.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
 
     <!-- test dependencies -->
@@ -99,12 +108,6 @@
 
     <!-- JSON schema dependencies -->
     <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-jsonSchema</artifactId>
-      <version>${dependency.jackson.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.github.victools</groupId>
       <artifactId>jsonschema-generator</artifactId>
       <version>${jsonschema-generator.version}</version>
@@ -120,6 +123,11 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.3</version>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>

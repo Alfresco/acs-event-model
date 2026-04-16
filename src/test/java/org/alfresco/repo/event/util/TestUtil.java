@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2023 Alfresco Software Limited
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -33,10 +33,12 @@ import java.io.Reader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -45,7 +47,9 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.ValueMatcher;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import tools.jackson.databind.json.JsonMapper;
 
+import org.alfresco.repo.event.databind.JsonMapperFactory;
 import org.alfresco.repo.event.databind.ObjectMapperFactory;
 
 /**
@@ -53,7 +57,10 @@ import org.alfresco.repo.event.databind.ObjectMapperFactory;
  */
 public class TestUtil
 {
-    public static final ObjectMapper OBJECT_MAPPER = ObjectMapperFactory.createInstance();
+    public static Collection<Mapper> availableMappers()
+    {
+        return List.of(new Jackson2Mapper(ObjectMapperFactory.createInstance()), new Jackson3Mapper(JsonMapperFactory.createInstance()));
+    }
 
     public static final Pattern UUID_PATTERN = Pattern.compile(
             "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
@@ -154,5 +161,75 @@ public class TestUtil
     public static void checkExpectedJsonBody(String expectedJsonBody, String actualJsonBody) throws Exception
     {
         JSONAssert.assertEquals(expectedJsonBody, actualJsonBody, JSON_COMPARATOR);
+    }
+
+    private static class Jackson2Mapper implements Mapper
+    {
+        private final ObjectMapper mapper;
+
+        private Jackson2Mapper(ObjectMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        @Override
+        public String writeValueAsString(Object value)
+        {
+            try
+            {
+                return mapper.writeValueAsString(value);
+            }
+            catch (JsonProcessingException e)
+            {
+                throw new MapperException(e);
+            }
+        }
+
+        @Override
+        public <T> T readValue(String jsonString, Class<T> clazz)
+        {
+            try
+            {
+                return mapper.readValue(jsonString, clazz);
+            }
+            catch (JsonProcessingException e)
+            {
+                throw new MapperException(e);
+            }
+        }
+
+        @Override
+        public String toString()
+        {
+            return "Jackson2Mapper@" + hashCode();
+        }
+    }
+
+    private static class Jackson3Mapper implements Mapper
+    {
+        private final JsonMapper mapper;
+
+        private Jackson3Mapper(JsonMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        @Override
+        public String writeValueAsString(Object value)
+        {
+            return mapper.writeValueAsString(value);
+        }
+
+        @Override
+        public <T> T readValue(String jsonString, Class<T> clazz)
+        {
+            return mapper.readValue(jsonString, clazz);
+        }
+
+        @Override
+        public String toString()
+        {
+            return "Jackson3Mapper@" + hashCode();
+        }
     }
 }

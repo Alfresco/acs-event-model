@@ -1,0 +1,58 @@
+/*
+ * #%L
+ * Alfresco Repository
+ * %%
+ * Copyright (C) 2005 - 2026 Alfresco Software Limited
+ * %%
+ * This file is part of the Alfresco software.
+ * If the software was purchased under a paid Alfresco license, the terms of
+ * the paid license agreement will prevail.  Otherwise, the software is
+ * provided under the following open source license terms:
+ *
+ * Alfresco is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Alfresco is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
+ * #L%
+ */
+package org.alfresco.repo.event.databind;
+
+import java.time.DateTimeException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.deser.std.StdDeserializer;
+
+/**
+ * Jackson 3 deserializer for the {@link ZonedDateTime} type.
+ */
+public class DateTimeDeserializerJackson3 extends StdDeserializer<ZonedDateTime>
+{
+    public DateTimeDeserializerJackson3()
+    {
+        super(ZonedDateTime.class);
+    }
+
+    @Override
+    public ZonedDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+    {
+        try
+        {
+            return ZonedDateTime.parse(jsonParser.getString(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        }
+        catch (DateTimeException ex)
+        {
+            throw new EventDeserializerException("The text cannot be parsed to ZonedDateTime time.");
+        }
+    }
+}
