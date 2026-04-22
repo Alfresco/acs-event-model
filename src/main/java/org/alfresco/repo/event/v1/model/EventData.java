@@ -67,6 +67,17 @@ public class EventData<R extends Resource> implements DataAttributes<R>
     @JsonInclude(Include.NON_NULL)
     private final Set<String> resourceReaderSecurityControls;
 
+    // Ignored if authorities is disabled
+    @JsonInclude(Include.NON_NULL)
+    private final Set<String> resourceAppliedReaderAuthorities;
+
+    // Ignored if authorities is disabled
+    @JsonInclude(Include.NON_NULL)
+    private final Set<String> resourceAppliedDeniedAuthorities;
+
+    @JsonInclude(Include.NON_NULL)
+    private final Boolean isInheritParentPermissions;
+
     private EventData(Builder<R> builder)
     {
         this.eventGroupId = builder.eventGroupId;
@@ -75,6 +86,9 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         this.resourceReaderAuthorities = builder.resourceReaderAuthorities;
         this.resourceDeniedAuthorities = builder.resourceDeniedAuthorities;
         this.resourceReaderSecurityControls = builder.resourceReaderSecurityControls;
+        this.resourceAppliedReaderAuthorities = builder.resourceAppliedReaderAuthorities;
+        this.resourceAppliedDeniedAuthorities = builder.resourceAppliedDeniedAuthorities;
+        this.isInheritParentPermissions = builder.isInheritParentPermissions;
     }
 
     public static <R extends Resource> Builder<R> builder()
@@ -115,6 +129,21 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         return resourceReaderSecurityControls;
     }
 
+    public Set<String> getResourceAppliedReaderAuthorities()
+    {
+        return resourceAppliedReaderAuthorities;
+    }
+
+    public Set<String> getResourceAppliedDeniedAuthorities()
+    {
+        return resourceAppliedDeniedAuthorities;
+    }
+
+    public Boolean getIsInheritParentPermissions()
+    {
+        return isInheritParentPermissions;
+    }
+
     public EventData.Builder<R> toBuilder()
     {
         return EventDataUtils.getFilledBuilder(this);
@@ -136,14 +165,18 @@ public class EventData<R extends Resource> implements DataAttributes<R>
                 && Objects.equals(resourceBefore, that.resourceBefore)
                 && Objects.equals(resourceReaderAuthorities, that.resourceReaderAuthorities)
                 && Objects.equals(resourceDeniedAuthorities, that.resourceDeniedAuthorities)
-                && Objects.equals(resourceReaderSecurityControls, that.resourceReaderSecurityControls);
+                && Objects.equals(resourceReaderSecurityControls, that.resourceReaderSecurityControls)
+                && Objects.equals(resourceAppliedReaderAuthorities, that.resourceAppliedReaderAuthorities)
+                && Objects.equals(resourceAppliedDeniedAuthorities, that.resourceAppliedDeniedAuthorities)
+                && Objects.equals(isInheritParentPermissions, that.isInheritParentPermissions);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(eventGroupId, resource, resourceBefore, resourceReaderAuthorities,
-                resourceDeniedAuthorities, resourceReaderSecurityControls);
+                resourceDeniedAuthorities, resourceReaderSecurityControls, resourceAppliedReaderAuthorities,
+                resourceAppliedDeniedAuthorities, isInheritParentPermissions);
     }
 
     @Override
@@ -156,6 +189,9 @@ public class EventData<R extends Resource> implements DataAttributes<R>
                 .append(", resourceReaderAuthorities=").append(resourceReaderAuthorities)
                 .append(", resourceDeniedAuthorities=").append(resourceDeniedAuthorities)
                 .append(", resourceReaderSecurityControls=").append(resourceReaderSecurityControls)
+                .append(", resourceAppliedReaderAuthorities=").append(resourceAppliedReaderAuthorities)
+                .append(", resourceAppliedDeniedAuthorities=").append(resourceAppliedDeniedAuthorities)
+                .append(", isInheritParentPermissions=").append(isInheritParentPermissions)
                 .append(']');
         return sb.toString();
     }
@@ -174,6 +210,9 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         private Set<String> resourceReaderAuthorities;
         private Set<String> resourceDeniedAuthorities;
         private Set<String> resourceReaderSecurityControls;
+        private Set<String> resourceAppliedReaderAuthorities;
+        private Set<String> resourceAppliedDeniedAuthorities;
+        private Boolean isInheritParentPermissions;
 
         public Builder<R> setEventGroupId(String eventGroupId)
         {
@@ -208,6 +247,24 @@ public class EventData<R extends Resource> implements DataAttributes<R>
         public Builder<R> setResourceReaderSecurityControls(Set<String> resourceReaderSecurityControls)
         {
             this.resourceReaderSecurityControls = resourceReaderSecurityControls;
+            return this;
+        }
+
+        public Builder<R> setResourceAppliedReaderAuthorities(Set<String> resourceAppliedReaderAuthorities)
+        {
+            this.resourceAppliedReaderAuthorities = resourceAppliedReaderAuthorities;
+            return this;
+        }
+
+        public Builder<R> setResourceAppliedDeniedAuthorities(Set<String> resourceAppliedDeniedAuthorities)
+        {
+            this.resourceAppliedDeniedAuthorities = resourceAppliedDeniedAuthorities;
+            return this;
+        }
+
+        public Builder<R> setIsInheritParentPermissions(Boolean isInheritParentPermissions)
+        {
+            this.isInheritParentPermissions = isInheritParentPermissions;
             return this;
         }
 
