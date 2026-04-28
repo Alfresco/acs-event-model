@@ -47,6 +47,7 @@ public class EventDataUtils
                 .setResourceDeniedAuthorities(eventData.getResourceDeniedAuthorities())
                 .setResourceAppliedReaderAuthorities(eventData.getResourceAppliedReaderAuthorities())
                 .setResourceAppliedDeniedAuthorities(eventData.getResourceAppliedDeniedAuthorities())
+                .setInheritanceEnabled(eventData.getInheritanceEnabled())
                 .setResourceReaderSecurityControls(eventData.getResourceReaderSecurityControls());
     }
 }
