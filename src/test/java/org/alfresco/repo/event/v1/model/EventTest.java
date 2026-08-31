@@ -42,6 +42,7 @@ import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +55,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import org.alfresco.repo.event.extension.ExtensionAttributes;
+import org.alfresco.repo.event.extension.ExtensionAttributesImpl;
 import org.alfresco.repo.event.util.Mapper;
 import org.alfresco.repo.event.util.RandomModelGenerator;
 import org.alfresco.repo.event.util.TestUtil;
@@ -380,7 +383,6 @@ public class EventTest
                 .setIsFolder(false)
                 .setNodeType("cm:content")
                 .setPrimaryAssocQName("cm:testFile.txt")
-                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(ZonedDateTime.now())
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -424,6 +426,7 @@ public class EventTest
                 .setIsFile(true)
                 .setIsFolder(false)
                 .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(parseTime("2020-06-10T12:37:03.555624+01:00"))
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -513,6 +516,7 @@ public class EventTest
                 .setIsFile(true)
                 .setIsFolder(false)
                 .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(parseTime("2020-06-10T14:25:59.852475+01:00"))
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -547,6 +551,81 @@ public class EventTest
                 .build();
 
         assertEquals(expectedRepoEvent, result);
+    }
+
+    @Test
+    public void nodeDeletedWithAuthoritiesEvent_marshalling() throws Exception
+    {
+        // given
+        var repoEvent = getNodeDeleteEvent();
+        var expectedJson = TestUtil.getResourceFileAsString("auth/NodeDeletedEvent.json");
+
+        // when
+        var result = mapper.writeValueAsString(repoEvent);
+
+        // then
+        checkExpectedJsonBody(expectedJson, result);
+    }
+
+    @Test
+    public void nodeDeletedWithAuthoritiesEvent_unmarshalling() throws Exception
+    {
+        // given
+        var nodeDeletedEventJson = TestUtil.getResourceFileAsString("auth/NodeDeletedEvent.json");
+        var expectedRepoEvent = getNodeDeleteEvent();
+
+        // when
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeDeletedEventJson, RepoEvent.class);
+
+        // then
+        assertEquals(expectedRepoEvent, result);
+    }
+
+    private RepoEvent<EventData<NodeResource>> getNodeDeleteEvent()
+    {
+        NodeResource expectedResource = NodeResource.builder()
+                .setId("fe554533-0fdd-4db3-9545-330fddcdb34f")
+                .setPrimaryHierarchy(List.of("040abb50-88ce-4953-8abb-5088ce195375", "8c79bb21-1858-4f92-b9bb-211858ef922e"))
+                .setName("test.docx")
+                .setNodeType("cm:content")
+                .setCreatedByUser(new UserInfo("admin", "Administrator", null))
+                .setCreatedAt(parseTime("2026-08-24T12:20:16.042Z"))
+                .setModifiedByUser(new UserInfo("admin", "Administrator", null))
+                .setModifiedAt(parseTime("2026-08-24T12:20:16.869Z"))
+                .setContent(new ContentInfo("application/vnd.openxmlformats-officedocument.wordprocessingml.document", 13571L, "UTF-8"))
+                .setProperties(Map.of("cm:autoVersion", true,
+                        "cm:versionType", "MAJOR",
+                        "cm:versionLabel", "1.0",
+                        "cm:autoVersionOnUpdateProps", false,
+                        "cm:lastThumbnailModification", (Serializable) List.of("doclib:1787574017232"),
+                        "cm:author", "Joe Black",
+                        "cm:initialVersion", true))
+                .setAspectNames(Set.of("cm:versionable", "cm:author", "cm:thumbnailModification", "cm:titled", "rn:renditioned", "cm:auditable"))
+                .setPrimaryAssocQName("cm:test.docx")
+                .setSecondaryParents(List.of())
+                .setIsFile(true)
+                .setIsFolder(false)
+                .setIsPermanentlyDeleted(true)
+                .build();
+
+        EventData<NodeResource> expectedEventData = EventData.<NodeResource> builder().setEventGroupId("4c64ab50-93f6-42b7-a4ab-5093f632b7c5")
+                .setResource(expectedResource)
+                .setResourceReaderAuthorities(Set.of("GROUP_EVERYONE"))
+                .setResourceDeniedAuthorities(Set.of())
+                .build();
+
+        ExtensionAttributes extensionAttributes = new ExtensionAttributesImpl();
+        extensionAttributes.addExtension("path", "/Company Home/test.docx");
+
+        RepoEvent<EventData<NodeResource>> expectedRepoEvent = RepoEvent.<EventData<NodeResource>> builder().setId("2217a7dd-4ac2-4484-abd1-b135ba3ccdb2")
+                .setSource(URI.create("/bde0e2e8-6f04-447f-a0e2-e86f04547f23"))
+                .setTime(parseTime("2026-08-24T12:21:32.612Z"))
+                .setType(EventType.NODE_DELETED.getType())
+                .setData(expectedEventData)
+                .setDataschema(getDataSchema("nodeDeleted"))
+                .setExtensionAttributes(extensionAttributes)
+                .build();
+        return expectedRepoEvent;
     }
 
     @Test
