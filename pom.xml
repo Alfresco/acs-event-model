@@ -44,7 +44,7 @@
     <dependency.jackson.version>2.21.2</dependency.jackson.version>
     <dependency.jackson3.version>3.1.2</dependency.jackson3.version>
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
-    <dependency.mockito.version>5.19.0</dependency.mockito.version>
+    <dependency.mockito.version>5.23.0</dependency.mockito.version>
     <dependency.assertj.version>3.27.7</dependency.assertj.version>
     <dependency.commons-io.version>2.20.0</dependency.commons-io.version>
     <dependency.jsonassert.version>1.5.3</dependency.jsonassert.version>
