@@ -42,7 +42,7 @@
     <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
 
     <dependency.jackson.version>2.21.2</dependency.jackson.version>
-    <dependency.jackson3.version>3.1.2</dependency.jackson3.version>
+    <dependency.jackson3.version>3.2.2</dependency.jackson3.version>
     <dependency.junit-jupiter.version>5.13.4</dependency.junit-jupiter.version>
     <dependency.mockito.version>5.19.0</dependency.mockito.version>
     <dependency.assertj.version>3.27.7</dependency.assertj.version>
