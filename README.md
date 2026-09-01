@@ -922,6 +922,27 @@ Other extension types (can only be one of the: **String**, **Number**, **Boolean
 String myExt = (String) resultExtensionAttributes.getExtension("someStringExt");
 ```
 
+## Releasing
+
+Releases are cut by CI, not from a developer machine.
+The release pipeline is defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) and is triggered by pushing to
+`master` a commit whose message contains the `[release]` marker.
+
+### How to trigger a release
+
+1. Open a dedicated branch for the release version change (do not edit `master` directly), for example:
+
+   ```bash
+   git checkout -b feature/ACS-1234-release-version-1.0.0
+   ```
+2. Set the release coordinates in the `env` block of `ci.yml`:
+   - `RELEASE_VERSION` – the version to release and tag (e.g. `1.0.0-A.1` for alpha release, `1.0.0` for GA release).
+   - `DEVELOPMENT_VERSION` – the next development version, must end in `-SNAPSHOT` (e.g. `1.0.1-A.1-SNAPSHOT`).
+3. Open a pull request to `master` with the commit message
+   `ACS-1234 Please [release] acs-event-model 1.0.0`.
+4. Once the pull request is approved, merge it to `master`. The merge to `master` with `[release]` in the commit message
+   is what triggers the release pipeline.
+
 ### Contributing guide
 
 Thanks for your interest in contributing to this project!
