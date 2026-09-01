@@ -23,7 +23,7 @@ env:
   # As the release is triggered by a commit message with "[release]" keyword on master or a release branch,
   # setting these variables to new values can be done in the same commit and will indicate the release and the dev versions in it.
   DEVELOPMENT_VERSION: "1.1.0-A.3-SNAPSHOT" # The version that will be set in pom files after the release (next dev version)
-  RELEASE_VERSION: "1.1.0-A.2" # The version of the release (tag).
+  RELEASE_VERSION: "1.1.0-trashcan.1" # The version of the release (tag).
   GITHUB_ACTIONS_DEPLOY_TIMEOUT: 60
   MAVEN_CLI_OPTS: "-B -e -fae"
   MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
@@ -52,7 +52,7 @@ jobs:
       - test_application
     if: >
       !(failure() || cancelled()) &&
-      (github.ref_name == 'master' || startsWith(github.ref_name, 'release/')) &&
+      (github.ref_name == 'feature/ACS-12674-trashcan-release') &&
       github.event_name != 'pull_request' &&
       contains(github.event.head_commit.message, '[release]')
     steps:
