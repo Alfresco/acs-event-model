@@ -926,7 +926,7 @@ String myExt = (String) resultExtensionAttributes.getExtension("someStringExt");
 
 Releases are cut by CI, not from a developer machine.
 The release pipeline is defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) and is triggered by pushing to
-`master` a commit whose message contains the `[release]` marker.
+`master` (or a `release/*` branch) a commit whose message contains the `[release]` marker.
 
 ### How to trigger a release
 
@@ -938,10 +938,8 @@ The release pipeline is defined in [`.github/workflows/ci.yml`](.github/workflow
 2. Set the release coordinates in the `env` block of `ci.yml`:
    - `RELEASE_VERSION` – the version to release and tag (e.g. `1.0.0-A.1` for alpha release, `1.0.0` for GA release).
    - `DEVELOPMENT_VERSION` – the next development version, must end in `-SNAPSHOT` (e.g. `1.0.1-A.1-SNAPSHOT`).
-3. Open a pull request to `master` with the commit message
-   `ACS-1234 Please [release] acs-event-model 1.0.0`.
-4. Once the pull request is approved, merge it to `master`. The merge to `master` with `[release]` in the commit message
-   is what triggers the release pipeline.
+3. Open a pull request to `master` and ensure the merge commit message (or squash commit message) contains `[release]`, e.g. `ACS-1234 Please [release] acs-event-model 1.0.0`.
+4. Once the pull request is approved, merge it to `master`. The push to `master` with `[release]` in the commit message is what triggers the release pipeline.
 
 ### Contributing guide
 

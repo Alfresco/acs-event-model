@@ -19,8 +19,8 @@ permissions:
   contents: read
 
 env:
-  # Both variables are required to be set before the release process starts .
-  # As the release is triggered by a commit message with "[release]" keyword on a release branch,
+  # Both variables are required to be set before the release process starts.
+  # As the release is triggered by a commit message with "[release]" keyword on master or a release branch,
   # setting these variables to new values can be done in the same commit and will indicate the release and the dev versions in it.
   DEVELOPMENT_VERSION: "1.1.0-A.2-SNAPSHOT" # The version that will be set in pom files after the release (next dev version)
   RELEASE_VERSION: "1.1.0-A.1" # The version of the release (tag).
@@ -63,7 +63,7 @@ jobs:
           client-id: ${{ vars.GH_APP_ENGINEERING_CONTRIB_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_ENGINEERING_CONTRIB_PRIVATE_KEY }}
           permission-contents: write
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.app-token.outputs.token }}
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v18.26.0
