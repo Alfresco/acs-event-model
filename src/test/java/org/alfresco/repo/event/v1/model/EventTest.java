@@ -2,7 +2,7 @@
  * #%L
  * Alfresco Repository
  * %%
- * Copyright (C) 2005 - 2026 Alfresco Software Limited
+ * Copyright (C) 2026 Alfresco Software Limited
  * %%
  * This file is part of the Alfresco software.
  * If the software was purchased under a paid Alfresco license, the terms of
@@ -40,6 +40,7 @@ import static org.alfresco.repo.event.util.TestUtil.getSource;
 import static org.alfresco.repo.event.util.TestUtil.getTestNodePrimaryHierarchy;
 import static org.alfresco.repo.event.util.TestUtil.getUUID;
 import static org.alfresco.repo.event.util.TestUtil.parseTime;
+import static org.alfresco.repo.event.v1.model.DeleteEventUtils.getNodeDeleteEvent;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -52,6 +53,7 @@ import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import org.alfresco.repo.event.util.Mapper;
@@ -380,7 +382,6 @@ public class EventTest
                 .setIsFolder(false)
                 .setNodeType("cm:content")
                 .setPrimaryAssocQName("cm:testFile.txt")
-                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(ZonedDateTime.now())
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -424,6 +425,7 @@ public class EventTest
                 .setIsFile(true)
                 .setIsFolder(false)
                 .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(parseTime("2020-06-10T12:37:03.555624+01:00"))
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -513,6 +515,7 @@ public class EventTest
                 .setIsFile(true)
                 .setIsFolder(false)
                 .setNodeType("cm:content")
+                .setPrimaryAssocQName("cm:testFile.txt")
                 .setCreatedByUser(new UserInfo("john.doe", "John", "Doe"))
                 .setCreatedAt(parseTime("2020-06-10T14:25:59.852475+01:00"))
                 .setModifiedByUser(new UserInfo("jane.doe", "Jane", "Doe"))
@@ -546,6 +549,36 @@ public class EventTest
                 .setDataschema(getDataSchema("nodeUpdated"))
                 .build();
 
+        assertEquals(expectedRepoEvent, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("org.alfresco.repo.event.v1.model.DeleteEventUtils#deleteEventProvider")
+    public void nodeDeleted_marshalling(String jsonPath, boolean withAuth, Boolean isPermanentlyDeleted) throws Exception
+    {
+        // given
+        var repoEvent = getNodeDeleteEvent(withAuth, isPermanentlyDeleted);
+        var expectedJson = TestUtil.getResourceFileAsString(jsonPath);
+
+        // when
+        var result = mapper.writeValueAsString(repoEvent);
+
+        // then
+        checkExpectedJsonBody(expectedJson, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("org.alfresco.repo.event.v1.model.DeleteEventUtils#deleteEventProvider")
+    public void nodeDeleted_unmarshalling(String jsonPath, boolean withAuth, Boolean isPermanentlyDeleted) throws Exception
+    {
+        // given
+        var nodeDeletedEventJson = TestUtil.getResourceFileAsString(jsonPath);
+        var expectedRepoEvent = getNodeDeleteEvent(withAuth, isPermanentlyDeleted);
+
+        // when
+        RepoEvent<EventData<NodeResource>> result = mapper.readValue(nodeDeletedEventJson, RepoEvent.class);
+
+        // then
         assertEquals(expectedRepoEvent, result);
     }
 
