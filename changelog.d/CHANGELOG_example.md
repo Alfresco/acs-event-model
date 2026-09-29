@@ -7,19 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.0-A.3] - 2026-09-28
+## [1.1.0-A.3] - 2026-09-29
 
 ### Added
 
-- `org.alfresco.event.node.Deleted` events now carry an optional `isPermanentlyDeleted` flag in `data.resource`. (ACS-12674)
-  `true` means the node was permanently deleted, `false` means it was moved to the trashcan.
-  The flag is omitted when the emitting ACS version cannot tell the two apart, so treat a missing value as "unknown".
-  Available in the `nodeDeleted` JSON schema and on `NodeResource` (`isPermanentlyDeleted()`, `Builder.setIsPermanentlyDeleted(Boolean)`).
+- Permanent delete flag in node deleted events ([ACS-12674](release-notes_example/1.1.0-A.3.md#acs-12674-permanent-delete-flag-in-node-deleted-events))
 
 ### Fixed
 
-- `NodeResource.equals()` now compares `primaryAssocQName`, matching `hashCode()`. (ACS-12674)
-  Two resources that differ only by primary association QName are no longer considered equal.
+- `NodeResource.equals()` now compares `primaryAssocQName` ([ACS-12674](release-notes_example/1.1.0-A.3.md#acs-12674-noderesourceequals-now-compares-primaryassocqname))
 
 ## [1.1.0-A.2]
 
