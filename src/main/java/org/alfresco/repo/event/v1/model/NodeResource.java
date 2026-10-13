@@ -29,6 +29,7 @@ import static java.util.Collections.emptyList;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -367,6 +368,23 @@ public class NodeResource extends AbstractNodeResource
         public Builder setProperties(Map<String, Serializable> properties)
         {
             this.properties = properties;
+            return this;
+        }
+
+        /**
+         * Merges the given properties into any already set.
+         */
+        public Builder addProperties(Map<String, Serializable> properties)
+        {
+            if (properties == null || properties.isEmpty())
+            {
+                return this;
+            }
+            Map<String, Serializable> merged = this.properties == null
+                    ? new LinkedHashMap<>()
+                    : new LinkedHashMap<>(this.properties);
+            merged.putAll(properties);
+            this.properties = merged;
             return this;
         }
 
