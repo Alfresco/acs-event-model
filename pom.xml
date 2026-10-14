@@ -39,7 +39,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <jsonschema-generator.version>4.38.0</jsonschema-generator.version>
-    <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
+    <license-maven-plugin.version>2.7.1</license-maven-plugin.version>
 
     <dependency.jackson.version>2.21.2</dependency.jackson.version>
     <dependency.jackson3.version>3.1.2</dependency.jackson3.version>
