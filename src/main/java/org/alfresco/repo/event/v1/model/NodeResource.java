@@ -29,6 +29,7 @@ import static java.util.Collections.emptyList;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -66,6 +67,7 @@ public class NodeResource extends AbstractNodeResource
     private final Set<String> aspectNames;
     private final String primaryAssocQName;
     private final List<String> secondaryParents;
+    private final Boolean isPermanentlyDeleted;
 
     private NodeResource(Builder builder)
     {
@@ -84,6 +86,7 @@ public class NodeResource extends AbstractNodeResource
         this.aspectNames = builder.aspectNames;
         this.primaryAssocQName = builder.primaryAssocQName;
         this.secondaryParents = builder.secondaryParents;
+        this.isPermanentlyDeleted = builder.isPermanentlyDeleted;
     }
 
     public static Builder builder()
@@ -163,6 +166,12 @@ public class NodeResource extends AbstractNodeResource
         return secondaryParents;
     }
 
+    @JsonProperty("isPermanentlyDeleted")
+    public Boolean isPermanentlyDeleted()
+    {
+        return isPermanentlyDeleted;
+    }
+
     public NodeResource.Builder toBuilder()
     {
         return NodeResourceUtils.getFilledBuilder(this);
@@ -196,7 +205,9 @@ public class NodeResource extends AbstractNodeResource
                 && Objects.equals(properties, that.properties)
                 && Objects.equals(localizedProperties, that.localizedProperties)
                 && Objects.equals(aspectNames, that.aspectNames)
-                && Objects.equals(secondaryParents, that.secondaryParents);
+                && Objects.equals(primaryAssocQName, that.primaryAssocQName)
+                && Objects.equals(secondaryParents, that.secondaryParents)
+                && Objects.equals(isPermanentlyDeleted, that.isPermanentlyDeleted);
     }
 
     @Override
@@ -204,7 +215,7 @@ public class NodeResource extends AbstractNodeResource
     {
         return Objects.hash(super.hashCode(), name, nodeType, isFile, isFolder, createdByUser,
                 createdAt, modifiedByUser, modifiedAt, content, properties,
-                localizedProperties, aspectNames, primaryAssocQName, secondaryParents);
+                localizedProperties, aspectNames, primaryAssocQName, secondaryParents, isPermanentlyDeleted);
     }
 
     @Override
@@ -227,6 +238,7 @@ public class NodeResource extends AbstractNodeResource
                 .append(", primaryHierarchy=").append(primaryHierarchy)
                 .append(", primaryAssocQName=").append(primaryAssocQName)
                 .append(", secondaryParents=").append(secondaryParents)
+                .append(", isPermanentlyDeleted=").append(isPermanentlyDeleted)
                 .append(']');
 
         return sb.toString();
@@ -255,6 +267,7 @@ public class NodeResource extends AbstractNodeResource
         private Set<String> aspectNames;
         private String primaryAssocQName;
         private List<String> secondaryParents;
+        private Boolean isPermanentlyDeleted;
 
         public Builder()
         {}
@@ -283,6 +296,7 @@ public class NodeResource extends AbstractNodeResource
             this.aspectNames = that.aspectNames;
             this.primaryAssocQName = that.primaryAssocQName;
             this.secondaryParents = that.secondaryParents;
+            this.isPermanentlyDeleted = that.isPermanentlyDeleted;
         }
 
         public Builder setId(String id)
@@ -357,6 +371,23 @@ public class NodeResource extends AbstractNodeResource
             return this;
         }
 
+        /**
+         * Merges the given properties into any already set.
+         */
+        public Builder addProperties(Map<String, Serializable> properties)
+        {
+            if (properties == null || properties.isEmpty())
+            {
+                return this;
+            }
+            Map<String, Serializable> merged = this.properties == null
+                    ? new LinkedHashMap<>()
+                    : new LinkedHashMap<>(this.properties);
+            merged.putAll(properties);
+            this.properties = merged;
+            return this;
+        }
+
         public Builder setLocalizedProperties(Map<String, Map<String, String>> localizedProperties)
         {
             this.localizedProperties = localizedProperties;
@@ -385,6 +416,12 @@ public class NodeResource extends AbstractNodeResource
             {
                 this.secondaryParents = secondaryParents;
             }
+            return this;
+        }
+
+        public Builder setIsPermanentlyDeleted(Boolean isPermanentlyDeleted)
+        {
+            this.isPermanentlyDeleted = isPermanentlyDeleted;
             return this;
         }
 

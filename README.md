@@ -651,11 +651,17 @@ For a detailed view of the event content refer to [Repo Event JSON schema](src/m
         "cm:taggable"
       ],
       "isFile": true,
-      "isFolder": false
+      "isFolder": false,
+      "isPermanentlyDeleted": false
     }
   }
 }
 ```
+
+Depending on the ACS version, the node deleted event can carry information about the deletion type. The
+`isPermanentlyDeleted` flag indicates whether the node was permanently deleted (`true`) or moved to the trashcan (
+`false`). If the ACS version does not support distinguishing between the two deletion types, the `isPermanentlyDeleted`
+flag will not be present in the event's `data`.
 
 ### Secondary child association created event example
 
