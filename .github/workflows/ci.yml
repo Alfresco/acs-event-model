@@ -38,8 +38,8 @@ jobs:
       !contains(github.event.head_commit.message, '[skip tests]')
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v18.26.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v18.26.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v19.1.1
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v19.1.1
       - name: "Build application"
         run: mvn ${{ env.MAVEN_CLI_OPTS }} clean package -DskipTests
       - name: "Run tests"
@@ -66,14 +66,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.app-token.outputs.token }}
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v18.26.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-author@v18.26.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v19.1.1
+      - uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-author@v19.1.1
         with:
           username: ${{ secrets.BOT_GITHUB_USERNAME }}
           email: ${{ secrets.BOT_GITHUB_EMAIL }}
       - name: "Release"
         timeout-minutes: ${{ fromJSON(env.GITHUB_ACTIONS_DEPLOY_TIMEOUT) }}
-        uses: Alfresco/alfresco-build-tools/.github/actions/maven-release-slim@v18.26.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/maven-release-slim@v19.1.1
         with:
           token: ${{ steps.app-token.outputs.token }}
           release-version: ${{ env.RELEASE_VERSION }}
