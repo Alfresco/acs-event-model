@@ -15,11 +15,11 @@
             <username>${env.CLOUDSMITH_USERNAME}</username>
             <password>${env.CLOUDSMITH_API_KEY}</password>
         </server>
-        <!-- required to push artifacts to repositories -->
+        <!-- Required to push artifacts to the Maven repository, exported by the cloudsmith-auth action -->
         <server>
-            <id>alfresco-public</id>
-            <username>${env.MAVEN_USERNAME}</username>
-            <password>${env.MAVEN_PASSWORD}</password>
+            <id>alfresco-releases</id>
+            <username>${env.CLOUDSMITH_USERNAME}</username>
+            <password>${env.CLOUDSMITH_API_KEY}</password>
         </server>
     </servers>
 </settings>
