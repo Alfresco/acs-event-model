@@ -30,6 +30,62 @@
     </repository>
   </distributionManagement>
 
+  <!-- Override the Nexus repositories declared by the parent (alfresco-super-pom) -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>alfresco-public</id>
+      <name>Alfresco Public Repository</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <!-- Snapshots are no longer published: disable the repository declared by the parent -->
+    <repository>
+      <id>alfresco-public-snapshots</id>
+      <name>Alfresco Public Snapshots (disabled)</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>alfresco-public</id>
+      <name>Alfresco Public Repository</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
