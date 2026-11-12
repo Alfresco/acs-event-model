@@ -23,8 +23,10 @@
 
   <distributionManagement>
     <repository>
-      <id>alfresco-public</id>
-      <url>https://artifacts.alfresco.com/nexus/content/repositories/releases</url>
+      <id>alfresco-releases</id>
+      <name>Alfresco Community Releases</name>
+      <!-- TODO: switch to maven.artifacts.hyland.dev once its DNS record exists -->
+      <url>https://maven.cloudsmith.io/hyland/alfresco-community-releases/</url>
     </repository>
   </distributionManagement>
 
@@ -120,6 +122,62 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <!-- Override the Nexus repositories declared by the parent (alfresco-super-pom) -->
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>alfresco-public</id>
+      <name>Alfresco Public Repository</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+    </repository>
+    <!-- Snapshots are no longer published: disable the repository declared by the parent -->
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>alfresco-public-snapshots</id>
+      <name>Alfresco Public Snapshots (disabled)</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+    </pluginRepository>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>alfresco-public</id>
+      <name>Alfresco Public Repository</name>
+      <url>https://artifacts.hyland.dev/public/alfresco-public/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <plugins>
